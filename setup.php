@@ -23,7 +23,7 @@ function run(string $cmd): string {
 
 // --- בדיקת git ---
 $gitVersion = run('git --version');
-if (!str_contains($gitVersion, 'git version')) {
+if (strpos($gitVersion, 'git version') === false) {
     exit('ERROR: git is not available on this server via shell_exec.');
 }
 $steps[] = "git version: $gitVersion";
