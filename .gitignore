@@ -1,3 +1,4 @@
 oldsite/
 *.sql
 *.zip
+deploy.log
