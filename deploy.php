@@ -4,7 +4,7 @@
 //  מקם קובץ זה ב-public_html ואל תשתף את ה-SECRET עם אף אחד
 // ============================================================
 
-define('SECRET', 'REPLACE_WITH_YOUR_SECRET');  // ← שנה לסיסמה חזקה
+define('SECRET', 'mC5nySa6-RL=kO9B0Uj1u$TIgvwQr%l?V&NceZHd');
 define('BRANCH', 'refs/heads/main');
 define('LOG_FILE', __DIR__ . '/deploy.log');
 

@@ -3,7 +3,7 @@
 //  סקריפט הגדרה חד-פעמי — מחק קובץ זה מיד לאחר השימוש!
 // ============================================================
 
-define('SETUP_PASSWORD', 'REPLACE_WITH_SETUP_PASSWORD'); // ← בחר סיסמה זמנית
+define('SETUP_PASSWORD', '$V%P=*m6I!9xsc&pMkAavQfWwOz27hG3lnZr1BR4');
 define('REPO_URL', 'https://github.com/Habura0879/goflow.git');
 define('DIR', __DIR__);
 
