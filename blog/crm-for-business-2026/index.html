@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -66,16 +66,6 @@
 </div>
 <!-- ═══ / SHARED NAV ═══ -->
 
-<!-- ═══ SHARED FOOTER ═══ -->
-<footer class="main-footer">
-  <a href="/" class="foot-logo">Go<em>Flow</em></a>
-  <div class="foot-links">
-    <a href="/">דף הבית</a>
-    <a href="/blog/">בלוג</a>
-    <a href="/#contact">צור קשר</a>
-  </div>
-  <p class="foot-copy">© 2026 GoFlow. כל הזכויות שמורות.</p>
-</footer>
 
 <script>
 function toggleDrawer(){
@@ -95,7 +85,7 @@ function closeDrawer(){
   <div class="article-meta">
     <span class="article-cat">CRM</span>
     <span>יוני 2026</span>
-    <span>7 דקות קריאה</span>
+    <span class="read-time">7 דקות קריאה</span>
   </div>
   <h1 class="article-title">CRM לעסקים — מה מתאים ב-2026 ואיך להטמיע נכון</h1>
   <p class="article-lead">90% מהטמעות CRM נכשלות. לא בגלל שהמערכת גרועה — אלא בגלל שאין תהליך. המדריך הזה יעזור לכם לבחור נכון ולהבטיח שאנשי הצוות באמת ישתמשו במה שרכשתם.</p>
@@ -161,4 +151,21 @@ function closeDrawer(){
   </div>
 </div>
 </article>
-</main></body></html>
+</main>
+<footer class="main-footer">
+  <a href="/" class="foot-logo">Go<em>Flow</em></a>
+  <div class="foot-links">
+    <a href="/">דף הבית</a>
+    <a href="/blog/">בלוג</a>
+    <a href="/#contact">צור קשר</a>
+  </div>
+  <p class="foot-copy">© 2026 GoFlow. כל הזכויות שמורות.</p>
+</footer>
+<script>
+(function(){
+  var art=document.querySelector('.article-wrap');
+  var rt=document.querySelector('.read-time');
+  if(art&&rt){var w=art.innerText.trim().split(/\s+/).length;rt.textContent=Math.max(1,Math.round(w/200))+' דק׳ קריאה';}
+})();
+</script>
+</body></html>

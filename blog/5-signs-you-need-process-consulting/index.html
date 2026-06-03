@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -33,6 +33,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Sans+Hebrew:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/blog.css">
 <style>
 :root{--ink:#1e1b16;--paper:#f7f4ee;--paper-2:#eeebe3;--gold:#b8832a;--muted:#7a7268;--border:rgba(30,27,22,0.1);--fd:'Playfair Display',Georgia,serif;--fb:'IBM Plex Sans Hebrew',sans-serif;--max:740px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -103,16 +104,6 @@ footer{border-top:1px solid var(--border);padding:1.5rem clamp(1rem,4vw,3rem);di
 </div>
 <!-- ═══ / SHARED NAV ═══ -->
 
-<!-- ═══ SHARED FOOTER ═══ -->
-<footer class="main-footer">
-  <a href="/" class="foot-logo">Go<em>Flow</em></a>
-  <div class="foot-links">
-    <a href="/">דף הבית</a>
-    <a href="/blog/">בלוג</a>
-    <a href="/#contact">צור קשר</a>
-  </div>
-  <p class="foot-copy">© 2026 GoFlow. כל הזכויות שמורות.</p>
-</footer>
 
 <script>
 function toggleDrawer(){
@@ -135,7 +126,7 @@ function closeDrawer(){
   <div class="article-meta">
     <span class="article-category">ייעוץ תהליכי</span>
     <span>יוני 2026</span>
-    <span>6 דקות קריאה</span>
+    <span class="read-time">6 דקות קריאה</span>
   </div>
 
   <h1>5 סימנים שהארגון שלך זקוק לייעוץ תהליכי</h1>
@@ -215,5 +206,12 @@ function closeDrawer(){
   <p class="foot-copy">© 2026 GoFlow. כל הזכויות שמורות.</p>
 </footer>
 
+<script>
+(function(){
+  var art=document.querySelector('.article-wrap');
+  var rt=document.querySelector('.read-time');
+  if(art&&rt){var w=art.innerText.trim().split(/\s+/).length;rt.textContent=Math.max(1,Math.round(w/200))+' דק׳ קריאה';}
+})();
+</script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
@@ -66,16 +66,6 @@
 </div>
 <!-- ═══ / SHARED NAV ═══ -->
 
-<!-- ═══ SHARED FOOTER ═══ -->
-<footer class="main-footer">
-  <a href="/" class="foot-logo">Go<em>Flow</em></a>
-  <div class="foot-links">
-    <a href="/">דף הבית</a>
-    <a href="/blog/">בלוג</a>
-    <a href="/#contact">צור קשר</a>
-  </div>
-  <p class="foot-copy">© 2026 GoFlow. כל הזכויות שמורות.</p>
-</footer>
 
 <script>
 function toggleDrawer(){
@@ -95,7 +85,7 @@ function closeDrawer(){
   <div class="article-meta">
     <span class="article-cat">נהלים</span>
     <span>יוני 2026</span>
-    <span>5 דקות קריאה</span>
+    <span class="read-time">5 דקות קריאה</span>
   </div>
   <h1 class="article-title">נהלי עבודה — למה כולם כותבים ואף אחד לא משתמש</h1>
   <p class="article-lead">כמעט כל ארגון שפגשנו כתב נהלים. כמעט כולם מספרים שהנהלים "קיימים איפשהו". הסיבה שנהלים לא עובדים היא לא עצלות — זו בעיית פורמט, מיקום ועדכון. הנה איך עושים את זה נכון.</p>
@@ -154,4 +144,21 @@ function closeDrawer(){
   </div>
 </div>
 </article>
-</main></body></html>
+</main>
+<footer class="main-footer">
+  <a href="/" class="foot-logo">Go<em>Flow</em></a>
+  <div class="foot-links">
+    <a href="/">דף הבית</a>
+    <a href="/blog/">בלוג</a>
+    <a href="/#contact">צור קשר</a>
+  </div>
+  <p class="foot-copy">© 2026 GoFlow. כל הזכויות שמורות.</p>
+</footer>
+<script>
+(function(){
+  var art=document.querySelector('.article-wrap');
+  var rt=document.querySelector('.read-time');
+  if(art&&rt){var w=art.innerText.trim().split(/\s+/).length;rt.textContent=Math.max(1,Math.round(w/200))+' דק׳ קריאה';}
+})();
+</script>
+</body></html>
