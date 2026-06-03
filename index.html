@@ -285,18 +285,63 @@ h2{font-family:var(--fd);font-size:clamp(2rem,3.8vw,3.2rem);font-weight:700;line
 .rule{width:36px;height:1px;background:var(--gold);margin:0 0 3rem}
 p.lead{font-size:1.08rem;color:var(--muted);line-height:1.9;max-width:600px}
 @media(min-width:769px){
-  .eyebrow{font-size:.88rem;letter-spacing:.14em}
-  p.lead{font-size:1.13rem}
+  /* ── Sections ── */
+  .eyebrow{font-size:.9rem;letter-spacing:.13em}
+  p.lead{font-size:1.15rem}
+
+  /* ── Hero ── */
+  .hero-eyebrow{font-size:.82rem}
+  .hero-sub{font-size:clamp(1.05rem,1.6vw,1.2rem)}
+
+  /* ── Problem ── */
+  .blockq blockquote{font-size:clamp(1.3rem,1.8vw,1.65rem)}
+  .blockq cite{font-size:.82rem}
+
+  /* ── Services ── */
+  .services-top p{font-size:1.05rem}
   .svc-title{font-size:1.08rem}
   .svc-desc{font-size:1rem}
+
+  /* ── Process ── */
   .step-title{font-size:1.15rem}
   .step-desc{font-size:1rem}
-  .why-label{font-size:.8rem}
+
+  /* ── Why ── */
+  .why-label{font-size:.82rem}
   .why-title{font-size:1.1rem}
   .why-desc{font-size:1rem}
-  .stat-label{font-size:.92rem}
+
+  /* ── Quiz ── */
+  .quiz-q-num{font-size:.78rem}
+  .quiz-opt-text{font-size:1rem}
+  .quiz-progress-label{font-size:.82rem}
+  .result-badge{font-size:.8rem}
+  .result-sub{font-size:1rem}
+  .result-areas h3{font-size:.8rem}
+  .area-card .area-title{font-size:1rem}
+  .area-card .area-desc{font-size:.92rem}
+  .result-cta-text h3{font-size:1.05rem}
+  .result-cta-text p{font-size:.95rem}
+
+  /* ── Stats ── */
+  .stat-label{font-size:.95rem}
+  #stats .lead{font-size:1rem}
+
+  /* ── Contact ── */
   .contact-blurb{font-size:1.1rem}
-  .blockq blockquote{font-size:clamp(1.3rem,1.8vw,1.6rem)}
+  .cinfo-label{font-size:.75rem}
+  .cinfo-value{font-size:1rem}
+
+  /* ── Form ── */
+  .frow label{font-size:.85rem}
+  .form-note{font-size:.82rem}
+
+  /* ── Footer ── */
+  .foot-copy{font-size:.85rem}
+  .foot-logo{font-size:1.5rem}
+
+  /* ── Nav ── */
+  .nav-cta{font-size:.85rem}
 }
 
 /* ══ PROBLEM ══ */
@@ -596,16 +641,9 @@ footer{
 
 <!-- NAV -->
 <nav>
-  <div class="logo">
-    <div class="logo-svg">
-      <svg class="logo-mark" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M20 8 L12 16 L20 24" stroke="#1e1b16" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M13 8 L5  16 L13 24" stroke="#b8832a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M24 13 L27 16 L24 19" stroke="#1e1b16" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
-      </svg>
-      <div class="logo-text">Go<em>Flow</em></div>
-    </div>
-  </div>
+  <a href="/" class="logo">
+    <img src="/logo-nav.png" alt="GoFlow" height="38" style="height:38px;width:auto;display:block;">
+  </a>
   <ul class="nav-links">
     <li><a href="#services">שירותים</a></li>
     <li><a href="#process">תהליך</a></li>
@@ -854,7 +892,7 @@ footer{
 
 <!-- FOOTER -->
 <footer>
-  <div class="foot-logo">Go<em>Flow</em></div>
+  <img src="/logo-footer.png" alt="GoFlow" height="32" style="height:32px;width:auto;display:block;">
   <p class="foot-copy">© 2026 GoFlow. כל הזכויות שמורות.</p>
 </footer>
 
