@@ -27,10 +27,9 @@ nav.main-nav{
   background:rgba(247,244,238,0.96);backdrop-filter:blur(16px);
   border-bottom:1px solid var(--border);
 }
-.logo-svg{display:flex;align-items:center;gap:8px;direction:ltr;text-decoration:none}
-.logo-mark{width:30px;height:30px;flex-shrink:0}
-.logo-text{font-family:var(--fd);font-size:1.4rem;font-weight:700;color:var(--ink);letter-spacing:-.01em}
-.logo-text em{font-style:normal;color:var(--gold)}
+.logo-svg{display:flex;align-items:center;text-decoration:none}
+.logo-img{height:36px;width:auto;display:block}
+.logo-img-sm{height:26px}
 .nav-right{display:flex;align-items:center;gap:2rem}
 .nav-right a{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);transition:color .2s}
 .nav-right a:hover{color:var(--ink)}
