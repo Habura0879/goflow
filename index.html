@@ -116,15 +116,14 @@ nav {
   border-bottom:1px solid var(--border);
 }
 .logo {
-  display:flex;align-items:center;z-index:201;
+  display:flex;align-items:center;gap:8px;z-index:201;text-decoration:none;
 }
-.logo img {
-  height:40px;width:auto;display:block;
-  filter:brightness(0) saturate(100%);
+.logo-text {
+  font-family:var(--fd);font-size:1.4rem;font-weight:700;
+  color:var(--ink);letter-spacing:-0.01em;
 }
-footer img {
-  height:32px;width:auto;display:block;
-  filter:brightness(0) saturate(100%) invert(55%) sepia(60%) saturate(700%) hue-rotate(5deg) brightness(95%);
+.logo-text em {
+  font-style:normal;color:var(--gold);
 }
 
 .nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
@@ -540,8 +539,8 @@ footer{
   display:flex;align-items:center;justify-content:space-between;
   flex-wrap:wrap;gap:1rem;background:var(--paper-2);
 }
-.foot-logo{font-family:var(--fd);font-size:1.3rem;font-weight:700;color:var(--ink)}
-.foot-logo em{font-style:normal;color:var(--gold)}
+.logo-footer{text-decoration:none;}
+.logo-text-footer{color:var(--ink)!important;}
 .foot-copy{font-size:.76rem;color:var(--muted)}
 
 /* ══ WA FLOAT ══ */
@@ -633,16 +632,14 @@ footer{
 
 <!-- NAV -->
 <nav>
-  <a href="/" class="logo"><svg height="36" viewBox="0 0 148 40" xmlns="http://www.w3.org/2000/svg" aria-label="GoFlow">
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M28 4 L12 20 L28 36" stroke="#b8832a" stroke-width="5"/>
-    <path d="M18 4 L2  20 L18 36" stroke="#b8832a" stroke-width="5"/>
-    <path d="M32 11 L36 20 L32 29" stroke="#1e1b16" stroke-width="3" opacity="0.35"/>
-  </g>
-  <text x="44" y="28" font-family="'Playfair Display',Georgia,serif" font-size="22" font-weight="700" letter-spacing="-0.3">
-    <tspan fill="#1e1b16">Go</tspan><tspan fill="#b8832a">Flow</tspan>
-  </text>
-</svg></a>
+  <a href="/" class="logo">
+    <svg width="34" height="34" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M30 5 L14 20 L30 35" stroke="#b8832a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M19 5 L3  20 L19 35" stroke="#b8832a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M34 12 L38 20 L34 28" stroke="#1e1b16" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.3"/>
+    </svg>
+    <span class="logo-text">Go<em>Flow</em></span>
+  </a>
   <ul class="nav-links">
     <li><a href="#services">שירותים</a></li>
     <li><a href="#process">תהליך</a></li>
@@ -890,16 +887,14 @@ footer{
 </section>
 
 <!-- FOOTER -->
-<footer><svg height="32" viewBox="0 0 148 40" xmlns="http://www.w3.org/2000/svg" aria-label="GoFlow">
-  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M28 4 L12 20 L28 36" stroke="#b8832a" stroke-width="5"/>
-    <path d="M18 4 L2  20 L18 36" stroke="#b8832a" stroke-width="5"/>
-    <path d="M32 11 L36 20 L32 29" stroke="#f7f4ee" stroke-width="3" opacity="0.35"/>
-  </g>
-  <text x="44" y="28" font-family="'Playfair Display',Georgia,serif" font-size="22" font-weight="700" letter-spacing="-0.3">
-    <tspan fill="#f7f4ee">Go</tspan><tspan fill="#b8832a">Flow</tspan>
-  </text>
-</svg>
+<footer><a href="/" class="logo logo-footer">
+  <svg width="30" height="30" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M30 5 L14 20 L30 35" stroke="#b8832a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M19 5 L3  20 L19 35" stroke="#b8832a" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M34 12 L38 20 L34 28" stroke="#f7f4ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity="0.35"/>
+  </svg>
+  <span class="logo-text logo-text-footer">Go<em>Flow</em></span>
+</a>
   <p class="foot-copy">© 2026 GoFlow. כל הזכויות שמורות.</p>
 </footer>
 
