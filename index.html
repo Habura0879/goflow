@@ -941,9 +941,9 @@ document.getElementById('contactForm').addEventListener('submit', async function
 
   const data = new FormData(this);
   try {
-    const res  = await fetch('/form-handler.php', { method: 'POST', body: data });
+    const res  = await fetch('https://formspree.io/f/maqzwlqy', { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
     const json = await res.json();
-    if (json.ok) {
+    if (res.ok) {
       btn.textContent = '✓ ההודעה נשלחה בהצלחה';
       btn.style.background = '#1a5c2a';
       msg.style.display = 'block';
@@ -955,7 +955,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
       btn.disabled = false;
       msg.style.display = 'block';
       msg.style.color = '#b43c1e';
-      msg.textContent = json.message || 'אירעה שגיאה, נסו שוב.';
+      msg.textContent = 'אירעה שגיאה, נסו שוב.';
     }
   } catch(err) {
     btn.textContent = 'שליחה ←';
