@@ -3,156 +3,134 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>בלוג GoFlow — טיפים לניהול תהליכים ואוטומציה</title>
-<meta name="description" content="מאמרים מקצועיים על ייעוץ תהליכי, אוטומציה, CRM ונהלי עבודה לארגונים בישראל.">
+<title>בלוג GoFlow — ייעוץ תהליכי, CRM ואוטומציה לארגונים</title>
+<meta name="description" content="מאמרים מקצועיים על ייעוץ תהליכי, אוטומציה, CRM ונהלי עבודה לארגונים בישראל — בלי תיאוריה, עם דוגמאות מהשטח.">
 <link rel="canonical" href="https://goflow.co.il/blog/">
-<meta property="og:title" content="בלוג GoFlow — ייעוץ תהליכי ואוטומציה">
-<meta property="og:description" content="מאמרים מקצועיים על ניהול תהליכים, אוטומציה ו-CRM לארגונים.">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="בלוג GoFlow — ייעוץ תהליכי, CRM ואוטומציה">
+<meta property="og:description" content="מאמרים מקצועיים על ניהול תהליכים, אוטומציה ו-CRM לארגונים בישראל.">
 <meta property="og:url" content="https://goflow.co.il/blog/">
 <meta property="og:locale" content="he_IL">
+<meta property="og:site_name" content="GoFlow">
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Blog",
-  "name": "בלוג GoFlow",
-  "url": "https://goflow.co.il/blog/",
-  "description": "מאמרים מקצועיים על ייעוץ תהליכי, אוטומציה ו-CRM",
-  "publisher": { "@type": "Organization", "name": "GoFlow", "url": "https://goflow.co.il" },
-  "inLanguage": "he"
-}
+{"@context":"https://schema.org","@type":"Blog","name":"בלוג GoFlow","url":"https://goflow.co.il/blog/","description":"מאמרים מקצועיים על ייעוץ תהליכי, אוטומציה ו-CRM","publisher":{"@type":"Organization","name":"GoFlow","url":"https://goflow.co.il"},"inLanguage":"he"}
 </script>
 <link rel="icon" sizes="any" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAzMiAzMic+PHJlY3Qgd2lkdGg9JzMyJyBoZWlnaHQ9JzMyJyByeD0nNicgZmlsbD0nIzFlMWIxNicvPjxwYXRoIGQ9J00yMCA4IEwxMiAxNiBMMjAgMjQnIHN0cm9rZT0nI2I4ODMyYScgc3Ryb2tlLXdpZHRoPSczJyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnIGZpbGw9J25vbmUnLz48cGF0aCBkPSdNMTMgOCBMNSAxNiBMMTMgMjQnIHN0cm9rZT0nI2Y3ZjRlZScgc3Ryb2tlLXdpZHRoPSczJyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnIGZpbGw9J25vbmUnLz48L3N2Zz4=">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=IBM+Plex+Sans+Hebrew:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-:root{--ink:#1e1b16;--paper:#f7f4ee;--paper-2:#eeebe3;--gold:#b8832a;--muted:#7a7268;--border:rgba(30,27,22,0.1);--fd:'Playfair Display',Georgia,serif;--fb:'IBM Plex Sans Hebrew',sans-serif;--max:1100px}
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--paper);color:var(--ink);font-family:var(--fb);font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
-a{color:inherit;text-decoration:none}
-
-nav{position:sticky;top:0;z-index:100;background:rgba(247,244,238,0.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 clamp(1rem,4vw,4rem);height:64px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-family:var(--fd);font-size:1.4rem;font-weight:700;color:var(--ink)}
-.nav-logo em{font-style:normal;color:var(--gold)}
-.nav-home{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);transition:color .2s}
-.nav-home:hover{color:var(--ink)}
-
-.blog-hero{
-  padding:clamp(3rem,7vw,7rem) clamp(1.25rem,5vw,4rem) clamp(2rem,4vw,4rem);
-  border-bottom:1px solid var(--border);
-  max-width:var(--max);margin:0 auto;
-}
-.blog-eyebrow{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;font-weight:500}
-.blog-hero h1{font-family:var(--fd);font-size:clamp(2rem,4vw,3.2rem);font-weight:900;letter-spacing:-.02em;color:var(--ink);margin-bottom:1rem}
-.blog-hero p{color:var(--muted);font-size:1rem;max-width:520px}
-
-.blog-grid{
-  max-width:var(--max);margin:0 auto;
-  padding:clamp(2.5rem,5vw,5rem) clamp(1.25rem,5vw,4rem);
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
-  gap:2rem;
-}
-
-.post-card{
-  background:#fff;border:1px solid var(--border);border-radius:4px;
-  overflow:hidden;transition:transform .25s,box-shadow .25s;
-  display:flex;flex-direction:column;
-}
-.post-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(30,27,22,.08)}
-.post-card-top{
-  height:6px;background:var(--gold);
-}
-.post-card-body{padding:1.75rem;flex:1;display:flex;flex-direction:column}
-.post-meta{display:flex;gap:.75rem;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:1rem}
-.post-cat{color:var(--gold);font-weight:500}
-.post-title{font-family:var(--fd);font-size:1.2rem;font-weight:700;line-height:1.3;color:var(--ink);margin-bottom:.75rem;letter-spacing:-.01em}
-.post-excerpt{font-size:.88rem;color:var(--muted);line-height:1.75;flex:1}
-.post-link{
-  display:inline-flex;align-items:center;gap:.4rem;
-  margin-top:1.5rem;font-size:.8rem;font-weight:500;
-  letter-spacing:.08em;text-transform:uppercase;color:var(--gold);
-  transition:gap .2s;
-}
-.post-card:hover .post-link{gap:.7rem}
-
-.blog-cta{
-  background:var(--ink);padding:clamp(3rem,6vw,5rem) clamp(1.25rem,5vw,4rem);
-  text-align:center;
-}
-.blog-cta h2{font-family:var(--fd);font-size:clamp(1.5rem,3vw,2.2rem);font-weight:700;color:var(--paper);margin-bottom:.75rem}
-.blog-cta p{color:rgba(247,244,238,.55);margin-bottom:2rem;font-size:.95rem}
-.btn-gold{display:inline-block;padding:.8rem 2rem;background:var(--gold);color:#fff;font-family:var(--fb);font-size:.85rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;border-radius:2px;transition:opacity .2s}
-.btn-gold:hover{opacity:.88}
-
-footer{border-top:1px solid var(--border);padding:1.5rem clamp(1rem,4vw,4rem);display:flex;align-items:center;justify-content:space-between;background:var(--paper-2);flex-wrap:wrap;gap:1rem}
-.foot-logo{font-family:var(--fd);font-size:1.2rem;font-weight:700;color:var(--ink)}
-.foot-logo em{font-style:normal;color:var(--gold)}
-.foot-copy{font-size:.75rem;color:var(--muted)}
-</style>
+<link rel="stylesheet" href="/assets/blog.css">
 </head>
 <body>
+<!-- ═══ SHARED NAV ═══ -->
+<a class="wa-float" href="https://wa.me/9720547951161?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%A7%D7%A8%D7%90%D7%AA%D7%99%20%D7%90%D7%AA%20%D7%94%D7%91%D7%9C%D7%95%D7%92%20%D7%A9%D7%9C%20GoFlow%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%A9%D7%9E%D7%95%D7%A2%20%D7%99%D7%95%D7%AA%D7%A8." target="_blank" aria-label="וואטסאפ">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
 
-<nav>
-  <a href="/" class="nav-logo">Go<em>Flow</em></a>
-  <a href="/" class="nav-home">← חזרה לאתר</a>
+<nav class="main-nav">
+  <a href="/" class="logo-svg">
+    <svg class="logo-mark" viewBox="0 0 32 32" fill="none">
+      <path d="M20 8 L12 16 L20 24" stroke="#1e1b16" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M13 8 L5 16 L13 24" stroke="#b8832a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <div class="logo-text">Go<em>Flow</em></div>
+  </a>
+  <div class="nav-right">
+    <a href="/">דף הבית</a>
+    <a href="/#services">שירותים</a>
+    <a href="/#quiz">אבחון</a>
+    <a href="/blog/" class="active">בלוג</a>
+    <a href="/#contact"><button class="nav-cta-sm">לפגישת ייעוץ</button></a>
+  </div>
+  <button class="hbg" id="hbg" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
 </nav>
+<div class="drawer" id="drawer">
+  <a href="/" onclick="closeDrawer()">דף הבית</a>
+  <a href="/#services" onclick="closeDrawer()">שירותים</a>
+  <a href="/#quiz" onclick="closeDrawer()">אבחון חינם</a>
+  <a href="/blog/" onclick="closeDrawer()">בלוג</a>
+  <a href="/#contact" class="dcta" onclick="closeDrawer()">לפגישת ייעוץ ←</a>
+</div>
+<!-- ═══ / SHARED NAV ═══ -->
+
+<!-- ═══ SHARED FOOTER ═══ -->
+<footer class="main-footer">
+  <a href="/" class="foot-logo">Go<em>Flow</em></a>
+  <div class="foot-links">
+    <a href="/">דף הבית</a>
+    <a href="/blog/">בלוג</a>
+    <a href="/#contact">צור קשר</a>
+  </div>
+  <p class="foot-copy">© 2026 GoFlow. כל הזכויות שמורות.</p>
+</footer>
+
+<script>
+function toggleDrawer(){
+  document.getElementById('hbg').classList.toggle('open');
+  document.getElementById('drawer').classList.toggle('open');
+  document.body.style.overflow=document.getElementById('drawer').classList.contains('open')?'hidden':'';
+}
+function closeDrawer(){
+  document.getElementById('hbg').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+  document.body.style.overflow='';
+}
+</script>
 
 <div class="blog-hero">
-  <div class="blog-eyebrow">בלוג GoFlow</div>
+  <div class="eyebrow">בלוג GoFlow</div>
   <h1>ידע שעובד.<br>תהליכים שנשארים.</h1>
-  <p>מאמרים מהשטח על ייעוץ תהליכי, אוטומציה, CRM ונהלי עבודה — בלי תיאוריה, עם דוגמאות אמיתיות.</p>
+  <p>מאמרים מהשטח על ייעוץ תהליכי, אוטומציה, CRM ונהלי עבודה — בלי תיאוריה, עם דוגמאות אמיתיות מארגונים בישראל.</p>
 </div>
 
 <div class="blog-grid">
 
   <a href="/blog/5-signs-you-need-process-consulting/" class="post-card">
-    <div class="post-card-top"></div>
+    <div class="post-card-bar"></div>
     <div class="post-card-body">
-      <div class="post-meta">
-        <span class="post-cat">ייעוץ תהליכי</span>
-        <span>יוני 2026</span>
-        <span>5 דק׳ קריאה</span>
-      </div>
-      <div class="post-title">5 סימנים שהעסק שלך זקוק לייעוץ תהליכי</div>
-      <p class="post-excerpt">איך יודעים שהגיע הזמן? 5 סימנים ברורים שהארגון עובד קשה אבל לא מתקדם — וכיצד לתקן זאת.</p>
+      <div class="post-meta-sm"><span class="post-cat-tag">ייעוץ תהליכי</span><span>יוני 2026</span><span>6 דק׳</span></div>
+      <div class="post-title-card">5 סימנים שהארגון שלך זקוק לייעוץ תהליכי</div>
+      <p class="post-excerpt">מ-5 עובדים עד 500 — הסימנים זהים. איך מזהים שהגיע הזמן לסדר את התהליכים לפני שהם שוברים את הצמיחה.</p>
       <span class="post-link">קרא עוד →</span>
     </div>
   </a>
 
-  <!-- כרטיס "בקרוב" -->
-  <div class="post-card" style="opacity:.5;pointer-events:none">
-    <div class="post-card-top"></div>
+  <a href="/blog/crm-for-business-2026/" class="post-card">
+    <div class="post-card-bar"></div>
     <div class="post-card-body">
-      <div class="post-meta"><span class="post-cat">CRM</span><span>בקרוב</span></div>
-      <div class="post-title">CRM לעסקים קטנים — מה מתאים ב-2026</div>
-      <p class="post-excerpt">השוואה מעשית בין המערכות המובילות ואיך בוחרים נכון לגודל שלכם.</p>
-      <span class="post-link">בקרוב →</span>
+      <div class="post-meta-sm"><span class="post-cat-tag">CRM</span><span>יוני 2026</span><span>7 דק׳</span></div>
+      <div class="post-title-card">CRM לעסקים — מה מתאים ב-2026 ואיך להטמיע נכון</div>
+      <p class="post-excerpt">90% מהטמעות CRM נכשלות — לא בגלל שהמערכת גרועה. השוואה מעשית וכללים להטמעה שכולם ישתמשו בה.</p>
+      <span class="post-link">קרא עוד →</span>
     </div>
-  </div>
+  </a>
 
-  <div class="post-card" style="opacity:.5;pointer-events:none">
-    <div class="post-card-top"></div>
+  <a href="/blog/automation-for-business/" class="post-card">
+    <div class="post-card-bar"></div>
     <div class="post-card-body">
-      <div class="post-meta"><span class="post-cat">אוטומציה</span><span>בקרוב</span></div>
-      <div class="post-title">אוטומציה לעסקים קטנים — מה כדאי לאוטמט ומה לא</div>
-      <p class="post-excerpt">לא כל תהליך צריך אוטומציה. איך מזהים מה שווה להשקיע בו.</p>
-      <span class="post-link">בקרוב →</span>
+      <div class="post-meta-sm"><span class="post-cat-tag">אוטומציה</span><span>יוני 2026</span><span>6 דק׳</span></div>
+      <div class="post-title-card">אוטומציה לעסקים — מה כדאי לאוטמט ומה לא</div>
+      <p class="post-excerpt">לאטמט תהליך שבור זה רק לגרום לבעיה לקרות מהר יותר. המדריך המעשי לאוטומציה נכונה עם כלים לשוק הישראלי.</p>
+      <span class="post-link">קרא עוד →</span>
     </div>
-  </div>
+  </a>
+
+  <a href="/blog/work-procedures-guide/" class="post-card">
+    <div class="post-card-bar"></div>
+    <div class="post-card-body">
+      <div class="post-meta-sm"><span class="post-cat-tag">נהלים</span><span>יוני 2026</span><span>5 דק׳</span></div>
+      <div class="post-title-card">נהלי עבודה — למה כולם כותבים ואף אחד לא משתמש</div>
+      <p class="post-excerpt">הבעיה היא לא עצלות — זו בעיית פורמט, מיקום ועדכון. המדריך לנהלים שהצוות באמת יקרא וישתמש בהם.</p>
+      <span class="post-link">קרא עוד →</span>
+    </div>
+  </a>
 
 </div>
 
-<div class="blog-cta">
+<div class="blog-bottom-cta">
   <h2>רוצים לדעת מה קורה אצלכם?</h2>
   <p>אבחון קצר — בלי עלות, בלי התחייבות.</p>
   <a href="/#contact" class="btn-gold">לפגישת ייעוץ ←</a>
 </div>
-
-<footer>
-  <div class="foot-logo">Go<em>Flow</em></div>
-  <p class="foot-copy">© 2026 GoFlow. כל הזכויות שמורות.</p>
-</footer>
-
-</body>
-</html>
+</body></html>

@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(powershell -command \"Expand-Archive -Path 'C:\\\\Users\\\\rafit\\\\Downloads\\\\files3.zip' -DestinationPath 'C:\\\\Users\\\\rafit\\\\Downloads\\\\files3_extracted' -Force\")",
+      "Read(//c/Users/rafit/Downloads/**)"
+    ]
+  }
+}
