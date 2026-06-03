@@ -1,4 +1,4 @@
-/* ═══════════════════════════════════════
+﻿/* ═══════════════════════════════════════
    GoFlow Blog — Shared Styles
    זהה לאתר הראשי, מרגיש כמו המשך
 ═══════════════════════════════════════ */
@@ -8,8 +8,8 @@
   --gold:#b8832a;--gold-l:#d4a84b;--gold-d:#8a5f1a;
   --muted:#7a7268;
   --border:rgba(30,27,22,0.1);--border-g:rgba(184,131,42,0.3);
-  --fd:'Playfair Display',Georgia,serif;
-  --fb:'IBM Plex Sans Hebrew','IBM Plex Sans',sans-serif;
+  --fd:'Frank Ruhl Libre','Playfair Display',Georgia,serif;
+  --fb:'Rubik',system-ui,sans-serif;
   --max-article:740px;--max-wide:1140px;--r:4px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -27,9 +27,9 @@ nav.main-nav{
   background:rgba(247,244,238,0.96);backdrop-filter:blur(16px);
   border-bottom:1px solid var(--border);
 }
-.logo-svg{display:flex;align-items:center;gap:8px}
-.logo-mark{width:30px;height:30px}
-.logo-text{font-family:var(--fd);font-size:1.4rem;font-weight:700;color:var(--ink);display:flex;align-items:baseline}
+.logo-svg{display:flex;align-items:center;gap:8px;direction:ltr;text-decoration:none}
+.logo-mark{width:30px;height:30px;flex-shrink:0}
+.logo-text{font-family:var(--fd);font-size:1.4rem;font-weight:700;color:var(--ink);letter-spacing:-.01em}
 .logo-text em{font-style:normal;color:var(--gold)}
 .nav-right{display:flex;align-items:center;gap:2rem}
 .nav-right a{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);transition:color .2s}
