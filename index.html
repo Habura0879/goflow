@@ -450,10 +450,14 @@ p.lead{font-size:1.02rem;color:var(--muted);line-height:1.9;max-width:600px}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start}
 .contact-left h2{margin-bottom:1rem}
 .contact-blurb{font-size:.96rem;color:var(--muted);line-height:1.9;margin-bottom:3rem}
-.cinfo{display:flex;flex-direction:column;gap:1.1rem}
-.cinfo-row{display:flex;align-items:center;gap:1rem;font-size:.9rem;color:var(--muted)}
-.cinfo-row span:last-child{color:var(--ink);direction:ltr}
-.cinfo-icon{width:34px;height:34px;border:1px solid var(--border);border-radius:2px;background:var(--paper-2);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:.95rem;flex-shrink:0}
+.cinfo{display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.cinfo-row{display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;background:var(--paper-2);border-bottom:1px solid var(--border);transition:background .2s}
+.cinfo-row:last-child{border-bottom:none}
+.cinfo-row:hover{background:var(--paper)}
+.cinfo-row-text{display:flex;flex-direction:column;gap:2px}
+.cinfo-label{font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.cinfo-value{font-size:.95rem;color:var(--ink);direction:ltr;font-weight:400}
+.cinfo-icon{width:36px;height:36px;border:1px solid var(--border);border-radius:2px;background:var(--paper);display:flex;align-items:center;justify-content:center;color:var(--gold);flex-shrink:0}
 
 .form-box{background:var(--paper-2);border:1px solid var(--border);border-radius:var(--r);padding:2.5rem}
 .frow{margin-bottom:1.25rem}
@@ -792,9 +796,33 @@ footer{
         <div class="rule"></div>
         <p class="contact-blurb">פגישה קצרה. בלי רעש. בלי תיאוריה. יוצאים ממנה עם כיוון ברור ותוכנית פעולה.</p>
         <div class="cinfo">
-          <div class="cinfo-row"><div class="cinfo-icon">💬</div><div><div style="font-size:.72rem;color:var(--muted);margin-bottom:2px">WhatsApp</div><span>054-795-1161</span></div></div>
-          <div class="cinfo-row"><div class="cinfo-icon">✉</div><div><div style="font-size:.72rem;color:var(--muted);margin-bottom:2px">אימייל</div><span>avrams58@gmail.com</span></div></div>
-          <div class="cinfo-row"><div class="cinfo-icon">📞</div><div><div style="font-size:.72rem;color:var(--muted);margin-bottom:2px">טלפון</div><span>054-795-1161</span></div></div>
+          <a class="cinfo-row" href="https://wa.me/9720547951161" target="_blank" rel="noopener">
+            <div class="cinfo-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="color:#25d366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </div>
+            <div class="cinfo-row-text">
+              <span class="cinfo-label">WhatsApp</span>
+              <span class="cinfo-value">054-795-1161</span>
+            </div>
+          </a>
+          <a class="cinfo-row" href="mailto:avrams58@gmail.com">
+            <div class="cinfo-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+            </div>
+            <div class="cinfo-row-text">
+              <span class="cinfo-label">אימייל</span>
+              <span class="cinfo-value">avrams58@gmail.com</span>
+            </div>
+          </a>
+          <a class="cinfo-row" href="tel:0547951161">
+            <div class="cinfo-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.06 6.06l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.02z"/></svg>
+            </div>
+            <div class="cinfo-row-text">
+              <span class="cinfo-label">טלפון</span>
+              <span class="cinfo-value">054-795-1161</span>
+            </div>
+          </a>
         </div>
       </div>
       <div class="form-box fi">
@@ -852,18 +880,38 @@ const sg=document.querySelector('.stats-grid');
 if(sg) cObs.observe(sg);
 
 // Contact form
-document.getElementById('contactForm').addEventListener('submit',function(e){
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
   e.preventDefault();
-  const name=this.name.value.trim(), email=this.email.value.trim(), msg=this.message.value.trim();
-  const sub=encodeURIComponent('פנייה חדשה מאתר GoFlow — '+name);
-  const body=encodeURIComponent('שם: '+name+'\nאימייל: '+email+'\n\nהודעה:\n'+msg);
-  window.location.href='mailto:avrams58@gmail.com?subject='+sub+'&body='+body;
-  setTimeout(()=>window.open('https://wa.me/9720547951161?text='+encodeURIComponent('שלום, שמי '+name+'.\n'+msg+'\nניתן לחזור אליי: '+email),'_blank'),800);
-  document.getElementById('submitBtn').textContent='ההודעה נשלחה ✓';
-  document.getElementById('submitBtn').style.background='#1a5c2a';
-  document.getElementById('submitBtn').disabled=true;
-  document.getElementById('formMsg').style.display='block';
-  document.getElementById('formMsg').textContent='פתחנו לך גם את הוואטסאפ';
+  const btn = document.getElementById('submitBtn');
+  const msg = document.getElementById('formMsg');
+  btn.textContent = 'שולח...';
+  btn.disabled = true;
+
+  const data = new FormData(this);
+  try {
+    const res  = await fetch('/form-handler.php', { method: 'POST', body: data });
+    const json = await res.json();
+    if (json.ok) {
+      btn.textContent = '✓ ההודעה נשלחה בהצלחה';
+      btn.style.background = '#1a5c2a';
+      msg.style.display = 'block';
+      msg.style.color = 'var(--gold)';
+      msg.textContent = 'תודה שפנית! נחזור אליך בהקדם.';
+      this.reset();
+    } else {
+      btn.textContent = 'שליחה ←';
+      btn.disabled = false;
+      msg.style.display = 'block';
+      msg.style.color = '#b43c1e';
+      msg.textContent = json.message || 'אירעה שגיאה, נסו שוב.';
+    }
+  } catch(err) {
+    btn.textContent = 'שליחה ←';
+    btn.disabled = false;
+    msg.style.display = 'block';
+    msg.style.color = '#b43c1e';
+    msg.textContent = 'בעיית תקשורת — נסו שוב.';
+  }
 });
 
 // Nav highlight
