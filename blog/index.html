@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="/assets/blog.css?v=2">
 <style>
 .post-q{font-size:.82rem;color:var(--muted);font-style:italic;margin-bottom:.5rem;line-height:1.4}
-.filter-bar{max-width:var(--max);margin:0 auto;padding:1.5rem clamp(1.25rem,5vw,4rem) 0;display:flex;gap:.6rem;flex-wrap:wrap;justify-content:flex-end}
+.filter-bar{max-width:var(--max);margin:0 auto;padding:1.5rem clamp(1.25rem,5vw,4rem) 0;display:flex;gap:.6rem;flex-wrap:wrap;justify-content:flex-start}
 .filter-btn{padding:.4rem 1.1rem;border:1px solid var(--border);border-radius:2rem;background:none;font-family:var(--fb);font-size:.78rem;letter-spacing:.07em;cursor:pointer;color:var(--muted);transition:all .2s}
 .filter-btn:hover,.filter-btn.active{background:var(--gold);color:#fff;border-color:var(--gold)}
 .post-card.hidden{display:none}
@@ -85,6 +85,7 @@ function closeDrawer(){
 </div>
 
 <div class="filter-bar">
+  <a href="/" style="display:inline-flex;align-items:center;gap:.35rem;padding:.4rem 1rem;border:1px solid var(--border);border-radius:2rem;font-family:var(--fb);font-size:.78rem;letter-spacing:.07em;color:var(--muted);text-decoration:none;transition:all .2s;white-space:nowrap" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">← בית</a>
   <button class="filter-btn active" onclick="filter('all')">הכל</button>
   <button class="filter-btn" onclick="filter('ייעוץ תהליכי')">ייעוץ תהליכי</button>
   <button class="filter-btn" onclick="filter('CRM')">CRM</button>
