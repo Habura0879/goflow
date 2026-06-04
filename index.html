@@ -565,6 +565,7 @@ footer{
   .svc-list{grid-template-columns:1fr}
   .svc-full{grid-column:1}
   .stats-grid{grid-template-columns:repeat(3,1fr)}
+  #about .fi{grid-template-columns:1fr !important}
 }
 @media(max-width:480px){
   .why-grid,.stats-grid{grid-template-columns:1fr 1fr}
@@ -636,6 +637,7 @@ footer{
     <li><a href="#process">תהליך</a></li>
     <li><a href="#quiz">אבחון</a></li>
     <li><a href="#why">למה GoFlow</a></li>
+    <li><a href="/about/">אודות</a></li>
     <li><a href="/blog/" title="בלוג GoFlow — טיפים לניהול תהליכים">בלוג</a></li>
     <li><a href="#contact"><button class="nav-cta">לפגישת ייעוץ</button></a></li>
   </ul>
@@ -648,6 +650,7 @@ footer{
   <a href="#process"  onclick="closeDrawer()">תהליך עבודה</a>
   <a href="#quiz"     onclick="closeDrawer()">אבחון חינם</a>
   <a href="#why"      onclick="closeDrawer()">למה GoFlow</a>
+  <a href="/about/"   onclick="closeDrawer()">אודות</a>
   <a href="/blog/" onclick="closeDrawer()">בלוג</a>
   <a href="#contact" class="dcta" onclick="closeDrawer()">לפגישת ייעוץ ←</a>
 </div>
@@ -882,6 +885,28 @@ footer{
   </div>
 </section>
 
+<!-- ABOUT TEASER -->
+<section id="about" style="padding:clamp(3.5rem,6vw,6rem) clamp(1.5rem,5vw,4rem);background:var(--paper)">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1.7fr;gap:clamp(2.5rem,5vw,5rem);align-items:center" class="fi">
+      <div style="position:relative">
+        <img src="/avi-amar.jpg" alt="אבי עמר — מייסד GoFlow"
+          style="width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;border-radius:3px;display:block">
+        <div style="position:absolute;bottom:1.5rem;right:1.5rem;background:var(--ink);color:var(--paper);padding:.5rem 1rem;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;border-radius:2px">אבי עמר · מייסד</div>
+      </div>
+      <div>
+        <div class="eyebrow">מי עומד מאחורי GoFlow</div>
+        <h2 style="margin-bottom:1rem">אבי עמר</h2>
+        <div class="rule" style="margin-bottom:1.75rem"></div>
+        <p style="color:var(--muted);line-height:1.9;font-size:1rem;margin-bottom:1.25rem">לאורך השנים שימשתי בתפקידי ניהול בכירים, בהם סמנכ״ל שיווק ותהליכים בחברות שונות, וסמנכ״ל תפעול באתר כיכר השבת.</p>
+        <p style="color:var(--muted);line-height:1.9;font-size:1rem;margin-bottom:1.25rem">הקמתי את GoFlow מתוך הבנה פשוטה: הרבה עסקים לא נתקעים בגלל אנשים לא טובים או בגלל שחסרה להם עוד מערכת — הם נתקעים כי התהליך לא ברור מספיק.</p>
+        <p style="color:var(--muted);line-height:1.9;font-size:1rem;margin-bottom:2rem">ב־GoFlow אני עוזר לעסקים לזהות איפה העבודה נתקעת, לסדר אחריות, לבנות תהליכי עבודה ברורים, ולחבר נכון בין אנשים, מערכות ואוטומציות.</p>
+        <a href="/about/" style="display:inline-flex;align-items:center;gap:.5rem;padding:.75rem 1.8rem;border:1px solid var(--gold);color:var(--gold);font-family:var(--fb);font-size:.82rem;letter-spacing:.1em;text-transform:uppercase;border-radius:2px;text-decoration:none;transition:background .2s,color .2s" onmouseover="this.style.background='var(--gold)';this.style.color='#fff'" onmouseout="this.style.background='';this.style.color='var(--gold)'">עוד על הגישה של GoFlow ←</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CONTACT -->
 <section id="contact">
   <div class="container">
@@ -935,10 +960,14 @@ footer{
 </section>
 
 <!-- FOOTER -->
-<footer><a href="/" class="logo logo-footer">
+<footer class="site-footer"><a href="/" class="logo logo-footer">
   <img src="/GoFlow_full_logo_black_transparent_1200px.png" alt="GoFlow" class="logo-img logo-img-sm">
-
 </a>
+  <div class="foot-links">
+    <a href="/about/">אודות</a>
+    <a href="/blog/">בלוג</a>
+    <a href="#contact">צור קשר</a>
+  </div>
   <p class="foot-copy">© 2026 GoFlow. כל הזכויות שמורות.</p>
 </footer>
 
