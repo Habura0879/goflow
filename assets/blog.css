@@ -30,6 +30,8 @@ p.body-text{margin-bottom:1.25rem;color:var(--ink);font-size:1rem}
 .sign-num{font-family:var(--fd);font-size:2.4rem;font-weight:900;color:rgba(184,131,42,.18);line-height:1;flex-shrink:0;transition:color .25s}
 .sign-body h2{font-family:var(--fd);font-size:1.1rem;font-weight:700;color:var(--ink);margin:0 0 .5rem;letter-spacing:-.01em}
 .sign-body p{margin:0;font-size:.93rem;color:var(--muted);line-height:1.75}
+.sign-body p a,.sign-body h2 a,.body-text a,.article-lead a{color:var(--gold);text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;transition:opacity .2s}
+.sign-body p a:hover,.sign-body h2 a:hover,.body-text a:hover,.article-lead a:hover{opacity:.75}
 
 .callout{background:#fff;border:1px solid var(--border);border-right:3px solid var(--ink);border-radius:0 var(--r) var(--r) 0;padding:1.25rem 1.5rem;margin:2rem 0;font-size:.93rem;color:var(--muted)}
 .callout strong{color:var(--ink);display:block;margin-bottom:.35rem;font-size:.95rem}
