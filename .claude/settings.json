@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -ExecutionPolicy Bypass -File \"C:\\goflow.co.il\\goflow.co.il\\public_html\\.claude\\update-claude-md.ps1\"",
+            "shell": "powershell",
+            "timeout": 30,
+            "statusMessage": "מעדכן CLAUDE.md..."
+          }
+        ]
+      }
+    ]
+  }
+}
