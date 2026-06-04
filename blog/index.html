@@ -42,6 +42,7 @@
     <img src="/GoFlow_full_logo_black_transparent_1200px.png" alt="GoFlow">
   </a>
   <ul class="site-nav-links">
+    <li><a href="/">בית</a></li>
     <li><a href="/#services">שירותים</a></li>
     <li><a href="/#process">תהליך</a></li>
     <li><a href="/#quiz">אבחון</a></li>
@@ -53,6 +54,7 @@
   <button class="hbg" id="hbg" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
 </nav>
 <div class="drawer" id="drawer">
+  <a href="/" onclick="closeDrawer()">בית</a>
   <a href="/#services" onclick="closeDrawer()">שירותים</a>
   <a href="/#process" onclick="closeDrawer()">תהליך עבודה</a>
   <a href="/#quiz" onclick="closeDrawer()">אבחון חינם</a>
@@ -85,7 +87,6 @@ function closeDrawer(){
 </div>
 
 <div class="filter-bar">
-  <a href="/" style="display:inline-flex;align-items:center;gap:.35rem;padding:.4rem 1rem;border:1px solid var(--border);border-radius:2rem;font-family:var(--fb);font-size:.78rem;letter-spacing:.07em;color:var(--muted);text-decoration:none;transition:all .2s;white-space:nowrap" onmouseover="this.style.borderColor='var(--gold)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='var(--border)';this.style.color='var(--muted)'">← בית</a>
   <button class="filter-btn active" onclick="filter('all')">הכל</button>
   <button class="filter-btn" onclick="filter('ייעוץ תהליכי')">ייעוץ תהליכי</button>
   <button class="filter-btn" onclick="filter('CRM')">CRM</button>
@@ -189,7 +190,7 @@ function filter(cat){
 <footer class="site-footer">
   <a href="/"><img src="/GoFlow_full_logo_black_transparent_1200px.png" alt="GoFlow"></a>
   <div class="foot-links">
-    <a href="/">דף הבית</a>
+    <a href="/">בית</a>
     <a href="/about/">אודות</a>
     <a href="/blog/">בלוג</a>
     <a href="/#contact">צור קשר</a>
