@@ -264,7 +264,7 @@ p.lead{font-size:1.08rem;color:var(--muted);line-height:1.9;max-width:600px}
 .svc-item{
   background:var(--paper-2);padding:2.25rem 2rem;
   position:relative;overflow:hidden;
-  transition:background .25s;
+  transition:background .25s;display:block;color:inherit;text-decoration:none;
 }
 .svc-item:hover{background:var(--paper)}
 .svc-item::before{

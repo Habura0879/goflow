@@ -50,6 +50,7 @@ document.getElementById('contactForm').addEventListener('submit', async function
       msg.style.display = 'block';
       msg.style.color = 'var(--gold)';
       msg.textContent = 'תודה שפנית! נחזור אליך בהקדם.';
+      if (typeof trackEvent === 'function') trackEvent('generate_lead', { method: 'contact_form' });
       this.reset();
     } else {
       btn.textContent = 'שליחה ←';
@@ -294,6 +295,7 @@ function showResult(){
   document.getElementById('waBtn').href = 'https://wa.me/9720547951161?text=' + waMsg;
 
   document.getElementById('quizResult').classList.add('show');
+  if (typeof trackEvent === 'function') trackEvent('quiz_complete', { result_level: level });
 }
 
 renderQ();
