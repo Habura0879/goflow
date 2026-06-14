@@ -1,0 +1,8 @@
+.foot-social{display:flex;align-items:center;gap:.65rem}
+.foot-social a{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:50%;color:var(--muted);transition:color .2s,border-color .2s,background .2s}
+.foot-social a:hover{color:var(--gold-d);border-color:var(--border-g);background:var(--paper)}
+.foot-social svg{width:15px;height:15px;fill:currentColor}
+.about-social{display:flex;gap:.75rem;margin-top:1.25rem}
+.about-social a{padding:.45rem .85rem;border:1px solid var(--border-g);color:var(--gold-d);font-size:.78rem;letter-spacing:.04em;transition:background .2s,color .2s}
+.about-social a:hover{background:var(--ink);color:var(--paper)}
+@media(max-width:768px){footer.site-footer{justify-content:center;text-align:center}.foot-links{justify-content:center;flex-wrap:wrap}}

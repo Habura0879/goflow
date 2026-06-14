@@ -10,6 +10,8 @@ GoFlow helps organizations map and improve operational processes, define ownersh
 - Founder and author: Avi Amar (אבי עמר)
 - Website: https://goflow.co.il/
 - About the founder: https://goflow.co.il/about/
+- LinkedIn: https://www.linkedin.com/in/avi-amar-74a21213b
+- Facebook: https://www.facebook.com/profile.php?id=61590293953666
 - Contact: avi@goflow.co.il
 - Service area: Israel
 - Primary language: Hebrew
