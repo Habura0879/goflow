@@ -30,6 +30,7 @@ GoFlow helps organizations map and improve operational processes, define ownersh
 - [Business automation: what to automate and what not to automate](https://goflow.co.il/blog/automation-for-business/)
 - [Why the CEO becomes the business bottleneck](https://goflow.co.il/blog/ceo-bottleneck/)
 - [CRM for businesses in 2026](https://goflow.co.il/blog/crm-for-business-2026/)
+- [CRM requirements and specification checklist](https://goflow.co.il/blog/crm-requirements-checklist/)
 - [Why CRM cannot fix a broken process](https://goflow.co.il/blog/crm-solves-nothing/)
 - [How to diagnose whether the problem is people, systems or process](https://goflow.co.il/blog/people-system-or-process/)
 - [A practical guide to work procedures](https://goflow.co.il/blog/work-procedures-guide/)
