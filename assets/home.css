@@ -506,13 +506,14 @@ footer{
   padding: 1rem clamp(1.5rem, 5vw, 4rem);
   z-index: 9999;
   font-family: var(--fb);
-  animation: cookieSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   direction: rtl;
   box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
   display: none; /* Controlled by JS */
+  transform: translateY(100%);
 }
 .cookie-banner.show {
   display: block;
+  animation: cookieSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 .cookie-banner-inner {
   max-width: var(--max);
