@@ -12,3 +12,22 @@ function closeDrawer(){
   document.getElementById('drawer').classList.remove('open');
   document.body.style.overflow = '';
 }
+
+// Cookie Consent Banner functions
+function closeCookieBanner(){
+  var banner = document.getElementById('cookie-banner');
+  if (banner) {
+    banner.classList.remove('show');
+    localStorage.setItem('goflow_cookies_accepted', 'true');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  var banner = document.getElementById('cookie-banner');
+  if (banner && !localStorage.getItem('goflow_cookies_accepted')) {
+    // Show banner with a subtle premium delay
+    setTimeout(function(){
+      banner.classList.add('show');
+    }, 600);
+  }
+});
