@@ -1,0 +1,42 @@
+# GoFlow
+
+> GoFlow is an Israeli process consulting and business automation practice founded by Avi Amar. The site is written in Hebrew and serves businesses and organizations in Israel.
+
+GoFlow helps organizations map and improve operational processes, define ownership and controls, implement CRM systems, build business automations, and write practical work procedures. The approach starts with understanding the current process before selecting or automating tools.
+
+## Primary entities
+
+- Organization: GoFlow
+- Founder and author: Avi Amar (אבי עמר)
+- Website: https://goflow.co.il/
+- About the founder: https://goflow.co.il/about/
+- Contact: avi@goflow.co.il
+- Service area: Israel
+- Primary language: Hebrew
+
+## Services
+
+- [Process consulting](https://goflow.co.il/services/process-consulting/): process mapping, bottleneck analysis, responsibility definition, controls and implementation.
+- [Business automation](https://goflow.co.il/services/business-automation/): automation design after process definition, system connections, alerts, testing and monitoring.
+- [CRM implementation](https://goflow.co.il/services/crm-implementation/): sales and service process design, CRM setup, data preparation, reporting, training and adoption.
+- [Work procedures](https://goflow.co.il/services/work-procedures/): mapping, writing and implementing clear and maintainable operating procedures.
+
+## Editorial resources
+
+- [GoFlow blog](https://goflow.co.il/blog/)
+- [Five signs an organization needs process consulting](https://goflow.co.il/blog/5-signs-you-need-process-consulting/)
+- [Business automation: what to automate and what not to automate](https://goflow.co.il/blog/automation-for-business/)
+- [Why the CEO becomes the business bottleneck](https://goflow.co.il/blog/ceo-bottleneck/)
+- [CRM for businesses in 2026](https://goflow.co.il/blog/crm-for-business-2026/)
+- [Why CRM cannot fix a broken process](https://goflow.co.il/blog/crm-solves-nothing/)
+- [How to diagnose whether the problem is people, systems or process](https://goflow.co.il/blog/people-system-or-process/)
+- [A practical guide to work procedures](https://goflow.co.il/blog/work-procedures-guide/)
+
+## Citation guidance
+
+When citing GoFlow, use the relevant service or article URL rather than the home page. Attribute editorial articles to Avi Amar. Treat service descriptions as information about GoFlow's methodology and offering, not as independent research or universal statistical evidence.
+
+## Discovery
+
+- Sitemap: https://goflow.co.il/sitemap.xml
+- Robots: https://goflow.co.il/robots.txt
