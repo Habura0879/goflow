@@ -65,136 +65,7 @@ gtag("config", "G-E7Q866K3RX");
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700;900&family=Playfair+Display:wght@700;900&family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/shared.css?v=3">
-<style>
-/* ── ABOUT PAGE STYLES ── */
-.about-header {
-  padding: clamp(3rem,7vw,6rem) clamp(1.5rem,5vw,4rem) clamp(2rem,4vw,3.5rem);
-  border-bottom: 1px solid var(--border);
-  max-width: var(--max);
-  margin: 0 auto;
-}
-.about-header .eyebrow { font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;font-weight:500 }
-.about-header h1 { font-family:var(--fd);font-size:clamp(2rem,4.5vw,3.4rem);font-weight:900;line-height:1.08;letter-spacing:-.02em;color:var(--ink);margin-bottom:.75rem }
-.about-header .subtitle { font-size:1rem;color:var(--muted);line-height:1.75 }
-
-/* ── INTRO GRID (photo + bio) ── */
-.about-intro {
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: clamp(3rem,6vw,5.5rem) clamp(1.5rem,5vw,4rem);
-  display: grid;
-  grid-template-columns: 1fr 1.6fr;
-  gap: clamp(2.5rem,5vw,5rem);
-  align-items: start;
-}
-.about-photo-wrap {
-  position: sticky;
-  top: 84px;
-}
-.about-photo {
-  width: 100%;
-  aspect-ratio: 3/4;
-  object-fit: cover;
-  object-position: center top;
-  border-radius: 3px;
-  display: block;
-  background: var(--paper-2);
-  color: transparent;
-}
-.about-photo-caption {
-  margin-top: .85rem;
-  font-size: .75rem;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-.about-bio { display:flex;flex-direction:column;gap:0 }
-.about-bio .eyebrow { font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1.5rem;font-weight:500 }
-.about-name { font-family:var(--fd);font-size:clamp(1.8rem,3vw,2.6rem);font-weight:900;color:var(--ink);margin-bottom:.3rem;letter-spacing:-.02em }
-.about-role { font-size:.92rem;color:var(--muted);letter-spacing:.05em;margin-bottom:2rem }
-.about-rule { width:36px;height:1px;background:var(--gold);margin-bottom:2rem }
-.about-text { font-size:1rem;line-height:1.9;color:var(--ink);margin-bottom:1.25rem }
-.about-text:last-of-type { margin-bottom:0 }
-
-/* gaps between thoughts */
-.about-gap { height:1.75rem }
-
-/* ── BULLETS — the 4 lines ── */
-.about-lines {
-  display:flex;flex-direction:column;gap:.9rem;
-  margin: 1.5rem 0 2.25rem;
-  padding: 1.5rem;
-  background: var(--paper-2);
-  border-right: 3px solid var(--gold);
-  border-radius: 0 3px 3px 0;
-}
-.about-lines li { list-style:none;font-size:.96rem;color:var(--muted);line-height:1.7;padding-right:.25rem }
-
-/* ── METHOD SECTION ── */
-.about-method {
-  background: var(--paper-2);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  padding: clamp(3rem,6vw,5.5rem) clamp(1.5rem,5vw,4rem);
-}
-.about-method .inner { max-width:var(--max);margin:0 auto }
-.about-method .eyebrow { font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;font-weight:500 }
-.about-method h2 { font-family:var(--fd);font-size:clamp(1.7rem,3vw,2.5rem);font-weight:700;color:var(--ink);margin-bottom:2.5rem;letter-spacing:-.01em }
-.method-steps { display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem }
-.method-step { background:#fff;border:1px solid var(--border);border-radius:3px;padding:1.75rem }
-.method-step-num { font-family:var(--fd);font-size:2.2rem;font-weight:900;color:rgba(184,131,42,.18);margin-bottom:.75rem;line-height:1 }
-.method-step h3 { font-family:var(--fd);font-size:1.05rem;font-weight:700;color:var(--ink);margin-bottom:.6rem }
-.method-step p { font-size:.91rem;color:var(--muted);line-height:1.75;margin:0 }
-
-/* ── FOR WHO ── */
-.about-forwhom {
-  max-width: var(--max);
-  margin: 0 auto;
-  padding: clamp(3rem,6vw,5.5rem) clamp(1.5rem,5vw,4rem);
-}
-.about-forwhom .eyebrow { font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem;font-weight:500 }
-.about-forwhom h2 { font-family:var(--fd);font-size:clamp(1.7rem,3vw,2.5rem);font-weight:700;color:var(--ink);margin-bottom:2rem;letter-spacing:-.01em }
-.forwhom-list { display:flex;flex-direction:column;gap:1rem }
-.forwhom-item { display:flex;align-items:flex-start;gap:1rem;padding:1.25rem 1.5rem;background:var(--paper-2);border-radius:3px }
-.forwhom-icon { color:var(--gold);font-size:1.1rem;flex-shrink:0;margin-top:.1rem }
-.forwhom-item p { font-size:.97rem;color:var(--ink);line-height:1.75;margin:0 }
-
-/* ── CTA BOX ── */
-.about-cta {
-  background: var(--ink);
-  padding: clamp(3rem,6vw,5rem) clamp(1.5rem,5vw,4rem);
-  text-align: center;
-}
-.about-cta .inner { max-width:640px;margin:0 auto }
-.about-cta h2 { font-family:var(--fd);font-size:clamp(1.6rem,3vw,2.3rem);font-weight:700;color:var(--paper);margin-bottom:.75rem }
-.about-cta p { color:rgba(247,244,238,.55);font-size:.97rem;line-height:1.8;margin-bottom:2rem }
-.cta-row { display:flex;gap:1rem;justify-content:center;flex-wrap:wrap }
-.btn-gold-lg {
-  display:inline-flex;align-items:center;gap:.5rem;
-  padding:.9rem 2.2rem;background:var(--gold);color:#fff;
-  font-family:var(--fb);font-size:.88rem;font-weight:500;
-  letter-spacing:.08em;text-transform:uppercase;border-radius:2px;
-  transition:background .2s,transform .15s;border:none;cursor:pointer;text-decoration:none;
-}
-.btn-gold-lg:hover { background:var(--gold-d);transform:translateY(-1px) }
-.btn-wa {
-  display:inline-flex;align-items:center;gap:.6rem;
-  padding:.9rem 2.2rem;background:#25d366;color:#fff;
-  font-family:var(--fb);font-size:.88rem;font-weight:500;
-  letter-spacing:.05em;border-radius:2px;
-  transition:opacity .2s;text-decoration:none;
-}
-.btn-wa:hover { opacity:.88 }
-.btn-wa svg { width:18px;height:18px;fill:#fff;flex-shrink:0 }
-
-/* ── MOBILE ── */
-@media(max-width:768px) {
-  .about-intro { grid-template-columns:1fr }
-  .about-photo-wrap { position:static;margin-bottom:.5rem }
-  .about-photo { aspect-ratio:4/5 }
-  .cta-row { flex-direction:column;align-items:center }
-}
-</style>
+<link rel="stylesheet" href="/assets/about.css?v=2">
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -360,18 +231,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p class="foot-copy">© 2026 GoFlow. כל הזכויות שמורות.</p>
 </footer>
 
-<script>
-function toggleDrawer(){
-  document.getElementById('hbg').classList.toggle('open');
-  document.getElementById('drawer').classList.toggle('open');
-  document.body.style.overflow = document.getElementById('drawer').classList.contains('open') ? 'hidden' : '';
-}
-function closeDrawer(){
-  document.getElementById('hbg').classList.remove('open');
-  document.getElementById('drawer').classList.remove('open');
-  document.body.style.overflow = '';
-}
-</script>
+<script src="/assets/shared.js?v=2"></script>
 
 </body>
 </html>
