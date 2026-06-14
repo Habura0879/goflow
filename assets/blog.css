@@ -83,7 +83,7 @@ p.body-text{margin-bottom:1.25rem;color:var(--ink);font-size:1rem}
 
 /* ── ADDITIONAL BLOG INDEX STYLES ── */
 .post-q{font-size:.82rem;color:var(--muted);font-style:italic;margin-bottom:.5rem;line-height:1.4}
-.filter-bar{max-width:var(--max);margin:0 auto;padding:1.5rem clamp(1.25rem,5vw,4rem) 0;display:flex;gap:.6rem;flex-wrap:wrap;justify-content:flex-start}
+.filter-bar{max-width:var(--max);margin:0 auto;padding:1.5rem clamp(1.25rem,5vw,4rem) 0;display:flex;gap:.6rem;flex-wrap:wrap;justify-content:flex-end;direction:rtl}
 .filter-btn{padding:.4rem 1.1rem;border:1px solid var(--border);border-radius:2rem;background:none;font-family:var(--fb);font-size:.78rem;letter-spacing:.07em;cursor:pointer;color:var(--muted);transition:all .2s}
 .filter-btn:hover,.filter-btn.active{background:var(--gold);color:#fff;border-color:var(--gold)}
 .post-card.hidden{display:none}

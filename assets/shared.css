@@ -119,18 +119,23 @@ footer.site-footer img{height:28px;width:auto;display:block;}
   right: 0;
   background: var(--ink);
   color: var(--paper);
-  border-top: 1px solid var(--border-g);
+  border-top: 2px solid var(--gold);
   padding: 1rem clamp(1.5rem, 5vw, 4rem);
   z-index: 9999;
   font-family: var(--fb);
   direction: rtl;
-  box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
-  display: none; /* Controlled by JS */
+  box-shadow: 0 -6px 32px rgba(0,0,0,0.22);
   transform: translateY(100%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
 }
 .cookie-banner.show {
-  display: block;
-  animation: cookieSlideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
 }
 .cookie-banner-inner {
   max-width: var(--max);
@@ -172,10 +177,7 @@ footer.site-footer img{height:28px;width:auto;display:block;}
 .cookie-banner-btn:hover {
   background: var(--gold-d);
 }
-@keyframes cookieSlideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-}
+
 @media (max-width: 768px) {
   .cookie-banner {
     padding: 1.25rem 1.5rem;
