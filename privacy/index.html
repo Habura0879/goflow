@@ -20,7 +20,7 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700;900&family=Playfair+Display:wght@700;900&family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/shared.css?v=3">
-<link rel="stylesheet" href="/assets/cookie.css?v=2">
+<link rel="stylesheet" href="/assets/cookie.css?v=3">
 <link rel="stylesheet" href="/assets/blog.css?v=3">
 </head>
 <body>
@@ -70,10 +70,10 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
     </p>
 
     <h2 class="section-title">3. שימוש בקבצי קוקיז (Cookies) ושירותי צד שלישי</h2>
-    <p class="body-text">האתר משתמש בקבצי קוקיז חיוניים לצורך תפעולו. קבצי קוקיז לצורך ניתוח נתונים סטטיסטיים מופעלים בהתאם לבחירה שמוצגת בבאנר ההסכמה:</p>
+    <p class="body-text">האתר משתמש בקבצי קוקיז חיוניים לצורך תפעולו ובקבצי קוקיז לצורך ניתוח נתונים סטטיסטיים. הודעה על השימוש בקוקיז מוצגת בכניסה לאתר, וניתן לאשר שקראתם אותה באמצעות לחיצה על "הבנתי":</p>
     <p class="body-text">
       - <strong>Google Analytics 4 & Google Tag Manager:</strong> אנו משתמשים בכלים אלו של חברת Google כדי לנתח את השימוש באתר (למשל, אילו עמודים פופולריים יותר וכיצד גולשים מנווטים באתר). הנתונים המועברים לגוגל מוגדרים כאנונימיים במידת האפשר.<br>
-      ניתן לבחור להמשיך ללא ניתוח נתונים. נכון למועד עדכון מדיניות זו, האתר אינו מפעיל פיקסלים פרסומיים דרך באנר ההסכמה.
+      נכון למועד עדכון מדיניות זו, האתר אינו מפעיל פיקסלים פרסומיים דרך באנר הקוקיז.
     </p>
 
     <h2 class="section-title">4. כיצד ניתן לנהל או לחסום קבצי קוקיז?</h2>
@@ -108,15 +108,14 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
   <p class="foot-copy">© 2026 GoFlow. כל הזכויות שמורות.</p>
 </footer>
 
-<script src="/assets/shared.js?v=3"></script>
+<script src="/assets/shared.js?v=4"></script>
 <!-- COOKIE CONSENT BANNER -->
 <div id="cookie-banner" class="cookie-banner">
   <div class="cookie-banner-inner">
-    <p class="cookie-banner-text">האתר משתמש בקוקיז חיוניים. נתוני שימוש אנונימיים ייאספו רק בהסכמתך. <a href="/privacy/" class="cookie-policy-link">מידע נוסף</a>.</p>
-    <div class="cookie-banner-actions">
-      <button class="cookie-banner-btn secondary" onclick="setCookieConsent('denied')">ללא ניתוח</button>
-      <button class="cookie-banner-btn" onclick="setCookieConsent('granted')">אישור</button>
-    </div>
+    <p class="cookie-banner-text">
+      אתר זה משתמש בקבצי קוקיז (Cookies) כדי להעניק לך את חוויית הגלישה הטובה ביותר ולצורך ניתוח תעבורה. המשך השימוש באתר מהווה הסכמה לכך. למידע נוסף, ניתן לעיין ב<a href="/privacy/" class="cookie-policy-link">מדיניות הפרטיות שלנו</a>.
+    </p>
+    <button class="cookie-banner-btn" onclick="closeCookieBanner()">הבנתי</button>
   </div>
 </div>
 </body>

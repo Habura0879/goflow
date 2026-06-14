@@ -32,14 +32,14 @@ function loadAnalytics(){
   gtag('config', 'G-E7Q866K3RX');
 }
 
-function setCookieConsent(choice){
-  var granted = choice === 'granted';
-  localStorage.setItem('goflow_consent', granted ? 'granted' : 'denied');
+function closeCookieBanner(){
+  localStorage.setItem('goflow_cookie_notice_acknowledged', 'true');
+  localStorage.setItem('goflow_consent', 'granted');
   localStorage.removeItem('goflow_cookies_accepted');
-  if (granted) loadAnalytics();
+  loadAnalytics();
   if (typeof gtag === 'function') {
     gtag('consent', 'update', {
-      analytics_storage: granted ? 'granted' : 'denied',
+      analytics_storage: 'granted',
       ad_storage: 'denied',
       ad_user_data: 'denied',
       ad_personalization: 'denied'
@@ -49,9 +49,9 @@ function setCookieConsent(choice){
   if (banner) banner.classList.remove('show');
 }
 
-// Backward compatibility for cached HTML.
-function closeCookieBanner(){
-  setCookieConsent('granted');
+// Backward compatibility while cached pages are refreshed.
+function setCookieConsent(){
+  closeCookieBanner();
 }
 
 function trackEvent(name, params){
@@ -61,8 +61,12 @@ function trackEvent(name, params){
 document.addEventListener('DOMContentLoaded', function(){
   var banner = document.getElementById('cookie-banner');
   var choice = localStorage.getItem('goflow_consent');
-  if (choice === 'granted') loadAnalytics();
-  if (banner && !choice) {
+  var acknowledged = localStorage.getItem('goflow_cookie_notice_acknowledged');
+  if (choice === 'granted') {
+    localStorage.setItem('goflow_cookie_notice_acknowledged', 'true');
+    loadAnalytics();
+  }
+  if (banner && !acknowledged && choice !== 'granted') {
     setTimeout(function(){
       banner.classList.add('show');
     }, 600);
