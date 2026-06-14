@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
 <!-- Google Tag Manager -->
@@ -76,7 +76,7 @@ gtag("config", "G-E7Q866K3RX");
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700;900&family=Playfair+Display:wght@700;900&family=Rubik:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/shared.css?v=3">
 <link rel="stylesheet" href="/assets/cookie.css?v=1">
-<link rel="stylesheet" href="/assets/blog.css?v=2">
+<link rel="stylesheet" href="/assets/blog.css?v=3">
 <link rel="stylesheet" href="/assets/blog-index.css?v=3">
 </head>
 <body>
@@ -118,7 +118,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ═══ / SHARED NAV ═══ -->
 
 
-<script src="/assets/shared.js?v=2"></script>
+<script>
+function toggleDrawer(){
+  document.getElementById('hbg').classList.toggle('open');
+  document.getElementById('drawer').classList.toggle('open');
+  document.body.style.overflow=document.getElementById('drawer').classList.contains('open')?'hidden':'';
+}
+function closeDrawer(){
+  document.getElementById('hbg').classList.remove('open');
+  document.getElementById('drawer').classList.remove('open');
+  document.body.style.overflow='';
+}
+</script>
 
 
 <div class="blog-hero">
@@ -239,6 +250,7 @@ function filter(cat){
   </div>
   <p class="foot-copy">© 2026 GoFlow. כל הזכויות שמורות.</p>
 </footer>
+<script src="/assets/shared.js?v=2"></script>
 <!-- COOKIE CONSENT BANNER -->
 <div id="cookie-banner" class="cookie-banner">
   <div class="cookie-banner-inner">

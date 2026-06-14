@@ -7,6 +7,10 @@ RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} ^www\.goflow\.co\.il$ [NC]
 RewriteRule ^ https://goflow.co.il%{REQUEST_URI} [R=301,L,NE]
 
+# Redirect explicit index files to their clean canonical directory URLs.
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html(?:[\s?]) [NC]
+RewriteRule ^(.*/)?index\.html$ https://goflow.co.il/$1 [R=301,L,NE]
+
 # Missing files should return a real 404 instead of falling back to the home page.
 ErrorDocument 404 /404.html
 
