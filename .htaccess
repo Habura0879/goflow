@@ -2,6 +2,9 @@ DirectoryIndex index.html
 
 RewriteEngine On
 
+# CRM service was renamed to reflect strategic consulting and specification.
+RewriteRule ^services/crm-implementation/?$ https://goflow.co.il/services/crm-consulting/ [R=301,L,NE]
+
 # Keep one canonical origin for search engines and shared links.
 RewriteCond %{HTTPS} !=on [OR]
 RewriteCond %{HTTP_HOST} ^www\.goflow\.co\.il$ [NC]
