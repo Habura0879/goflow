@@ -19,7 +19,7 @@ GoFlow helps organizations map and improve operational processes, define ownersh
 ## Services
 
 - [Process consulting](https://goflow.co.il/services/process-consulting/): process mapping, bottleneck analysis, responsibility definition, controls and implementation.
-- [Business automation](https://goflow.co.il/services/business-automation/): automation design after process definition, system connections, alerts, testing and monitoring.
+- [Business automation specification](https://goflow.co.il/services/business-automation/): process research and requirements for triggers, data, actions, exceptions, controls and acceptance testing, prepared for a technical implementer.
 - [CRM consulting and specification](https://goflow.co.il/services/crm-consulting/): process research, CRM requirements, system selection, a detailed specification for the implementer, and implementation oversight.
 - [What a CRM requirements document includes](https://goflow.co.il/services/crm-requirements-document/): business goals, target workflows, roles, data fields, automations, integrations, reports, exceptions and acceptance tests.
 - [CRM consultant vs implementation company](https://goflow.co.il/blog/crm-consultant-vs-implementation-company/): explains the difference between independent business process and CRM specification work and the technical implementation role.
@@ -32,8 +32,8 @@ GoFlow helps organizations map and improve operational processes, define ownersh
 - [Five signs an organization needs process consulting](https://goflow.co.il/blog/5-signs-you-need-process-consulting/)
 - [Business automation: what to automate and what not to automate](https://goflow.co.il/blog/automation-for-business/)
 - [Why the CEO becomes the business bottleneck](https://goflow.co.il/blog/ceo-bottleneck/)
-- [CRM for businesses in 2026](https://goflow.co.il/blog/crm-for-business-2026/)
-- [CRM requirements and specification checklist](https://goflow.co.il/blog/crm-requirements-checklist/)
+- [How to choose a CRM system in 2026](https://goflow.co.il/blog/crm-for-business-2026/): comparison criteria covering workflows, users, integrations, data, total cost and vendor demonstrations.
+- [CRM requirements checklist before choosing a system](https://goflow.co.il/blog/crm-requirements-checklist/): a preliminary worksheet for gathering questions and gaps before a full CRM specification.
 - [Why CRM cannot fix a broken process](https://goflow.co.il/blog/crm-solves-nothing/)
 - [How to diagnose whether the problem is people, systems or process](https://goflow.co.il/blog/people-system-or-process/)
 - [A practical guide to work procedures](https://goflow.co.il/blog/work-procedures-guide/)
