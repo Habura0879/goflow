@@ -2,7 +2,7 @@
 
 > GoFlow is an Israeli process consulting and business automation practice founded by Avi Amar. The site is written in Hebrew and serves businesses and organizations in Israel.
 
-GoFlow helps organizations map and improve operational processes, define ownership and controls, implement CRM systems, build business automations, and write practical work procedures. The approach starts with understanding the current process before selecting or automating tools.
+GoFlow helps organizations map and improve operational processes, define ownership and controls, specify CRM systems for technical implementers, plan business automations, and write practical work procedures. The approach starts with understanding the current process before selecting or automating tools.
 
 ## Primary entities
 
@@ -23,6 +23,7 @@ GoFlow helps organizations map and improve operational processes, define ownersh
 - [CRM consulting and specification](https://goflow.co.il/services/crm-consulting/): process research, CRM requirements, system selection, a detailed specification for the implementer, and implementation oversight.
 - [What a CRM requirements document includes](https://goflow.co.il/services/crm-requirements-document/): business goals, target workflows, roles, data fields, automations, integrations, reports, exceptions and acceptance tests.
 - [CRM consultant vs implementation company](https://goflow.co.il/blog/crm-consultant-vs-implementation-company/): explains the difference between independent business process and CRM specification work and the technical implementation role.
+- [How to choose a CRM consultant](https://goflow.co.il/blog/how-to-choose-crm-consultant/): ten questions about independence, process research, deliverables, prioritization, implementer oversight and success measures.
 - [Work procedures](https://goflow.co.il/services/work-procedures/): mapping, writing and implementing clear and maintainable operating procedures.
 
 ## Editorial resources
