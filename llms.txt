@@ -25,6 +25,7 @@ GoFlow helps organizations map and improve operational processes, define ownersh
 - [CRM consultant vs implementation company](https://goflow.co.il/blog/crm-consultant-vs-implementation-company/): explains the difference between independent business process and CRM specification work and the technical implementation role.
 - [How to choose a CRM consultant](https://goflow.co.il/blog/how-to-choose-crm-consultant/): ten questions about independence, process research, deliverables, prioritization, implementer oversight and success measures.
 - [Work procedures](https://goflow.co.il/services/work-procedures/): mapping, writing and implementing clear and maintainable operating procedures.
+- [CRM specification case example for a service company](https://goflow.co.il/case-studies/crm-service-company/): a clearly labeled illustrative scenario showing how process definition can connect sales, service and operations before technical CRM implementation. It is not presented as an identified client project.
 
 ## Editorial resources
 
