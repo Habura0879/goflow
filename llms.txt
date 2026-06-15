@@ -21,6 +21,7 @@ GoFlow helps organizations map and improve operational processes, define ownersh
 - [Process consulting](https://goflow.co.il/services/process-consulting/): process mapping, bottleneck analysis, responsibility definition, controls and implementation.
 - [Business automation](https://goflow.co.il/services/business-automation/): automation design after process definition, system connections, alerts, testing and monitoring.
 - [CRM consulting and specification](https://goflow.co.il/services/crm-consulting/): process research, CRM requirements, system selection, a detailed specification for the implementer, and implementation oversight.
+- [What a CRM requirements document includes](https://goflow.co.il/services/crm-requirements-document/): business goals, target workflows, roles, data fields, automations, integrations, reports, exceptions and acceptance tests.
 - [Work procedures](https://goflow.co.il/services/work-procedures/): mapping, writing and implementing clear and maintainable operating procedures.
 
 ## Editorial resources
