@@ -397,7 +397,7 @@ if (quizLeadForm) {
         btn.style.background = '#1a5c2a';
         msg.style.display = 'block';
         msg.style.color = 'var(--gold)';
-        msg.textContent = 'תודה. קיבלנו את הפרטים ואת תוצאת האבחון.';
+        msg.textContent = 'תודה. קיבלנו את הפרטים ואת תוצאת האבחון, ונחזור אליכם בהקדם.';
         if (typeof trackEvent === 'function') trackEvent('generate_lead', { method: 'quiz_form' });
         this.reset();
         if (summary) summary.value = latestQuizSummary;
