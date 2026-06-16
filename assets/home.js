@@ -174,7 +174,9 @@ var dims = {
 };
 
 var answers = {};
+var answerDetails = [];
 var currentQ = 0;
+var latestQuizSummary = '';
 
 function renderQ(){
   var q = questions[currentQ];
@@ -195,6 +197,13 @@ function renderQ(){
       document.querySelectorAll('.quiz-opt').forEach(function(el){ el.classList.remove('selected'); });
       div.classList.add('selected');
       answers[q.dimension] = o.score;
+      answerDetails[currentQ] = {
+        number: currentQ + 1,
+        question: q.text,
+        answer: o.label,
+        dimension: q.dimension,
+        score: o.score
+      };
       document.getElementById('btnNext').classList.add('active');
     };
     optWrap.appendChild(div);
@@ -218,12 +227,33 @@ window.nextQ = function(){
 };
 
 window.restartQuiz = function(){
-  answers = {}; currentQ = 0;
+  answers = {}; answerDetails = []; currentQ = 0; latestQuizSummary = '';
   document.getElementById('progressWrap').style.display = '';
   document.getElementById('questionWrap').style.display = '';
   document.getElementById('quizResult').classList.remove('show');
+  var quizLeadForm = document.getElementById('quizLeadForm');
+  if (quizLeadForm) quizLeadForm.reset();
+  var quizLeadMsg = document.getElementById('quizLeadMsg');
+  if (quizLeadMsg) quizLeadMsg.style.display = 'none';
   renderQ();
 };
+
+function buildQuizSummary(data){
+  var lines = [
+    'מקור: שאלון אבחון תפעולי באתר',
+    'רמת תוצאה: ' + data.badge,
+    'ניקוד: ' + data.total + '/' + data.maxScore + ' (' + Math.round(data.pct * 100) + '%)',
+    'אזורים לשיפור: ' + (data.dimLabels || 'לא זוהו אזורים חריגים'),
+    '',
+    'תשובות:'
+  ];
+  answerDetails.forEach(function(item){
+    if (!item) return;
+    lines.push(item.number + '. ' + item.question);
+    lines.push('תשובה: ' + item.answer + ' | ציון: ' + item.score);
+  });
+  return lines.join('\n');
+}
 
 function showResult(){
   document.getElementById('progressBar').style.width = '100%';
@@ -285,6 +315,15 @@ function showResult(){
 
   // build WA message with results
   var dimLabels = toShow.map(function(e){ return dims[e[0]].title; }).join(', ');
+  latestQuizSummary = buildQuizSummary({
+    badge: badge,
+    total: total,
+    maxScore: maxScore,
+    pct: pct,
+    dimLabels: dimLabels
+  });
+  var quizSummaryField = document.getElementById('quizSummaryField');
+  if (quizSummaryField) quizSummaryField.value = latestQuizSummary;
   var waMsg = encodeURIComponent(
     'שלום GoFlow,\n' +
     'מילאתי את האבחון באתר.\n' +
@@ -296,6 +335,54 @@ function showResult(){
 
   document.getElementById('quizResult').classList.add('show');
   if (typeof trackEvent === 'function') trackEvent('quiz_complete', { result_level: level });
+}
+
+var quizLeadForm = document.getElementById('quizLeadForm');
+if (quizLeadForm) {
+  quizLeadForm.addEventListener('submit', async function(e){
+    e.preventDefault();
+    var btn = document.getElementById('quizLeadSubmit');
+    var msg = document.getElementById('quizLeadMsg');
+    var summary = document.getElementById('quizSummaryField');
+    if (summary && !summary.value) summary.value = latestQuizSummary;
+
+    btn.textContent = 'שולח...';
+    btn.disabled = true;
+    msg.style.display = 'none';
+
+    var data = new FormData(this);
+    data.append('message', latestQuizSummary || 'נשלח ליד מסיום שאלון, אך סיכום השאלון לא נטען.');
+
+    try {
+      var res = await fetch('https://formspree.io/f/maqzwlqy', {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        btn.textContent = '✓ האבחון נשלח';
+        btn.style.background = '#1a5c2a';
+        msg.style.display = 'block';
+        msg.style.color = 'var(--gold)';
+        msg.textContent = 'תודה. קיבלנו את הפרטים ואת תוצאת האבחון.';
+        if (typeof trackEvent === 'function') trackEvent('generate_lead', { method: 'quiz_form' });
+        this.reset();
+        if (summary) summary.value = latestQuizSummary;
+      } else {
+        btn.textContent = 'שליחת האבחון ←';
+        btn.disabled = false;
+        msg.style.display = 'block';
+        msg.style.color = '#b43c1e';
+        msg.textContent = 'אירעה שגיאה בשליחה. אפשר לשלוח דרך וואטסאפ.';
+      }
+    } catch(err) {
+      btn.textContent = 'שליחת האבחון ←';
+      btn.disabled = false;
+      msg.style.display = 'block';
+      msg.style.color = '#b43c1e';
+      msg.textContent = 'בעיית תקשורת. אפשר לשלוח דרך וואטסאפ.';
+    }
+  });
 }
 
 renderQ();
