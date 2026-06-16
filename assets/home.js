@@ -362,7 +362,11 @@ function showResult(){
   );
   document.getElementById('waBtn').href = 'https://wa.me/9720547951161?text=' + waMsg;
 
-  document.getElementById('quizResult').classList.add('show');
+  var quizResult = document.getElementById('quizResult');
+  quizResult.classList.add('show');
+  var headerOffset = window.innerWidth <= 768 ? 150 : 110;
+  var resultTop = quizResult.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+  window.scrollTo({ top: Math.max(resultTop, 0), behavior: 'auto' });
   if (typeof trackEvent === 'function') trackEvent('quiz_complete', { result_level: level });
 }
 

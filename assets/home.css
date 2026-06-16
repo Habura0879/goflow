@@ -491,7 +491,8 @@ footer{
   .stats-grid{grid-template-columns:repeat(3,1fr)}
   #about .fi{grid-template-columns:1fr !important}
   .quiz-lead-grid{grid-template-columns:1fr;gap:0}
-  .quiz-lead-form{padding:1.5rem}
+  .result-cta{padding:1.5rem 1rem}
+  .quiz-lead-form{padding:1.5rem 1rem}
   .result-cta-btns{width:100%}
   .result-cta-btns .btn-wa,.result-cta-btns .btn-quiz-form{width:100%;justify-content:center}
 }
