@@ -387,7 +387,7 @@ p.lead{font-size:1.08rem;color:var(--muted);line-height:1.9;max-width:600px}
 .btn-quiz-form:hover{opacity:.88}
 .btn-restart{font-size:.8rem;color:var(--muted);background:none;border:1px solid var(--border);padding:.6rem 1rem;border-radius:2px;cursor:pointer;transition:border-color .2s;letter-spacing:.05em}
 .btn-restart:hover{border-color:var(--muted)}
-.quiz-lead-form{margin-top:1.25rem;background:var(--paper);border:1px solid var(--border);border-radius:var(--r);padding:2rem 2.25rem}
+.quiz-lead-form{flex:0 0 100%;margin-top:.5rem;background:rgba(255,255,255,.5);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem}
 .quiz-lead-form h3{font-size:1rem;font-weight:500;margin-bottom:.35rem;color:var(--ink)}
 .quiz-lead-form>p{font-size:.86rem;color:var(--muted);line-height:1.75;margin-bottom:1.4rem}
 .quiz-lead-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem 1.25rem}

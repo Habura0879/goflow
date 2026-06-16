@@ -232,10 +232,39 @@ window.restartQuiz = function(){
   document.getElementById('questionWrap').style.display = '';
   document.getElementById('quizResult').classList.remove('show');
   var quizLeadForm = document.getElementById('quizLeadForm');
-  if (quizLeadForm) quizLeadForm.reset();
+  if (quizLeadForm) {
+    quizLeadForm.reset();
+    quizLeadForm.hidden = true;
+  }
+  var quizLeadToggle = document.getElementById('quizLeadToggle');
+  if (quizLeadToggle) quizLeadToggle.textContent = 'השאירו פרטים';
   var quizLeadMsg = document.getElementById('quizLeadMsg');
   if (quizLeadMsg) quizLeadMsg.style.display = 'none';
+  var quizLeadSubmit = document.getElementById('quizLeadSubmit');
+  if (quizLeadSubmit) {
+    quizLeadSubmit.textContent = 'שליחת האבחון ←';
+    quizLeadSubmit.disabled = false;
+    quizLeadSubmit.style.background = '';
+  }
   renderQ();
+};
+
+window.toggleQuizLeadForm = function(){
+  var form = document.getElementById('quizLeadForm');
+  var toggle = document.getElementById('quizLeadToggle');
+  if (!form) return;
+
+  form.hidden = !form.hidden;
+  if (toggle) toggle.textContent = form.hidden ? 'השאירו פרטים' : 'סגור טופס';
+
+  if (!form.hidden) {
+    var summary = document.getElementById('quizSummaryField');
+    if (summary && !summary.value) summary.value = latestQuizSummary;
+    var firstField = form.querySelector('input[name="name"]');
+    if (firstField) {
+      setTimeout(function(){ firstField.focus({ preventScroll: true }); }, 0);
+    }
+  }
 };
 
 function buildQuizSummary(data){
