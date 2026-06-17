@@ -179,12 +179,29 @@ var currentQ = 0;
 var latestQuizSummary = '';
 var latestQuizData = {};
 var quizStarted = false;
+var quizSheetWebhookUrl = 'https://script.google.com/macros/s/AKfycbxQVBy5bUWZAwwjQWii_clzD6I2Q5Y4Qbwd6xSFbM8v3SpeV_LHO1mPlbG9frYr1mGl/exec';
 
 function getQuizTrackingData(extra){
   return Object.assign({
     quiz_name: 'operational_diagnosis',
     quiz_question_count: questions.length
   }, latestQuizData || {}, extra || {});
+}
+
+function sendQuizLeadToSheet(formData){
+  if (!quizSheetWebhookUrl) return;
+  var payload = new URLSearchParams();
+  formData.forEach(function(value, key){
+    payload.append(key, value);
+  });
+  payload.append('submitted_at', new Date().toISOString());
+
+  fetch(quizSheetWebhookUrl, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    body: payload.toString()
+  }).catch(function(){});
 }
 
 function renderQ(){
@@ -438,6 +455,7 @@ if (quizLeadForm) {
         data.append(key, trackingParams[key]);
       });
     }
+    sendQuizLeadToSheet(data);
     if (typeof trackEvent === 'function') trackEvent('quiz_lead_form_submit_attempt', getQuizTrackingData({ method: 'quiz_form' }));
 
     try {
