@@ -204,6 +204,28 @@ function sendQuizLeadToSheet(formData){
   }).catch(function(){});
 }
 
+function setFormValue(formData, key, value){
+  if (typeof formData.set === 'function') formData.set(key, value);
+  else formData.append(key, value);
+}
+
+function sendQuizSnapshotToSheet(snapshotType, formData){
+  var data = formData || new FormData();
+  setFormValue(data, 'source', snapshotType);
+  setFormValue(data, 'message', latestQuizSummary || 'שאלון הושלם ללא סיכום זמין.');
+  setFormValue(data, 'quiz_summary', latestQuizSummary || '');
+  Object.keys(getQuizTrackingData()).forEach(function(key){
+    setFormValue(data, key, getQuizTrackingData()[key]);
+  });
+  if (typeof getTrackingParams === 'function') {
+    var trackingParams = getTrackingParams();
+    Object.keys(trackingParams).forEach(function(key){
+      setFormValue(data, key, trackingParams[key]);
+    });
+  }
+  sendQuizLeadToSheet(data);
+}
+
 function renderQ(){
   var q = questions[currentQ];
   document.getElementById('qNum').textContent   = 'שאלה ' + (currentQ+1);
@@ -428,6 +450,7 @@ function showResult(){
   var headerOffset = window.innerWidth <= 768 ? 150 : 110;
   var resultTop = quizResult.getBoundingClientRect().top + window.pageYOffset - headerOffset;
   window.scrollTo({ top: Math.max(resultTop, 0), behavior: 'auto' });
+  sendQuizSnapshotToSheet('quiz_complete');
   if (typeof trackEvent === 'function') trackEvent('quiz_complete', getQuizTrackingData());
 }
 
@@ -445,17 +468,7 @@ if (quizLeadForm) {
     msg.style.display = 'none';
 
     var data = new FormData(this);
-    data.append('message', latestQuizSummary || 'נשלח ליד מסיום שאלון, אך סיכום השאלון לא נטען.');
-    Object.keys(getQuizTrackingData()).forEach(function(key){
-      data.append(key, getQuizTrackingData()[key]);
-    });
-    if (typeof getTrackingParams === 'function') {
-      var trackingParams = getTrackingParams();
-      Object.keys(trackingParams).forEach(function(key){
-        data.append(key, trackingParams[key]);
-      });
-    }
-    sendQuizLeadToSheet(data);
+    sendQuizSnapshotToSheet('quiz_lead', data);
     if (typeof trackEvent === 'function') trackEvent('quiz_lead_form_submit_attempt', getQuizTrackingData({ method: 'quiz_form' }));
 
     try {
