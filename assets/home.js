@@ -177,6 +177,15 @@ var answers = {};
 var answerDetails = [];
 var currentQ = 0;
 var latestQuizSummary = '';
+var latestQuizData = {};
+var quizStarted = false;
+
+function getQuizTrackingData(extra){
+  return Object.assign({
+    quiz_name: 'operational_diagnosis',
+    quiz_question_count: questions.length
+  }, latestQuizData || {}, extra || {});
+}
 
 function renderQ(){
   var q = questions[currentQ];
@@ -196,6 +205,10 @@ function renderQ(){
     div.onclick = function(){
       document.querySelectorAll('.quiz-opt').forEach(function(el){ el.classList.remove('selected'); });
       div.classList.add('selected');
+      if (!quizStarted) {
+        quizStarted = true;
+        if (typeof trackEvent === 'function') trackEvent('quiz_start', getQuizTrackingData());
+      }
       answers[q.dimension] = o.score;
       answerDetails[currentQ] = {
         number: currentQ + 1,
@@ -204,6 +217,14 @@ function renderQ(){
         dimension: q.dimension,
         score: o.score
       };
+      if (typeof trackEvent === 'function') {
+        trackEvent('quiz_answer', getQuizTrackingData({
+          question_number: currentQ + 1,
+          question_dimension: q.dimension,
+          answer_score: o.score,
+          answer_label: o.label
+        }));
+      }
       document.getElementById('btnNext').classList.add('active');
     };
     optWrap.appendChild(div);
@@ -218,6 +239,11 @@ function renderQ(){
 }
 
 window.nextQ = function(){
+  if (typeof trackEvent === 'function') {
+    trackEvent('quiz_next', getQuizTrackingData({
+      question_number: currentQ + 1
+    }));
+  }
   currentQ++;
   if(currentQ < questions.length){
     renderQ();
@@ -227,7 +253,8 @@ window.nextQ = function(){
 };
 
 window.restartQuiz = function(){
-  answers = {}; answerDetails = []; currentQ = 0; latestQuizSummary = '';
+  if (typeof trackEvent === 'function') trackEvent('quiz_restart', getQuizTrackingData());
+  answers = {}; answerDetails = []; currentQ = 0; latestQuizSummary = ''; latestQuizData = {}; quizStarted = false;
   document.getElementById('progressWrap').style.display = '';
   document.getElementById('questionWrap').style.display = '';
   document.getElementById('quizResult').classList.remove('show');
@@ -256,6 +283,9 @@ window.toggleQuizLeadForm = function(){
 
   form.hidden = !form.hidden;
   if (toggle) toggle.textContent = form.hidden ? 'השאירו פרטים' : 'סגור טופס';
+  if (typeof trackEvent === 'function') {
+    trackEvent(form.hidden ? 'quiz_lead_form_close' : 'quiz_lead_form_open', getQuizTrackingData());
+  }
 
   if (!form.hidden) {
     var summary = document.getElementById('quizSummaryField');
@@ -344,6 +374,16 @@ function showResult(){
 
   // build WA message with results
   var dimLabels = toShow.map(function(e){ return dims[e[0]].title; }).join(', ');
+  var worstDimension = toShow.length ? toShow[0][0] : '';
+  latestQuizData = {
+    result_level: level,
+    result_badge: badge,
+    score_total: total,
+    score_max: maxScore,
+    score_percent: Math.round(pct * 100),
+    top_areas: dimLabels,
+    worst_dimension: worstDimension
+  };
   latestQuizSummary = buildQuizSummary({
     badge: badge,
     total: total,
@@ -360,14 +400,18 @@ function showResult(){
     'אזורים לשיפור: ' + dimLabels + '\n\n' +
     'אשמח לשמוע יותר.'
   );
-  document.getElementById('waBtn').href = 'https://wa.me/9720547951161?text=' + waMsg;
+  var waBtn = document.getElementById('waBtn');
+  waBtn.href = 'https://wa.me/9720547951161?text=' + waMsg;
+  waBtn.onclick = function(){
+    if (typeof trackEvent === 'function') trackEvent('quiz_whatsapp_click', getQuizTrackingData({ method: 'whatsapp' }));
+  };
 
   var quizResult = document.getElementById('quizResult');
   quizResult.classList.add('show');
   var headerOffset = window.innerWidth <= 768 ? 150 : 110;
   var resultTop = quizResult.getBoundingClientRect().top + window.pageYOffset - headerOffset;
   window.scrollTo({ top: Math.max(resultTop, 0), behavior: 'auto' });
-  if (typeof trackEvent === 'function') trackEvent('quiz_complete', { result_level: level });
+  if (typeof trackEvent === 'function') trackEvent('quiz_complete', getQuizTrackingData());
 }
 
 var quizLeadForm = document.getElementById('quizLeadForm');
@@ -385,6 +429,16 @@ if (quizLeadForm) {
 
     var data = new FormData(this);
     data.append('message', latestQuizSummary || 'נשלח ליד מסיום שאלון, אך סיכום השאלון לא נטען.');
+    Object.keys(getQuizTrackingData()).forEach(function(key){
+      data.append(key, getQuizTrackingData()[key]);
+    });
+    if (typeof getTrackingParams === 'function') {
+      var trackingParams = getTrackingParams();
+      Object.keys(trackingParams).forEach(function(key){
+        data.append(key, trackingParams[key]);
+      });
+    }
+    if (typeof trackEvent === 'function') trackEvent('quiz_lead_form_submit_attempt', getQuizTrackingData({ method: 'quiz_form' }));
 
     try {
       var res = await fetch('https://formspree.io/f/maqzwlqy', {
@@ -398,7 +452,10 @@ if (quizLeadForm) {
         msg.style.display = 'block';
         msg.style.color = 'var(--gold)';
         msg.textContent = 'תודה. קיבלנו את הפרטים ואת תוצאת האבחון, ונחזור אליכם בהקדם.';
-        if (typeof trackEvent === 'function') trackEvent('generate_lead', { method: 'quiz_form' });
+        if (typeof trackEvent === 'function') {
+          trackEvent('quiz_lead_form_submit_success', getQuizTrackingData({ method: 'quiz_form' }));
+          trackEvent('generate_lead', getQuizTrackingData({ method: 'quiz_form' }));
+        }
         this.reset();
         if (summary) summary.value = latestQuizSummary;
       } else {
@@ -407,6 +464,7 @@ if (quizLeadForm) {
         msg.style.display = 'block';
         msg.style.color = '#b43c1e';
         msg.textContent = 'אירעה שגיאה בשליחה. אפשר לשלוח דרך וואטסאפ.';
+        if (typeof trackEvent === 'function') trackEvent('quiz_lead_form_submit_error', getQuizTrackingData({ method: 'quiz_form' }));
       }
     } catch(err) {
       btn.textContent = 'שליחת האבחון ←';
@@ -414,6 +472,7 @@ if (quizLeadForm) {
       msg.style.display = 'block';
       msg.style.color = '#b43c1e';
       msg.textContent = 'בעיית תקשורת. אפשר לשלוח דרך וואטסאפ.';
+      if (typeof trackEvent === 'function') trackEvent('quiz_lead_form_submit_error', getQuizTrackingData({ method: 'quiz_form' }));
     }
   });
 }

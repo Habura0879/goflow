@@ -14,6 +14,17 @@ function closeDrawer(){
 }
 
 var goflowAnalyticsLoaded = false;
+var goflowGaMeasurementId = 'G-E7Q866K3RX';
+
+function grantAnalyticsConsent(){
+  if (typeof gtag !== 'function') return;
+  gtag('consent', 'update', {
+    analytics_storage: 'granted',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied'
+  });
+}
 
 function loadAnalytics(){
   if (goflowAnalyticsLoaded) return;
@@ -26,25 +37,18 @@ function loadAnalytics(){
 
   var ga = document.createElement('script');
   ga.async = true;
-  ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-E7Q866K3RX';
+  ga.src = 'https://www.googletagmanager.com/gtag/js?id=' + goflowGaMeasurementId;
   document.head.appendChild(ga);
   gtag('js', new Date());
-  gtag('config', 'G-E7Q866K3RX');
+  gtag('config', goflowGaMeasurementId);
 }
 
 function closeCookieBanner(){
   localStorage.setItem('goflow_cookie_notice_acknowledged', 'true');
   localStorage.setItem('goflow_consent', 'granted');
   localStorage.removeItem('goflow_cookies_accepted');
+  grantAnalyticsConsent();
   loadAnalytics();
-  if (typeof gtag === 'function') {
-    gtag('consent', 'update', {
-      analytics_storage: 'granted',
-      ad_storage: 'denied',
-      ad_user_data: 'denied',
-      ad_personalization: 'denied'
-    });
-  }
   var banner = document.getElementById('cookie-banner');
   if (banner) banner.classList.remove('show');
 }
@@ -55,7 +59,32 @@ function setCookieConsent(){
 }
 
 function trackEvent(name, params){
-  if (typeof gtag === 'function') gtag('event', name, params || {});
+  if (typeof gtag !== 'function') return;
+  var enriched = Object.assign({}, getTrackingParams(), params || {});
+  gtag('event', name, enriched);
+}
+
+function getTrackingParams(){
+  var query = new URLSearchParams(window.location.search);
+  var keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  var params = {
+    page_path: window.location.pathname,
+    page_hash: window.location.hash || ''
+  };
+  keys.forEach(function(key){
+    var stored = '';
+    try {
+      stored = sessionStorage.getItem('goflow_' + key) || '';
+    } catch(e) {}
+    var value = query.get(key) || stored || '';
+    if (value) {
+      params[key] = value;
+      try {
+        sessionStorage.setItem('goflow_' + key, value);
+      } catch(e) {}
+    }
+  });
+  return params;
 }
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -64,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function(){
   var acknowledged = localStorage.getItem('goflow_cookie_notice_acknowledged');
   if (choice === 'granted') {
     localStorage.setItem('goflow_cookie_notice_acknowledged', 'true');
+    grantAnalyticsConsent();
     loadAnalytics();
   }
   if (banner && !acknowledged && choice !== 'granted') {
