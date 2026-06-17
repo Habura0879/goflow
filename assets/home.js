@@ -190,18 +190,39 @@ function getQuizTrackingData(extra){
 
 function sendQuizLeadToSheet(formData){
   if (!quizSheetWebhookUrl) return;
-  var payload = new URLSearchParams();
-  formData.forEach(function(value, key){
-    payload.append(key, value);
-  });
-  payload.append('submitted_at', new Date().toISOString());
+  var iframeName = 'quizSheetSubmitFrame';
+  var iframe = document.querySelector('iframe[name="' + iframeName + '"]');
+  if (!iframe) {
+    iframe = document.createElement('iframe');
+    iframe.name = iframeName;
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+  }
 
-  fetch(quizSheetWebhookUrl, {
-    method: 'POST',
-    mode: 'no-cors',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-    body: payload.toString()
-  }).catch(function(){});
+  var form = document.createElement('form');
+  form.method = 'POST';
+  form.action = quizSheetWebhookUrl;
+  form.target = iframeName;
+  form.style.display = 'none';
+
+  function addField(key, value){
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = key;
+    input.value = value == null ? '' : String(value);
+    form.appendChild(input);
+  }
+
+  formData.forEach(function(value, key){
+    addField(key, value);
+  });
+  addField('submitted_at', new Date().toISOString());
+
+  document.body.appendChild(form);
+  form.submit();
+  setTimeout(function(){
+    if (form.parentNode) form.parentNode.removeChild(form);
+  }, 10000);
 }
 
 function setFormValue(formData, key, value){
