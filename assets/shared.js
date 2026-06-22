@@ -124,6 +124,12 @@ function getTrackingParams(){
 }
 
 function renderCookieBanner(banner){
+  if (!document.getElementById('goflow-consent-styles')) {
+    var styles = document.createElement('style');
+    styles.id = 'goflow-consent-styles';
+    styles.textContent = '.cookie-banner{padding:.9rem clamp(1.25rem,5vw,4rem)}.cookie-banner-inner{max-width:1200px;display:flex;align-items:center;gap:1.5rem}.cookie-banner-text{flex:1;margin:0}.cookie-banner-actions{display:flex;align-items:center;gap:.65rem;flex-shrink:0}.cookie-banner-btn{min-width:112px;padding:.65rem 1.35rem}.cookie-banner-btn-secondary{background:#fff;color:var(--ink);border-color:#fff}.cookie-banner-btn-secondary:hover{background:#f1eee8;border-color:#f1eee8;color:var(--ink)}@media(max-width:700px){.cookie-banner{padding:1.15rem 1.25rem}.cookie-banner-inner{flex-direction:column;align-items:stretch;gap:.9rem}.cookie-banner-text{text-align:center;line-height:1.7}.cookie-banner-actions{width:100%;justify-content:center;gap:.55rem}.cookie-banner-btn{flex:1;min-width:0;padding:.8rem .75rem}}';
+    document.head.appendChild(styles);
+  }
   banner.innerHTML = '';
   var inner = document.createElement('div');
   inner.className = 'cookie-banner-inner';
@@ -138,10 +144,10 @@ function renderCookieBanner(banner){
   var actions = document.createElement('div');
   actions.className = 'cookie-banner-actions';
   var reject = document.createElement('button');
-  reject.type = 'button'; reject.className = 'cookie-banner-btn cookie-banner-btn-secondary'; reject.textContent = 'רק הכרחיים';
+  reject.type = 'button'; reject.className = 'cookie-banner-btn cookie-banner-btn-secondary'; reject.textContent = 'דחה';
   reject.addEventListener('click', rejectCookieConsent);
   var accept = document.createElement('button');
-  accept.type = 'button'; accept.className = 'cookie-banner-btn'; accept.textContent = 'אישור ומדידה';
+  accept.type = 'button'; accept.className = 'cookie-banner-btn'; accept.textContent = 'מסכים';
   accept.addEventListener('click', acceptCookieConsent);
   actions.append(reject, accept);
   inner.append(text, actions);
