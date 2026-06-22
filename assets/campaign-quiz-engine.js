@@ -336,6 +336,13 @@
     function emit(eventName, extra){
       var payload = getTrackingData(extra); if (typeof window.trackEvent === 'function') window.trackEvent(eventName, payload);
       window.dataLayer = window.dataLayer || []; window.dataLayer.push(Object.assign({ event: eventName }, payload));
+      if (new URLSearchParams(window.location.search).get('diagnosis_debug') === '1') {
+        var root = document.documentElement;
+        var events = (root.getAttribute('data-diagnosis-events') || '').split(',').filter(Boolean);
+        events.push(eventName);
+        root.setAttribute('data-diagnosis-events', events.join(','));
+        root.setAttribute('data-diagnosis-last-event', eventName);
+      }
     }
     function escapeHtml(value){ return String(value || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
   }
