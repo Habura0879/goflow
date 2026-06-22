@@ -296,11 +296,20 @@
       fetch(config.formspree_endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } }).then(function(response){
         if (!response.ok) throw new Error('FORM_SUBMIT_FAILED');
         sendLeadToSheet(data); state.leadSubmitted = true; clearState();
-        setText(dom.leadSubmit, config.form_copy.submit_success); dom.leadMsg.hidden = false; dom.leadMsg.textContent = config.form_copy.success_message;
-        emit('diagnosis_lead_submitted', { submitted_at: new Date().toISOString() });
+        showLeadSuccess();
+        var leadEventData = { submitted_at: new Date().toISOString() };
+        emit('diagnosis_lead_submitted', leadEventData, { skipAnalytics: true });
+        fireSuccessfulLeadConversions(leadEventData);
       }).catch(function(){
         dom.leadSubmit.disabled = false; setText(dom.leadSubmit, config.form_copy.submit_default); dom.leadMsg.hidden = false; dom.leadMsg.textContent = config.form_copy.error_message;
       });
+    }
+
+    function showLeadSuccess(){
+      if (!dom.leadForm) return;
+      if (dom.leadToggle) dom.leadToggle.hidden = true;
+      dom.leadForm.hidden = false;
+      dom.leadForm.innerHTML = '<section class="lead-success" role="status"><h3>הפרטים התקבלו</h3><p>תודה. קיבלנו את הפרטים ואת תוצאת האבחון ונחזור אליכם בהקדם.</p></section>';
     }
 
     function appendData(data, key, value){ data.set(key, value == null ? '' : String(value)); }
@@ -333,8 +342,24 @@
     function getTrackingData(extra){
       return Object.assign({ diagnosis_source: source, page_slug: getPageSlug(), page_path: window.location.pathname, quiz_id: config.quiz_id, quiz_attempt_id: state.attemptId }, getRouteTrackingParams(), state.latestTrackingData || {}, extra || {});
     }
-    function emit(eventName, extra){
-      var payload = getTrackingData(extra); if (typeof window.trackEvent === 'function') window.trackEvent(eventName, payload);
+    function fireSuccessfulLeadConversions(extra){
+      var conversionKey = 'goflow_diagnosis_conversion_' + state.attemptId;
+      try { if (sessionStorage.getItem(conversionKey) === 'sent') return; } catch(e) {}
+      if (typeof window.gtag !== 'function') return;
+      var consent = typeof window.getConsentPreferences === 'function' ? window.getConsentPreferences() : { analytics: true, marketing: true };
+      if (!consent.analytics && !consent.marketing) return;
+      var payload = getTrackingData(extra);
+      if (consent.analytics) window.gtag('event', 'diagnosis_lead_submitted', payload);
+      if (consent.marketing) window.gtag('event', 'conversion', {
+          send_to: 'AW-18240730464/-j_nCO_92cMcEODq7flD',
+          value: 1.0,
+          currency: 'ILS'
+        });
+      try { sessionStorage.setItem(conversionKey, 'sent'); } catch(e) {}
+    }
+
+    function emit(eventName, extra, options){
+      var payload = getTrackingData(extra); if (!(options && options.skipAnalytics) && typeof window.trackEvent === 'function') window.trackEvent(eventName, payload);
       window.dataLayer = window.dataLayer || []; window.dataLayer.push(Object.assign({ event: eventName }, payload));
       if (new URLSearchParams(window.location.search).get('diagnosis_debug') === '1') {
         var root = document.documentElement;

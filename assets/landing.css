@@ -69,11 +69,14 @@
 }
 .landing-copy{
   padding:clamp(.25rem,2vw,1rem) 0;
+  position:sticky;
+  top:2rem;
+  align-self:start;
 }
 .landing-copy h1{
   color:var(--paper);
-  font-size:clamp(2.4rem,4.6vw,4.35rem);
-  line-height:1.08;
+  font-size:clamp(2.25rem,3.8vw,3.55rem);
+  line-height:1.12;
   margin-bottom:1.4rem;
 }
 .landing-copy p{
@@ -121,6 +124,8 @@
   font-size:.84rem;
   font-weight:500;
   border-radius:2px;
+  border:0;
+  cursor:pointer;
   transition:opacity .2s, transform .15s;
 }
 .landing-hero-cta:hover{
@@ -151,15 +156,16 @@
   .landing-hero-inner{
     grid-template-columns:1fr;
   }
-  .landing-copy{max-width:680px}
+  .landing-copy{max-width:680px;position:static}
 }
 
 @media(max-width:600px){
   .landing-header{padding:1rem 1.25rem}
-  .landing-hero{padding:2.4rem 1.25rem 3rem}
+  .landing-hero{padding:2rem .75rem 2.5rem}
   .landing-hero-inner{gap:2.5rem}
-  .landing-quiz-shell{padding:1.25rem 1rem}
-  .landing-copy h1{font-size:clamp(2.2rem,11vw,3rem)}
+  .landing-quiz-shell{padding:1.4rem .75rem}
+  .landing-copy{padding:0 .5rem}
+  .landing-copy h1{font-size:clamp(1.92rem,9.3vw,2.4rem);line-height:1.15}
   .landing-meta{gap:.5rem}
   .landing-meta span{font-size:.76rem;padding:.45rem .6rem}
 }
