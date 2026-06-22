@@ -129,7 +129,7 @@ function renderCookieBanner(banner){
   var reject = document.createElement('button'); reject.type = 'button'; reject.className = 'cookie-banner-btn cookie-banner-btn-secondary'; reject.textContent = 'דחיית הלא־חיוניות'; reject.addEventListener('click', rejectNonEssentialCookies);
   var preferences = document.createElement('button'); preferences.type = 'button'; preferences.className = 'cookie-banner-btn cookie-banner-btn-secondary'; preferences.textContent = 'העדפות'; preferences.addEventListener('click', function(){ showPreferences(banner); });
   var accept = document.createElement('button'); accept.type = 'button'; accept.className = 'cookie-banner-btn'; accept.textContent = 'אישור הכול'; accept.addEventListener('click', acceptAllCookies);
-  actions.append(reject, preferences, accept); inner.append(text, actions);
+  actions.append(accept, preferences, reject); inner.append(text, actions);
 
   var panel = document.createElement('section'); panel.className = 'cookie-preferences'; panel.setAttribute('aria-label', 'העדפות קוקיז');
   var title = document.createElement('h2'); title.className = 'cookie-preferences-title'; title.textContent = 'העדפות קוקיז';
