@@ -13,7 +13,7 @@ function closeDrawer(){
 var goflowGoogleLoaded = false;
 var goflowGaMeasurementId = 'G-E7Q866K3RX';
 // Add the IDs from Google Ads and Meta Events Manager before publishing.
-var goflowGoogleAdsId = '';
+var goflowGoogleAdsId = 'AW-18240730464';
 var goflowMetaPixelId = '';
 
 function hasGoogleAdsId(){ return /^AW-\d+$/.test(goflowGoogleAdsId); }
