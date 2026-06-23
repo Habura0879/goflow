@@ -214,9 +214,16 @@
       var areasSection = dom.areaCards && dom.areaCards.closest('.result-areas');
       if (areasSection) areasSection.hidden = !result.ranked.length;
       if (!state.completedAt) state.completedAt = new Date().toISOString();
+      var totalScore = state.answerDetails.filter(Boolean).reduce(function(total, answer){ return total + Number(answer.score || 0); }, 0);
+      var maxScore = config.questions.reduce(function(total, question){
+        return total + Math.max.apply(null, question.opts.map(function(option){ return Number(option.score || 0); }));
+      }, 0);
+      var scorePercent = maxScore ? Math.round((totalScore / maxScore) * 100) : 0;
       state.latestTrackingData = {
-        result_type: result.type, result_title: copy.title, category_scores: JSON.stringify(result.scores),
-        top_areas: result.ranked.map(function(item){ return item.meta.title; }).join(', '), started_at: state.startedAt, completed_at: state.completedAt
+        result_type: result.type, result_level: result.type, result_title: copy.title, result_badge: copy.title,
+        score_total: totalScore, score_max: maxScore, score_percent: scorePercent,
+        category_scores: JSON.stringify(result.scores), top_areas: result.ranked.map(function(item){ return item.meta.title; }).join(', '),
+        worst_dimension: result.type, started_at: state.startedAt, completed_at: state.completedAt
       };
       state.latestSummary = buildSummary(result, copy); persistState();
       if (dom.quizSummaryField) dom.quizSummaryField.value = state.latestSummary;
@@ -289,8 +296,13 @@
       var data = new FormData(dom.leadForm);
       ['name','phone','company','email','employee_count'].forEach(function(key){ if (!data.has(key)) data.append(key, ''); });
       appendData(data, 'diagnosis_source', source); appendData(data, 'page_slug', getPageSlug()); appendData(data, 'page_url', window.location.href);
+      appendData(data, 'page_path', window.location.pathname); appendData(data, 'page_hash', window.location.hash || '');
+      appendData(data, 'source', 'campaign_diagnosis'); appendData(data, 'challenge', state.latestTrackingData.result_title || '');
       appendData(data, 'quiz_id', config.quiz_id); appendData(data, 'quiz_attempt_id', state.attemptId); appendData(data, 'result_type', state.latestTrackingData.result_type || '');
-      appendData(data, 'category_scores', state.latestTrackingData.category_scores || ''); appendData(data, 'quiz_summary', state.latestSummary || '');
+      appendData(data, 'result_level', state.latestTrackingData.result_level || ''); appendData(data, 'result_badge', state.latestTrackingData.result_badge || '');
+      appendData(data, 'score_total', state.latestTrackingData.score_total || ''); appendData(data, 'score_max', state.latestTrackingData.score_max || ''); appendData(data, 'score_percent', state.latestTrackingData.score_percent || '');
+      appendData(data, 'top_areas', state.latestTrackingData.top_areas || ''); appendData(data, 'worst_dimension', state.latestTrackingData.worst_dimension || '');
+      appendData(data, 'category_scores', state.latestTrackingData.category_scores || ''); appendData(data, 'quiz_summary', state.latestSummary || ''); appendData(data, 'message', state.latestSummary || '');
       appendData(data, 'started_at', state.startedAt || ''); appendData(data, 'completed_at', state.completedAt || ''); appendData(data, 'submitted_at', new Date().toISOString());
       Object.keys(getRouteTrackingParams()).forEach(function(key){ appendData(data, key, getRouteTrackingParams()[key]); });
       fetch(config.formspree_endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } }).then(function(response){
