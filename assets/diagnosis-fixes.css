@@ -1,6 +1,7 @@
 .landing-page{overflow-x:clip!important}
 .landing-hero{overflow:visible!important;clip-path:none!important}
 .landing-copy{position:sticky!important;top:2rem!important;max-height:none!important;overflow:visible!important;overscroll-behavior:auto!important}
+.quiz-btn-next{margin-inline-start:auto}
 .result-cta{margin-bottom:2rem}
 .field-required-marker{color:#b42318;margin-inline-start:.25rem}
 .field-optional-marker{font-size:.72rem;letter-spacing:0;text-transform:none;margin-inline-start:.3rem;color:var(--muted)}
