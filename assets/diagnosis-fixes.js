@@ -22,6 +22,30 @@
     decorateField('name', true, '');
     decorateField('phone', true, '');
     decorateField('company', false, '(רשות)');
+    bindMobileFormVisibility();
+  }
+
+  function bindMobileFormVisibility(){
+    var toggle = document.querySelector('[data-quiz="lead-toggle"]');
+    if (!toggle || toggle.getAttribute('data-mobile-form-bound') === 'true') return;
+    toggle.setAttribute('data-mobile-form-bound', 'true');
+    toggle.addEventListener('click', function(){
+      if (window.matchMedia && !window.matchMedia('(max-width: 960px)').matches) return;
+      setTimeout(scrollLeadFormIntoView, 80);
+      setTimeout(scrollLeadFormIntoView, 380);
+    });
+  }
+
+  function scrollLeadFormIntoView(){
+    var form = document.querySelector('[data-quiz="lead-form"]');
+    if (!form || form.hidden) return;
+    var firstField = form.querySelector('input:not([type="hidden"]), textarea, select');
+    var target = firstField || form;
+    var viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+    var desiredTop = Math.max(16, Math.min(110, Math.round(viewportHeight * 0.12)));
+    var rect = target.getBoundingClientRect();
+    var targetTop = Math.max(0, window.pageYOffset + rect.top - desiredTop);
+    window.scrollTo({ top: targetTop, behavior: 'smooth' });
   }
 
   function decorateField(name, required, suffix){
