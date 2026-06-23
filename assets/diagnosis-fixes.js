@@ -10,42 +10,110 @@
   };
 
   document.addEventListener('DOMContentLoaded', function(){
-    setTimeout(applyDiagnosisFixes, 0);
+    setTimeout(initDiagnosisResultExperience, 0);
   });
 
-  function applyDiagnosisFixes(){
-    var result = document.querySelector('[data-quiz="result-wrap"]');
-    var actions = result && result.querySelector('.result-cta');
-    var areas = result && result.querySelector('.result-areas');
-    if (result && actions && areas) result.insertBefore(actions, areas);
-
+  function initDiagnosisResultExperience(){
     decorateField('name', true, '');
     decorateField('phone', true, '');
     decorateField('company', false, '(רשות)');
-    bindMobileFormVisibility();
+
+    var result = document.querySelector('[data-quiz="result-wrap"]');
+    if (!result) return;
+
+    var observer = new MutationObserver(function(){
+      if (result.classList.contains('show')) applyCompletedResultLayout(result);
+    });
+    observer.observe(result, { attributes: true, attributeFilter: ['class'] });
+
+    if (result.classList.contains('show')) applyCompletedResultLayout(result);
+    bindFocusedFieldVisibility();
+    bindVisualViewportState();
   }
 
-  function bindMobileFormVisibility(){
-    var toggle = document.querySelector('[data-quiz="lead-toggle"]');
-    if (!toggle || toggle.getAttribute('data-mobile-form-bound') === 'true') return;
-    toggle.setAttribute('data-mobile-form-bound', 'true');
-    toggle.addEventListener('click', function(){
-      if (window.matchMedia && !window.matchMedia('(max-width: 960px)').matches) return;
-      setTimeout(scrollLeadFormIntoView, 80);
-      setTimeout(scrollLeadFormIntoView, 380);
+  function applyCompletedResultLayout(result){
+    if (result.getAttribute('data-completed-layout') === 'true') return;
+    result.setAttribute('data-completed-layout', 'true');
+
+    var actions = result.querySelector('.result-cta');
+    var areas = result.querySelector('.result-areas');
+    var form = result.querySelector('[data-quiz="lead-form"]');
+    var toggle = result.querySelector('[data-quiz="lead-toggle"]');
+    var whatsapp = result.querySelector('[data-quiz="whatsapp-button"]');
+    var phone = result.querySelector('[data-quiz="phone-button"]');
+    var restart = result.querySelector('[data-quiz="restart-button"]');
+    var actionCopy = result.querySelector('.result-cta-text');
+    var buttons = result.querySelector('.result-cta-btns');
+
+    if (actions && areas) result.insertBefore(actions, areas);
+    if (toggle) toggle.hidden = true;
+    if (phone) phone.hidden = true;
+    if (actionCopy) actionCopy.hidden = true;
+
+    if (form) {
+      form.hidden = false;
+      form.classList.add('diagnosis-lead-form-open');
+      var title = form.querySelector('[data-quiz="lead-form-title"]');
+      var subtitle = form.querySelector('[data-quiz="lead-form-subtitle"]');
+      var submit = form.querySelector('[data-quiz="lead-submit"]');
+      if (title) title.textContent = 'רוצים שנעבור איתכם על תוצאת האבחון?';
+      if (subtitle) subtitle.textContent = 'השאירו פרטים, נעבור על התוצאה ונחזור אליכם עם כיוון ברור למה כדאי לטפל קודם.';
+      if (submit) submit.textContent = 'שליחת הפרטים';
+
+      if (whatsapp) {
+        whatsapp.classList.add('diagnosis-whatsapp-adaptive');
+        whatsapp.setAttribute('aria-label', 'שליחת תוצאת האבחון ב-WhatsApp');
+        var whatsappText = whatsapp.querySelector('span');
+        if (whatsappText) whatsappText.textContent = 'מעדיפים WhatsApp?';
+        var subtitleNode = form.querySelector('[data-quiz="lead-form-subtitle"]');
+        if (subtitleNode && subtitleNode.parentNode) subtitleNode.parentNode.insertBefore(whatsapp, subtitleNode.nextSibling);
+      }
+    }
+
+    if (buttons && !buttons.querySelector(':not([hidden])')) buttons.hidden = true;
+
+    if (restart) {
+      restart.classList.add('diagnosis-restart-bottom');
+      restart.textContent = 'ביצוע האבחון מחדש';
+      result.appendChild(restart);
+    }
+
+    document.documentElement.classList.add('diagnosis-result-complete');
+  }
+
+  function bindFocusedFieldVisibility(){
+    var form = document.querySelector('[data-quiz="lead-form"]');
+    if (!form || form.getAttribute('data-focus-scroll-bound') === 'true') return;
+    form.setAttribute('data-focus-scroll-bound', 'true');
+    form.addEventListener('focusin', function(event){
+      if (!isMobileViewport()) return;
+      setTimeout(function(){ scrollFieldAboveKeyboard(event.target); }, 100);
+      setTimeout(function(){ scrollFieldAboveKeyboard(event.target); }, 420);
     });
   }
 
-  function scrollLeadFormIntoView(){
-    var form = document.querySelector('[data-quiz="lead-form"]');
-    if (!form || form.hidden) return;
-    var firstField = form.querySelector('input:not([type="hidden"]), textarea, select');
-    var target = firstField || form;
+  function scrollFieldAboveKeyboard(field){
+    if (!field || typeof field.getBoundingClientRect !== 'function') return;
     var viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-    var desiredTop = Math.max(16, Math.min(110, Math.round(viewportHeight * 0.12)));
-    var rect = target.getBoundingClientRect();
+    var desiredTop = Math.max(18, Math.min(96, Math.round(viewportHeight * 0.12)));
+    var rect = field.getBoundingClientRect();
     var targetTop = Math.max(0, window.pageYOffset + rect.top - desiredTop);
     window.scrollTo({ top: targetTop, behavior: 'smooth' });
+  }
+
+  function bindVisualViewportState(){
+    if (!window.visualViewport || window.visualViewport.__goflowDiagnosisBound) return;
+    window.visualViewport.__goflowDiagnosisBound = true;
+    var baseHeight = window.visualViewport.height;
+    window.visualViewport.addEventListener('resize', function(){
+      var keyboardOpen = window.visualViewport.height < baseHeight * 0.76;
+      document.documentElement.classList.toggle('diagnosis-keyboard-open', keyboardOpen);
+      if (!keyboardOpen) baseHeight = Math.max(baseHeight, window.visualViewport.height);
+    });
+  }
+
+  function isMobileViewport(){
+    return !window.matchMedia || window.matchMedia('(max-width: 960px)').matches;
   }
 
   function decorateField(name, required, suffix){
