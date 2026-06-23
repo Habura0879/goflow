@@ -2,10 +2,11 @@
 .landing-hero{overflow:visible!important;clip-path:none!important}
 .landing-copy{position:sticky!important;top:2rem!important;max-height:none!important;overflow:visible!important;overscroll-behavior:auto!important}
 .quiz-btn-next{margin-inline-start:auto}
+[data-quiz="lead-toggle"],[data-quiz="phone-button"]{display:none!important}
 .result-cta{margin-bottom:2rem}
 .diagnosis-lead-form-open{display:block!important;margin-top:0}
 .diagnosis-lead-form-open [data-quiz="lead-form-subtitle"]{margin-bottom:.8rem}
-.diagnosis-whatsapp-adaptive{display:inline-flex;justify-content:center;margin:0 0 1rem;max-width:max-content}
+.diagnosis-whatsapp-adaptive{display:inline-flex;align-items:center;justify-content:center;margin:0 0 1rem;max-width:max-content}
 .diagnosis-restart-bottom{align-self:center;margin-top:.25rem}
 .field-required-marker{color:#b42318;margin-inline-start:.25rem}
 .field-optional-marker{font-size:.72rem;letter-spacing:0;text-transform:none;margin-inline-start:.3rem;color:var(--muted)}
@@ -14,9 +15,9 @@
 }
 @media(max-width:960px){
   .landing-copy{position:static!important}
-  .diagnosis-whatsapp-adaptive{position:fixed;right:18px;bottom:max(18px,env(safe-area-inset-bottom));z-index:40;width:58px!important;height:58px;min-height:58px!important;padding:0!important;margin:0;border-radius:50%;box-shadow:0 10px 28px rgba(0,0,0,.28);animation:diagnosis-wa-arrive .55s ease-out 1,diagnosis-wa-pulse .7s ease-out .65s 1}
-  .diagnosis-whatsapp-adaptive::before{content:'✆';font-size:1.55rem;line-height:1;transform:rotate(-20deg)}
-  .diagnosis-whatsapp-adaptive span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .diagnosis-whatsapp-adaptive{position:fixed!important;right:18px!important;bottom:max(18px,env(safe-area-inset-bottom))!important;z-index:40!important;display:flex!important;flex:0 0 58px!important;width:58px!important;min-width:58px!important;max-width:58px!important;height:58px!important;min-height:58px!important;max-height:58px!important;aspect-ratio:1/1!important;padding:0!important;margin:0!important;border:0!important;border-radius:50%!important;background:#25D366!important;box-shadow:0 10px 28px rgba(0,0,0,.28)!important;animation:diagnosis-wa-arrive .55s ease-out 1,diagnosis-wa-pulse .7s ease-out .65s 1!important}
+  .diagnosis-whatsapp-adaptive::before{content:''!important;display:block!important;width:31px!important;height:31px!important;background-repeat:no-repeat!important;background-position:center!important;background-size:contain!important;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='white' d='M16.03 3.2A12.73 12.73 0 0 0 5.04 22.35L3.2 28.8l6.63-1.74A12.8 12.8 0 1 0 16.03 3.2Zm0 22.92a10.05 10.05 0 0 1-5.12-1.4l-.37-.22-3.93 1.03 1.05-3.83-.24-.39a10.13 10.13 0 1 1 8.61 4.81Zm5.56-7.57c-.3-.15-1.79-.88-2.07-.98-.28-.1-.48-.15-.68.15-.2.3-.78.98-.96 1.18-.18.2-.35.23-.66.08-.3-.15-1.28-.47-2.44-1.5-.9-.8-1.51-1.79-1.69-2.09-.18-.3-.02-.47.13-.62.14-.14.3-.35.46-.53.15-.18.2-.3.3-.5.1-.2.05-.38-.03-.53-.07-.15-.68-1.64-.93-2.25-.24-.58-.49-.5-.68-.51h-.58c-.2 0-.53.08-.81.38-.28.3-1.06 1.04-1.06 2.54s1.09 2.95 1.24 3.15c.15.2 2.14 3.27 5.18 4.59.72.31 1.29.5 1.73.64.73.23 1.39.2 1.91.12.58-.09 1.79-.73 2.04-1.44.25-.71.25-1.32.18-1.44-.08-.13-.28-.2-.58-.35Z'/%3E%3C/svg%3E")!important}
+  .diagnosis-whatsapp-adaptive span{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
   .diagnosis-keyboard-open .diagnosis-whatsapp-adaptive{display:none!important}
   .diagnosis-restart-bottom{margin-top:.5rem}
 }
