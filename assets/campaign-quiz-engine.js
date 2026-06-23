@@ -128,8 +128,10 @@
       if (dom.btnBack) dom.btnBack.addEventListener('click', previousQuestion);
       if (dom.leadToggle) dom.leadToggle.addEventListener('click', toggleLeadForm);
       if (dom.restartBtn) dom.restartBtn.addEventListener('click', restartQuiz);
-      if (dom.waBtn) dom.waBtn.addEventListener('click', function(){ emit('diagnosis_whatsapp_clicked', { method: 'whatsapp' }); });
-      if (dom.phoneBtn) dom.phoneBtn.addEventListener('click', function(){ emit('diagnosis_phone_clicked', { method: 'phone' }); });
+      var landingStart = document.querySelector('[data-landing-start]');
+      if (landingStart) landingStart.addEventListener('click', function(){ trackButton('landing_start'); emit('diagnosis_landing_cta_clicked'); });
+      if (dom.waBtn) dom.waBtn.addEventListener('click', function(){ trackButton('whatsapp'); emit('diagnosis_whatsapp_clicked', { method: 'whatsapp' }); });
+      if (dom.phoneBtn) dom.phoneBtn.addEventListener('click', function(){ trackButton('phone'); emit('diagnosis_phone_clicked', { method: 'phone' }); });
       if (dom.leadForm) dom.leadForm.addEventListener('submit', submitLeadForm);
     }
 
@@ -179,22 +181,29 @@
         score: Number(option.score || 0), dimensions: option.dimensions || question.dimensions || []
       };
       persistState(); dom.btnNext.classList.add('active'); dom.btnNext.disabled = false;
+      trackButton('answer', { question_number: state.currentQ + 1, answer_label: option.label });
       emit('diagnosis_question_answered', { question_number: state.currentQ + 1, answer_score: option.score, answer_label: option.label });
       if (state.currentQ === 3) emit('diagnosis_midpoint', { question_number: 4 });
     }
 
     function nextQuestion(){
       if (!state.answerDetails[state.currentQ]) return;
+      trackButton('next_question', { question_number: state.currentQ + 1 });
+      emit('diagnosis_next_clicked', { question_number: state.currentQ + 1 });
       state.currentQ += 1; persistState();
       if (state.currentQ < config.questions.length) renderQuestion(); else showResult(true);
     }
 
     function previousQuestion(){
       if (state.currentQ < 1) return;
+      trackButton('previous_question', { question_number: state.currentQ + 1 });
+      emit('diagnosis_previous_clicked', { question_number: state.currentQ + 1 });
       state.currentQ -= 1; persistState(); renderQuestion();
     }
 
     function restartQuiz(){
+      trackButton('restart');
+      emit('diagnosis_restarted');
       resetState();
       dom.progressWrap.style.display = ''; dom.questionWrap.style.display = ''; dom.resultWrap.classList.remove('show');
       if (dom.leadForm) { dom.leadForm.reset(); dom.leadForm.hidden = true; }
@@ -285,13 +294,17 @@
     function toggleLeadForm(){
       if (!dom.leadForm) return;
       dom.leadForm.hidden = !dom.leadForm.hidden;
+      trackButton(dom.leadForm.hidden ? 'close_lead_form' : 'open_lead_form');
       setText(dom.leadToggle, dom.leadForm.hidden ? config.form_copy.toggle_open : config.form_copy.toggle_close);
       if (!dom.leadForm.hidden) { emit('diagnosis_form_opened'); var first = dom.leadForm.querySelector('[name="name"]'); if (first) first.focus({ preventScroll: true }); }
+      else emit('diagnosis_form_closed');
     }
 
     function submitLeadForm(event){
       event.preventDefault();
       if (state.leadSubmitted || dom.leadSubmit.disabled) return;
+      trackButton('submit_lead_form');
+      emit('diagnosis_form_submit_attempt');
       dom.leadSubmit.disabled = true; setText(dom.leadSubmit, config.form_copy.submit_loading); if (dom.leadMsg) dom.leadMsg.hidden = true;
       var data = new FormData(dom.leadForm);
       ['name','phone','company','email','employee_count'].forEach(function(key){ if (!data.has(key)) data.append(key, ''); });
@@ -359,6 +372,9 @@
     function getPageSlug(){ return window.location.pathname.replace(/^\/+|\/+$/g, '') || 'diagnosis'; }
     function getTrackingData(extra){
       return Object.assign({ diagnosis_source: source, page_slug: getPageSlug(), page_path: window.location.pathname, quiz_id: config.quiz_id, quiz_attempt_id: state.attemptId }, getRouteTrackingParams(), state.latestTrackingData || {}, extra || {});
+    }
+    function trackButton(buttonName, extra){
+      emit('landing_button_clicked', Object.assign({ button_name: buttonName }, extra || {}));
     }
     function fireSuccessfulLeadConversions(extra){
       var conversionKey = 'goflow_diagnosis_conversion_' + state.attemptId;

@@ -24,8 +24,17 @@
 - `diagnosis_lead_submitted` — ההמרה הראשית
 - `diagnosis_whatsapp_clicked`
 - `diagnosis_phone_clicked`
+- `diagnosis_landing_cta_clicked`
+- `diagnosis_next_clicked`
+- `diagnosis_previous_clicked`
+- `diagnosis_restarted`
+- `diagnosis_form_closed`
+- `diagnosis_form_submit_attempt`
+- `landing_button_clicked` — אירוע אחיד לכל כפתור עם `button_name`
 
 כל האירועים נכנסים ל־`dataLayer` תמיד. כאשר המשתמש מאשר קוקיז למדידה, הם נשלחים גם ל־GA4 דרך התג הקיים. כלי פרסום ו־Meta אינם נטענים לפני הסכמה.  
+
+לחיצה על WhatsApp נמדדת כ־`diagnosis_whatsapp_clicked`. היא מעידה שהמשתמש פתח את קישור השיחה; אי אפשר למדוד אם הוא השלים שליחת הודעה בתוך WhatsApp ללא חיבור ל־WhatsApp API.
 
 ## בדיקות נדרשות לפני קמפיין
 
