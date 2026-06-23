@@ -297,12 +297,18 @@
       ['name','phone','company','email','employee_count'].forEach(function(key){ if (!data.has(key)) data.append(key, ''); });
       appendData(data, 'diagnosis_source', source); appendData(data, 'page_slug', getPageSlug()); appendData(data, 'page_url', window.location.href);
       appendData(data, 'page_path', window.location.pathname); appendData(data, 'page_hash', window.location.hash || '');
+      appendData(data, 'schema_version', 'goflow_lead_v1'); appendData(data, 'lead_type', 'diagnosis');
+      appendData(data, 'landing_id', getPageSlug()); appendData(data, 'landing_name', (config.landing && config.landing.label) || 'GoFlow');
+      appendData(data, 'questionnaire_id', config.quiz_id); appendData(data, 'questionnaire_name', config.quiz_name || config.quiz_id);
+      appendData(data, 'questionnaire_version', config.questionnaire_version || '1'); appendData(data, 'result_model', config.result_mode || 'category');
       appendData(data, 'source', 'campaign_diagnosis'); appendData(data, 'challenge', state.latestTrackingData.result_title || '');
       appendData(data, 'quiz_id', config.quiz_id); appendData(data, 'quiz_attempt_id', state.attemptId); appendData(data, 'result_type', state.latestTrackingData.result_type || '');
       appendData(data, 'result_level', state.latestTrackingData.result_level || ''); appendData(data, 'result_badge', state.latestTrackingData.result_badge || '');
       appendData(data, 'score_total', state.latestTrackingData.score_total || ''); appendData(data, 'score_max', state.latestTrackingData.score_max || ''); appendData(data, 'score_percent', state.latestTrackingData.score_percent || '');
       appendData(data, 'top_areas', state.latestTrackingData.top_areas || ''); appendData(data, 'worst_dimension', state.latestTrackingData.worst_dimension || '');
-      appendData(data, 'category_scores', state.latestTrackingData.category_scores || ''); appendData(data, 'quiz_summary', state.latestSummary || ''); appendData(data, 'message', state.latestSummary || '');
+      appendData(data, 'category_scores', state.latestTrackingData.category_scores || ''); appendData(data, 'answers_json', JSON.stringify(state.answerDetails.filter(Boolean)));
+      appendData(data, 'result_data_json', JSON.stringify(state.latestTrackingData || {})); appendData(data, 'attribution_json', JSON.stringify(getRouteTrackingParams()));
+      appendData(data, 'quiz_summary', state.latestSummary || ''); appendData(data, 'message', state.latestSummary || '');
       appendData(data, 'started_at', state.startedAt || ''); appendData(data, 'completed_at', state.completedAt || ''); appendData(data, 'submitted_at', new Date().toISOString());
       Object.keys(getRouteTrackingParams()).forEach(function(key){ appendData(data, key, getRouteTrackingParams()[key]); });
       fetch(config.formspree_endpoint, { method: 'POST', body: data, headers: { Accept: 'application/json' } }).then(function(response){
