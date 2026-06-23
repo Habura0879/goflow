@@ -1,6 +1,8 @@
 (function(){
   'use strict';
 
+  var pendingCompleteLead = null;
+
   window.dataLayer = window.dataLayer || [];
   var originalPush = window.dataLayer.push.bind(window.dataLayer);
   window.dataLayer.push = function(){
@@ -103,8 +105,93 @@
         setHiddenField(form, 'lead_status', 'complete');
         setHiddenField(form, 'interaction_type', 'form_submit');
         setHiddenField(form, 'whatsapp_clicked_at', getSavedWhatsappClickTime());
+        pendingCompleteLead = captureCompleteLead(form, config, source, state);
       }, true);
     }
+
+    if (form && form.getAttribute('data-complete-success-bound') !== 'true') {
+      form.setAttribute('data-complete-success-bound', 'true');
+      var successObserver = new MutationObserver(function(){
+        if (form.querySelector('.lead-success')) sendCompleteLeadAfterFormspreeSuccess();
+      });
+      successObserver.observe(form, { childList: true, subtree: true });
+    }
+  }
+
+  function captureCompleteLead(form, config, source, state){
+    if (!config.sheet_webhook_url || !state || !state.attemptId) return null;
+    var values = {};
+    ['name','phone','company','email','employee_count'].forEach(function(key){
+      var field = form.querySelector('[name="' + key + '"]');
+      values[key] = field ? field.value : '';
+    });
+    return {
+      webhookUrl: config.sheet_webhook_url,
+      config: config,
+      source: source,
+      state: JSON.parse(JSON.stringify(state)),
+      values: values,
+      routeParams: getRouteTrackingParams(source),
+      whatsappClickedAt: getSavedWhatsappClickTime()
+    };
+  }
+
+  function sendCompleteLeadAfterFormspreeSuccess(){
+    var snapshot = pendingCompleteLead;
+    if (!snapshot || !snapshot.state || !snapshot.state.attemptId) return;
+
+    var attemptId = snapshot.state.attemptId;
+    var sentKey = 'goflow_complete_sheet_sent_' + attemptId;
+    try { if (sessionStorage.getItem(sentKey) === 'sent') return; } catch(e) {}
+
+    var data = new FormData();
+    var tracking = snapshot.state.latestTrackingData || {};
+    var submittedAt = new Date().toISOString();
+
+    Object.keys(snapshot.values || {}).forEach(function(key){ appendData(data, key, snapshot.values[key]); });
+    appendData(data, 'diagnosis_source', snapshot.source);
+    appendData(data, 'page_slug', getPageSlug());
+    appendData(data, 'page_url', window.location.href);
+    appendData(data, 'page_path', window.location.pathname);
+    appendData(data, 'page_hash', window.location.hash || '');
+    appendData(data, 'schema_version', 'goflow_lead_v1');
+    appendData(data, 'lead_type', 'diagnosis');
+    appendData(data, 'source', 'campaign_diagnosis');
+    appendData(data, 'landing_id', getPageSlug());
+    appendData(data, 'landing_name', (snapshot.config.landing && snapshot.config.landing.label) || 'GoFlow');
+    appendData(data, 'questionnaire_id', snapshot.config.quiz_id || '');
+    appendData(data, 'questionnaire_name', snapshot.config.quiz_name || snapshot.config.quiz_id || '');
+    appendData(data, 'questionnaire_version', snapshot.config.questionnaire_version || '1');
+    appendData(data, 'result_model', snapshot.config.result_mode || 'category');
+    appendData(data, 'quiz_id', snapshot.config.quiz_id || '');
+    appendData(data, 'quiz_attempt_id', attemptId);
+    appendData(data, 'result_type', tracking.result_type || '');
+    appendData(data, 'result_level', tracking.result_level || '');
+    appendData(data, 'result_badge', tracking.result_badge || '');
+    appendData(data, 'challenge', tracking.result_title || '');
+    appendData(data, 'score_total', tracking.score_total || '');
+    appendData(data, 'score_max', tracking.score_max || '');
+    appendData(data, 'score_percent', tracking.score_percent || '');
+    appendData(data, 'top_areas', tracking.top_areas || '');
+    appendData(data, 'worst_dimension', tracking.worst_dimension || '');
+    appendData(data, 'category_scores', tracking.category_scores || '');
+    appendData(data, 'answers_json', JSON.stringify((snapshot.state.answerDetails || []).filter(Boolean)));
+    appendData(data, 'result_data_json', JSON.stringify(tracking));
+    appendData(data, 'attribution_json', JSON.stringify(snapshot.routeParams || {}));
+    appendData(data, 'quiz_summary', snapshot.state.latestSummary || '');
+    appendData(data, 'message', snapshot.state.latestSummary || '');
+    appendData(data, 'started_at', snapshot.state.startedAt || '');
+    appendData(data, 'completed_at', snapshot.state.completedAt || '');
+    appendData(data, 'submitted_at', submittedAt);
+    appendData(data, 'lead_status', 'complete');
+    appendData(data, 'interaction_type', 'form_submit');
+    appendData(data, 'whatsapp_clicked_at', snapshot.whatsappClickedAt || '');
+
+    Object.keys(snapshot.routeParams || {}).forEach(function(key){ appendData(data, key, snapshot.routeParams[key]); });
+
+    try { sessionStorage.setItem(sentKey, 'sent'); } catch(e) {}
+    sendSheetWebhook(snapshot.webhookUrl, data);
+    pendingCompleteLead = null;
   }
 
   function sendWhatsappPartialLead(){
@@ -156,15 +243,18 @@
 
     var routeParams = getRouteTrackingParams(source);
     Object.keys(routeParams).forEach(function(key){ appendData(data, key, routeParams[key]); });
+    sendSheetWebhook(config.sheet_webhook_url, data);
+  }
 
+  function sendSheetWebhook(url, data){
     var beaconSent = false;
     try {
-      if (navigator.sendBeacon) beaconSent = navigator.sendBeacon(config.sheet_webhook_url, data);
+      if (navigator.sendBeacon) beaconSent = navigator.sendBeacon(url, data);
     } catch(e) {}
 
     if (!beaconSent) {
       try {
-        fetch(config.sheet_webhook_url, {
+        fetch(url, {
           method: 'POST',
           body: data,
           keepalive: true,
