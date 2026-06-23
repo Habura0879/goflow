@@ -345,11 +345,32 @@
     function appendData(data, key, value){ data.set(key, value == null ? '' : String(value)); }
     function sendLeadToSheet(formData){
       if (!config.sheet_webhook_url) return;
-      var iframeName = 'goflowDiagnosisSheetFrame'; var iframe = document.querySelector('iframe[name="' + iframeName + '"]');
-      if (!iframe) { iframe = document.createElement('iframe'); iframe.name = iframeName; iframe.hidden = true; document.body.appendChild(iframe); }
-      var form = document.createElement('form'); form.method = 'POST'; form.action = config.sheet_webhook_url; form.target = iframeName; form.hidden = true;
-      formData.forEach(function(value, key){ var input = document.createElement('input'); input.type = 'hidden'; input.name = key; input.value = value; form.appendChild(input); });
-      document.body.appendChild(form); form.submit(); setTimeout(function(){ form.remove(); }, 8000);
+
+      var attemptId = '';
+      if (formData && typeof formData.get === 'function') {
+        attemptId = String(formData.get('quiz_attempt_id') || '');
+      }
+
+      var sentKey = attemptId ? 'goflow_sheet_complete_sent_' + attemptId : '';
+      if (sentKey) {
+        try {
+          if (sessionStorage.getItem(sentKey) === 'sent') return;
+          sessionStorage.setItem(sentKey, 'sent');
+        } catch(e) {}
+      }
+
+      try {
+        var iframeName = 'goflowDiagnosisSheetFrame'; var iframe = document.querySelector('iframe[name="' + iframeName + '"]');
+        if (!iframe) { iframe = document.createElement('iframe'); iframe.name = iframeName; iframe.hidden = true; document.body.appendChild(iframe); }
+        var form = document.createElement('form'); form.method = 'POST'; form.action = config.sheet_webhook_url; form.target = iframeName; form.hidden = true;
+        formData.forEach(function(value, key){ var input = document.createElement('input'); input.type = 'hidden'; input.name = key; input.value = value; form.appendChild(input); });
+        document.body.appendChild(form); form.submit(); setTimeout(function(){ form.remove(); }, 8000);
+      } catch(e) {
+        if (sentKey) {
+          try { sessionStorage.removeItem(sentKey); } catch(ignore) {}
+        }
+        throw e;
+      }
     }
 
     function getDiagnosisSource(config){
