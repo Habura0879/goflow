@@ -3,6 +3,22 @@
 .landing-copy{position:sticky!important;top:2rem!important;max-height:none!important;overflow:visible!important;overscroll-behavior:auto!important}
 .quiz-btn-next{margin-inline-start:auto}
 .result-cta{margin-bottom:2rem}
+.diagnosis-lead-form-open{display:block!important;margin-top:0}
+.diagnosis-lead-form-open [data-quiz="lead-form-subtitle"]{margin-bottom:.8rem}
+.diagnosis-whatsapp-adaptive{display:inline-flex;justify-content:center;margin:0 0 1rem;max-width:max-content}
+.diagnosis-restart-bottom{align-self:center;margin-top:.25rem}
 .field-required-marker{color:#b42318;margin-inline-start:.25rem}
 .field-optional-marker{font-size:.72rem;letter-spacing:0;text-transform:none;margin-inline-start:.3rem;color:var(--muted)}
-@media(max-width:960px){.landing-copy{position:static!important}}
+@media(min-width:961px){
+  .diagnosis-whatsapp-adaptive{position:static;min-height:44px;padding:.65rem 1rem;font-size:.8rem}
+}
+@media(max-width:960px){
+  .landing-copy{position:static!important}
+  .diagnosis-whatsapp-adaptive{position:fixed;right:18px;bottom:max(18px,env(safe-area-inset-bottom));z-index:40;width:58px!important;height:58px;min-height:58px!important;padding:0!important;margin:0;border-radius:50%;box-shadow:0 10px 28px rgba(0,0,0,.28);animation:diagnosis-wa-arrive .55s ease-out 1,diagnosis-wa-pulse .7s ease-out .65s 1}
+  .diagnosis-whatsapp-adaptive::before{content:'✆';font-size:1.55rem;line-height:1;transform:rotate(-20deg)}
+  .diagnosis-whatsapp-adaptive span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .diagnosis-keyboard-open .diagnosis-whatsapp-adaptive{display:none!important}
+  .diagnosis-restart-bottom{margin-top:.5rem}
+}
+@keyframes diagnosis-wa-arrive{from{opacity:0;transform:translateY(18px) scale(.82)}to{opacity:1;transform:none}}
+@keyframes diagnosis-wa-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
