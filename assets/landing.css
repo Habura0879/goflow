@@ -40,11 +40,17 @@
 }
 .landing-hero{
   position:relative;
-  overflow:hidden;
+  overflow-x:hidden;
+  overflow-y:visible;
   padding:clamp(2.5rem,5vw,5rem) clamp(1.5rem,5vw,4rem) clamp(3rem,6vw,5rem);
   background:
     radial-gradient(circle at 16% 0%, rgba(184,131,42,.22), transparent 34%),
     linear-gradient(115deg, rgba(30,27,22,.99), rgba(46,42,34,.98));
+}
+@supports (overflow:clip){
+  .landing-hero{
+    overflow-x:clip;
+  }
 }
 .landing-hero::before{
   content:'';
@@ -72,6 +78,9 @@
   position:sticky;
   top:2rem;
   align-self:start;
+  max-height:calc(100vh - 4rem);
+  overflow-y:auto;
+  overscroll-behavior:contain;
 }
 .landing-copy h1{
   color:var(--paper);
@@ -156,7 +165,7 @@
   .landing-hero-inner{
     grid-template-columns:1fr;
   }
-  .landing-copy{max-width:680px;position:static}
+  .landing-copy{max-width:680px;position:static;max-height:none;overflow:visible}
 }
 
 @media(max-width:600px){
