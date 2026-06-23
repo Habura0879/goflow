@@ -96,6 +96,10 @@
     if (form && form.getAttribute('data-complete-lead-bound') !== 'true') {
       form.setAttribute('data-complete-lead-bound', 'true');
       form.addEventListener('submit', function(){
+        var config = window.QUIZ_CONFIG || {};
+        var source = getDiagnosisSource(config);
+        var state = getDiagnosisState(source);
+        if (state && state.attemptId) setHiddenField(form, 'quiz_attempt_id', state.attemptId);
         setHiddenField(form, 'lead_status', 'complete');
         setHiddenField(form, 'interaction_type', 'form_submit');
         setHiddenField(form, 'whatsapp_clicked_at', getSavedWhatsappClickTime());
