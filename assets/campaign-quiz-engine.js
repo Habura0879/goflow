@@ -329,7 +329,6 @@
         sendLeadToSheet(data); state.leadSubmitted = true; clearState();
         showLeadSuccess();
         var leadEventData = { submitted_at: new Date().toISOString() };
-        emit('diagnosis_lead_submitted', leadEventData, { skipAnalytics: true });
         fireSuccessfulLeadConversions(leadEventData);
       }).catch(function(){
         dom.leadSubmit.disabled = false; setText(dom.leadSubmit, config.form_copy.submit_default); dom.leadMsg.hidden = false; dom.leadMsg.textContent = config.form_copy.error_message;
