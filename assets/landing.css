@@ -2,6 +2,7 @@
   min-height:100vh;
   padding-top:0;
   background:var(--paper-2);
+  overflow-x:hidden;
 }
 .landing-header{
   position:relative;
@@ -40,17 +41,12 @@
 }
 .landing-hero{
   position:relative;
-  overflow-x:hidden;
-  overflow-y:visible;
+  overflow:visible;
+  clip-path:inset(0 -100vw 0 -100vw);
   padding:clamp(2.5rem,5vw,5rem) clamp(1.5rem,5vw,4rem) clamp(3rem,6vw,5rem);
   background:
     radial-gradient(circle at 16% 0%, rgba(184,131,42,.22), transparent 34%),
     linear-gradient(115deg, rgba(30,27,22,.99), rgba(46,42,34,.98));
-}
-@supports (overflow:clip){
-  .landing-hero{
-    overflow-x:clip;
-  }
 }
 .landing-hero::before{
   content:'';
