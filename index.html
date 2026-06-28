@@ -175,8 +175,8 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
     <h1>תהליכים נכונים.<br>תוצאות אמיתיות.</h1>
     <p class="hero-sub">GoFlow מאבחנת את צווארי הבקבוק, ממפה ומעצבת מחדש תהליכים, משלבת טכנולוגיות חכמות ויוצרת זרימת עבודה יעילה שמסירה עומסים, מונעת טעויות ומאפשרת לארגון לצמוח בלי כאוס.</p>
     <div class="hero-actions">
-      <a href="#contact"><button class="btn-gold">לפגישת ייעוץ ←</button></a>
-      <a href="tel:0547951161"><button class="btn-ghost">📞 דברו איתנו</button></a>
+      <a href="#quiz" data-hero-cta-target="diagnosis"><button class="btn-gold">גלה מה תוקע את העסק</button></a>
+      <a href="#contact" data-hero-cta-target="consultation"><button class="btn-ghost">לפגישת ייעוץ</button></a>
     </div>
   </div>
   <div class="hero-scroll"><span>גלול</span><div class="hero-scroll-line"></div></div>
@@ -195,6 +195,71 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
       <div class="blockq">
         <blockquote>״הצוות עובד קשה — אבל כל פרויקט מחדש מתחיל את אותן טעויות. זה לא בעיית אנשים. זו בעיית תהליך.״</blockquote>
         <cite>מה שאנחנו שומעים שוב ושוב</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz">
+  <div class="container">
+    <div class="quiz-intro fi">
+      <div class="eyebrow">אבחון תהליכי קצר</div>
+      <h2>איפה העבודה נתקעת אצלכם?</h2>
+      <div class="rule"></div>
+      <p class="lead">ענו על 8 שאלות קצרות וקבלו תמונת מצב ראשונית: האם האתגר המרכזי נמצא בתהליך העבודה, במערכת, בחלוקת האחריות או בהטמעה.</p>
+      <div class="quiz-meta" aria-label="פרטי האבחון">
+        <span>8 שאלות</span>
+        <span>כ־3 דקות</span>
+        <span>תוצאה מיידית</span>
+      </div>
+    </div>
+    <div id="quizEngine" class="fi">
+      <div class="quiz-progress-wrap" id="progressWrap">
+        <div class="quiz-progress-label"><span id="progressText">שאלה 1 מתוך 8</span><span id="progressPct">0%</span></div>
+        <div class="quiz-bar-bg"><div class="quiz-bar-fill" id="progressBar" style="width:0%"></div></div>
+      </div>
+      <div id="questionWrap">
+        <div class="quiz-card" id="qCard">
+          <div class="quiz-q-num" id="qNum">שאלה 1</div>
+          <div class="quiz-q-text" id="qText"></div>
+          <div class="quiz-options" id="qOptions"></div>
+          <div class="quiz-nav"><button class="quiz-btn-next" id="btnNext" onclick="nextQ()">המשך ←</button></div>
+        </div>
+      </div>
+      <div class="quiz-result" id="quizResult">
+        <div class="result-header" id="resultHeader">
+          <div class="result-badge" id="resultBadge"></div>
+          <div class="result-title" id="resultTitle"></div>
+          <div class="result-sub"   id="resultSub"></div>
+        </div>
+        <div class="result-areas"><h3>האזורים שדורשים תשומת לב</h3><div class="area-cards" id="areaCards"></div></div>
+        <div class="result-cta">
+          <div class="result-cta-text"><h3 id="ctaTitle"></h3><p id="ctaSub"></p></div>
+          <div class="result-cta-btns">
+            <a class="btn-wa" id="waBtn" href="https://wa.me/9720547951161" target="_blank">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              שלחו לנו את התוצאות
+            </a>
+            <button class="btn-quiz-form" id="quizLeadToggle" type="button" onclick="toggleQuizLeadForm()">השאירו פרטים</button>
+            <button class="btn-restart" onclick="restartQuiz()">← התחל מחדש</button>
+          </div>
+          <form class="quiz-lead-form" id="quizLeadForm" hidden>
+            <h3>רוצים שנחזור אליכם עם האבחון?</h3>
+            <p>השאירו פרטים ונקבל יחד עם הפנייה גם את תוצאת השאלון והתשובות שבחרתם.</p>
+            <div class="quiz-lead-grid">
+              <div class="frow"><label>שם מלא</label><input type="text" name="name" placeholder="השם שלך" required></div>
+              <div class="frow"><label>טלפון</label><input type="tel" name="phone" placeholder="054-0000000" dir="ltr" required></div>
+              <div class="frow"><label>אימייל</label><input type="email" name="email" placeholder="example@email.com" dir="ltr"></div>
+              <div class="frow"><label>שם חברה</label><input type="text" name="company" placeholder="שם הארגון"></div>
+            </div>
+            <div class="frow"><label>מה האתגר המרכזי אצלכם היום?</label><textarea name="challenge" placeholder="כתבו בקצרה מה הכי מפריע לתהליך לעבוד נכון"></textarea></div>
+            <input type="hidden" name="source" value="quiz_result">
+            <input type="hidden" name="quiz_summary" id="quizSummaryField">
+            <button type="submit" class="btn-submit" id="quizLeadSubmit">שליחת האבחון ←</button>
+            <p class="form-note" id="quizLeadMsg" style="display:none"></p>
+          </form>
+        </div>
       </div>
     </div>
   </div>
@@ -267,66 +332,6 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
       <div class="why-item"><div class="why-label">ליווי</div><div class="why-title">ליווי צמוד</div><p class="why-desc">לא נעלמים אחרי המצגת. מלווים עד שהשינוי מוטמע ועובד.</p></div>
       <div class="why-item"><div class="why-label">מדידה</div><div class="why-title">תוצאות מדידות</div><p class="why-desc">KPIs ברורים, דוחות מעקב ושיפור מתמיד שאפשר לראות במספרים.</p></div>
       <div class="why-item"><div class="why-label">שקיפות</div><div class="why-title">שקיפות מלאה</div><p class="why-desc">תקשורת פתוחה, עדכונים שוטפים ושותפות אמיתית לאורך הדרך.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- QUIZ -->
-<section id="quiz">
-  <div class="container">
-    <div class="quiz-intro fi">
-      <div class="eyebrow">האבחון שלי</div>
-      <h2>האם הארגון שלכם זקוק לייעוץ תהליכי?</h2>
-      <div class="rule"></div>
-      <p class="lead">8 שאלות קצרות. 3 דקות. תקבלו תשובה ישירה — איפה הארגון שלכם עומד ומה כדאי לתקן.</p>
-    </div>
-    <div id="quizEngine" class="fi">
-      <div class="quiz-progress-wrap" id="progressWrap">
-        <div class="quiz-progress-label"><span id="progressText">שאלה 1 מתוך 8</span><span id="progressPct">0%</span></div>
-        <div class="quiz-bar-bg"><div class="quiz-bar-fill" id="progressBar" style="width:0%"></div></div>
-      </div>
-      <div id="questionWrap">
-        <div class="quiz-card" id="qCard">
-          <div class="quiz-q-num" id="qNum">שאלה 1</div>
-          <div class="quiz-q-text" id="qText"></div>
-          <div class="quiz-options" id="qOptions"></div>
-          <div class="quiz-nav"><button class="quiz-btn-next" id="btnNext" onclick="nextQ()">המשך ←</button></div>
-        </div>
-      </div>
-      <div class="quiz-result" id="quizResult">
-        <div class="result-header" id="resultHeader">
-          <div class="result-badge" id="resultBadge"></div>
-          <div class="result-title" id="resultTitle"></div>
-          <div class="result-sub"   id="resultSub"></div>
-        </div>
-        <div class="result-areas"><h3>האזורים שדורשים תשומת לב</h3><div class="area-cards" id="areaCards"></div></div>
-        <div class="result-cta">
-          <div class="result-cta-text"><h3 id="ctaTitle"></h3><p id="ctaSub"></p></div>
-          <div class="result-cta-btns">
-            <a class="btn-wa" id="waBtn" href="https://wa.me/9720547951161" target="_blank">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-              שלחו לנו את התוצאות
-            </a>
-            <button class="btn-quiz-form" id="quizLeadToggle" type="button" onclick="toggleQuizLeadForm()">השאירו פרטים</button>
-            <button class="btn-restart" onclick="restartQuiz()">← התחל מחדש</button>
-          </div>
-          <form class="quiz-lead-form" id="quizLeadForm" hidden>
-            <h3>רוצים שנחזור אליכם עם האבחון?</h3>
-            <p>השאירו פרטים ונקבל יחד עם הפנייה גם את תוצאת השאלון והתשובות שבחרתם.</p>
-            <div class="quiz-lead-grid">
-              <div class="frow"><label>שם מלא</label><input type="text" name="name" placeholder="השם שלך" required></div>
-              <div class="frow"><label>טלפון</label><input type="tel" name="phone" placeholder="054-0000000" dir="ltr" required></div>
-              <div class="frow"><label>אימייל</label><input type="email" name="email" placeholder="example@email.com" dir="ltr"></div>
-              <div class="frow"><label>שם חברה</label><input type="text" name="company" placeholder="שם הארגון"></div>
-            </div>
-            <div class="frow"><label>מה האתגר המרכזי אצלכם היום?</label><textarea name="challenge" placeholder="כתבו בקצרה מה הכי מפריע לתהליך לעבוד נכון"></textarea></div>
-            <input type="hidden" name="source" value="quiz_result">
-            <input type="hidden" name="quiz_summary" id="quizSummaryField">
-            <button type="submit" class="btn-submit" id="quizLeadSubmit">שליחת האבחון ←</button>
-            <p class="form-note" id="quizLeadMsg" style="display:none"></p>
-          </form>
-        </div>
-      </div>
     </div>
   </div>
 </section>
