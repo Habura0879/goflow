@@ -250,7 +250,7 @@ p.lead{font-size:1.08rem;color:var(--muted);line-height:1.9;max-width:600px}
 }
 
 /* ══ PROBLEM ══ */
-#problem{background:var(--paper);border-bottom:1px solid var(--border)}
+#problem{background:var(--paper-2);border-bottom:1px solid var(--border)}
 .problem-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start}
 .problem-left h2{margin-bottom:1.25rem}
 .problem-left p{color:var(--muted);font-size:1.05rem;line-height:1.9}
@@ -321,7 +321,7 @@ p.lead{font-size:1.08rem;color:var(--muted);line-height:1.9;max-width:600px}
 .why-desc{font-size:.93rem;color:var(--muted);line-height:1.8}
 
 /* ══ QUIZ ══ */
-#quiz{background:var(--paper-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+#quiz{background:var(--paper);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .quiz-intro{max-width:600px;margin-bottom:3.5rem}
 .quiz-meta{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem}
 .quiz-meta span{display:inline-flex;align-items:center;min-height:34px;padding:.35rem .9rem;background:var(--paper);border:1px solid var(--border);border-radius:var(--r);font-size:.82rem;color:var(--muted)}

@@ -33,14 +33,13 @@ const sg=document.querySelector('.stats-grid');
 if(sg) cObs.observe(sg);
 
 // Hero CTA tracking
-document.querySelectorAll('#hero [data-hero-cta-target]').forEach(function(cta){
-  cta.addEventListener('click', function(){
-    if (typeof trackEvent !== 'function') return;
-    trackEvent('hero_cta_clicked', {
-      cta_target: cta.dataset.heroCtaTarget,
-      cta_location: 'homepage_hero',
-      cta_text: cta.textContent.trim()
-    });
+document.addEventListener('click', function(event){
+  var cta = event.target.closest('#hero [data-hero-cta-target]');
+  if (!cta || typeof trackEvent !== 'function') return;
+  trackEvent('hero_cta_clicked', {
+    cta_target: cta.dataset.heroCtaTarget,
+    cta_location: 'homepage_hero',
+    cta_text: cta.textContent.trim()
   });
 });
 
