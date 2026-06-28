@@ -1,0 +1,175 @@
+name: Apply homepage diagnosis CTA update
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-homepage-quiz-update.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Apply requested changes and validate
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          index_path = Path('index.html')
+          css_path = Path('assets/home.css')
+          js_path = Path('assets/home.js')
+
+          html = index_path.read_text(encoding='utf-8')
+          css = css_path.read_text(encoding='utf-8')
+          js = js_path.read_text(encoding='utf-8')
+          original_css_colors = set(re.findall(r'#[0-9a-fA-F]{3,8}|rgba?\([^)]*\)', css))
+
+          old_hero = '''    <div class="hero-actions">
+              <a href="#contact"><button class="btn-gold">לפגישת ייעוץ ←</button></a>
+              <a href="tel:0547951161"><button class="btn-ghost">📞 דברו איתנו</button></a>
+            </div>'''
+          new_hero = '''    <div class="hero-actions">
+              <a href="#quiz" data-hero-cta="diagnosis"><button class="btn-gold">גלה מה תוקע את העסק</button></a>
+              <a href="#contact" data-hero-cta="consultation"><button class="btn-ghost">לפגישת ייעוץ</button></a>
+            </div>'''
+          if old_hero not in html:
+              raise SystemExit('Hero block not found exactly')
+          html = html.replace(old_hero, new_hero, 1)
+
+          quiz_start = html.index('<!-- QUIZ -->')
+          stats_start = html.index('<!-- STATS -->', quiz_start)
+          quiz_block = html[quiz_start:stats_start]
+          html = html[:quiz_start] + html[stats_start:]
+
+          quiz_block = quiz_block.replace('<div class="eyebrow">האבחון שלי</div>', '<div class="eyebrow">אבחון תהליכי קצר</div>', 1)
+          quiz_block = quiz_block.replace('<h2>האם הארגון שלכם זקוק לייעוץ תהליכי?</h2>', '<h2>איפה העבודה נתקעת אצלכם?</h2>', 1)
+          old_intro = '<p class="lead">8 שאלות קצרות. 3 דקות. תקבלו תשובה ישירה — איפה הארגון שלכם עומד ומה כדאי לתקן.</p>'
+          new_intro = '''<p class="lead">ענו על 8 שאלות קצרות וקבלו תמונת מצב ראשונית: האם האתגר המרכזי נמצא בתהליך העבודה, במערכת, בחלוקת האחריות או בהטמעה.</p>
+              <div class="quiz-meta" aria-label="פרטי האבחון">
+                <span>8 שאלות</span>
+                <span>כ־3 דקות</span>
+                <span>תוצאה מיידית</span>
+              </div>'''
+          if old_intro not in quiz_block:
+              raise SystemExit('Quiz intro not found exactly')
+          quiz_block = quiz_block.replace(old_intro, new_intro, 1)
+
+          services_marker = '<!-- SERVICES -->'
+          services_pos = html.index(services_marker)
+          html = html[:services_pos] + quiz_block + html[services_pos:]
+
+          html = html.replace('/assets/home.css?v=7', '/assets/home.css?v=8', 1)
+          html = html.replace('/assets/home.js?v=9', '/assets/home.js?v=10', 1)
+
+          js_insert_after = '''function closeDrawer(){
+            document.getElementById('hbg').classList.remove('open');
+            document.getElementById('drawer').classList.remove('open');
+            document.body.style.overflow = '';
+          }
+          '''
+          tracking_code = '''function closeDrawer(){
+            document.getElementById('hbg').classList.remove('open');
+            document.getElementById('drawer').classList.remove('open');
+            document.body.style.overflow = '';
+          }
+
+          // Homepage hero CTA tracking
+          document.querySelectorAll('[data-hero-cta]').forEach(function(link){
+            link.addEventListener('click', function(){
+              if (typeof trackEvent !== 'function') return;
+              trackEvent('hero_cta_clicked', {
+                cta_target: link.getAttribute('data-hero-cta'),
+                cta_location: 'homepage_hero',
+                cta_text: link.textContent.trim()
+              });
+            });
+          });
+          '''
+          if js_insert_after not in js:
+              raise SystemExit('JS insertion anchor not found')
+          js = js.replace(js_insert_after, tracking_code, 1)
+
+          css_anchor = '''#quiz{background:var(--paper-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+          .quiz-intro{max-width:600px;margin-bottom:3.5rem}
+          '''
+          css_replacement = '''#quiz{background:var(--paper-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+          .quiz-intro{max-width:720px;margin-bottom:3.5rem}
+          .quiz-meta{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-top:1.25rem}
+          .quiz-meta span{display:inline-flex;align-items:center;min-height:34px;padding:.35rem .85rem;border:1px solid var(--border);border-radius:2rem;font-size:.78rem;color:var(--muted);white-space:nowrap}
+          '''
+          if css_anchor not in css:
+              raise SystemExit('CSS quiz anchor not found')
+          css = css.replace(css_anchor, css_replacement, 1)
+
+          mobile_anchor = '''  .quiz-lead-grid{grid-template-columns:1fr;gap:0}
+            .result-cta{padding:1.5rem 1rem}
+          '''
+          mobile_replacement = '''  .quiz-lead-grid{grid-template-columns:1fr;gap:0}
+            .hero-actions{align-items:stretch;gap:.75rem}
+            .hero-actions>a{width:100%}
+            .hero-actions .btn-gold,.hero-actions .btn-ghost{width:100%;min-height:48px;justify-content:center}
+            .quiz-opt{min-height:52px;padding:1rem}
+            .quiz-meta{gap:.5rem}
+            .quiz-meta span{flex:1;justify-content:center;min-width:0;padding:.35rem .45rem}
+            .result-cta{padding:1.5rem 1rem}
+          '''
+          if mobile_anchor not in css:
+              raise SystemExit('CSS mobile anchor not found')
+          css = css.replace(mobile_anchor, mobile_replacement, 1)
+
+          result_anchor = '''  .result-cta-btns{width:100%}
+            .result-cta-btns .btn-wa,.result-cta-btns .btn-quiz-form{width:100%;justify-content:center}
+          '''
+          result_replacement = '''  .result-cta-btns{width:100%}
+            .result-cta-btns .btn-wa,.result-cta-btns .btn-quiz-form,.result-cta-btns .btn-restart{width:100%;min-height:46px;justify-content:center}
+          '''
+          if result_anchor not in css:
+              raise SystemExit('Result mobile anchor not found')
+          css = css.replace(result_anchor, result_replacement, 1)
+
+          # Required validations
+          assert html.count('id="quiz"') == 1, 'quiz ID must appear exactly once'
+          order = [html.index('id="hero"'), html.index('id="problem"'), html.index('id="quiz"'), html.index('id="services"')]
+          assert order == sorted(order), 'section order is incorrect'
+          hero = html[html.index('<section id="hero"'):html.index('</section>', html.index('<section id="hero"'))]
+          assert hero.count('data-hero-cta=') == 2, 'Hero must have exactly two tracked CTAs'
+          assert 'href="#quiz" data-hero-cta="diagnosis"' in hero
+          assert 'href="#contact" data-hero-cta="consultation"' in hero
+          assert 'tel:' not in hero, 'Phone CTA remained in Hero'
+          assert "trackEvent('hero_cta_clicked'" in js
+          assert "cta_location: 'homepage_hero'" in js
+          assert "cta_text: link.textContent.trim()" in js
+          assert set(re.findall(r'#[0-9a-fA-F]{3,8}|rgba?\([^)]*\)', css)) == original_css_colors, 'New CSS color detected'
+          assert html.count('id="quizEngine"') == 1
+          assert html.count('id="quizLeadForm"') == 1
+          assert 'https://formspree.io/f/maqzwlqy' in js
+          assert 'quizSheetWebhookUrl' in js
+
+          index_path.write_text(html, encoding='utf-8')
+          css_path.write_text(css, encoding='utf-8')
+          js_path.write_text(js, encoding='utf-8')
+          PY
+
+          node --check assets/home.js
+
+      - name: Replace temporary workflow commit with one clean commit
+        shell: bash
+        run: |
+          git config user.name "OpenAI Codex"
+          git config user.email "noreply@openai.com"
+          parent="$(git rev-parse HEAD^)"
+          rm -f .github/workflows/apply-homepage-quiz-update.yml
+          git add -A
+          tree="$(git write-tree)"
+          commit="$(printf '%s\n' 'Move homepage diagnosis and track hero CTAs' | git commit-tree "$tree" -p "$parent")"
+          git push --force origin "$commit:refs/heads/main"
+          echo "FINAL_COMMIT=$commit" >> "$GITHUB_ENV"
