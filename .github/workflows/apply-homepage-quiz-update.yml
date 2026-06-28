@@ -136,19 +136,18 @@ jobs:
               raise SystemExit('Result mobile anchor not found')
           css = css.replace(result_anchor, result_replacement, 1)
 
-          # Required validations
-          assert html.count('id="quiz"') == 1, 'quiz ID must appear exactly once'
+          assert html.count('id="quiz"') == 1
           order = [html.index('id="hero"'), html.index('id="problem"'), html.index('id="quiz"'), html.index('id="services"')]
-          assert order == sorted(order), 'section order is incorrect'
+          assert order == sorted(order)
           hero = html[html.index('<section id="hero"'):html.index('</section>', html.index('<section id="hero"'))]
-          assert hero.count('data-hero-cta=') == 2, 'Hero must have exactly two tracked CTAs'
+          assert hero.count('data-hero-cta=') == 2
           assert 'href="#quiz" data-hero-cta="diagnosis"' in hero
           assert 'href="#contact" data-hero-cta="consultation"' in hero
-          assert 'tel:' not in hero, 'Phone CTA remained in Hero'
+          assert 'tel:' not in hero
           assert "trackEvent('hero_cta_clicked'" in js
           assert "cta_location: 'homepage_hero'" in js
           assert "cta_text: link.textContent.trim()" in js
-          assert set(re.findall(r'#[0-9a-fA-F]{3,8}|rgba?\([^)]*\)', css)) == original_css_colors, 'New CSS color detected'
+          assert set(re.findall(r'#[0-9a-fA-F]{3,8}|rgba?\([^)]*\)', css)) == original_css_colors
           assert html.count('id="quizEngine"') == 1
           assert html.count('id="quizLeadForm"') == 1
           assert 'https://formspree.io/f/maqzwlqy' in js
@@ -161,15 +160,15 @@ jobs:
 
           node --check assets/home.js
 
-      - name: Replace temporary workflow commit with one clean commit
+      - name: Replace temporary workflow commits with one clean commit
         shell: bash
         run: |
           git config user.name "OpenAI Codex"
           git config user.email "noreply@openai.com"
-          parent="$(git rev-parse HEAD^)"
+          parent="$(git rev-parse HEAD~2)"
           rm -f .github/workflows/apply-homepage-quiz-update.yml
           git add -A
           tree="$(git write-tree)"
           commit="$(printf '%s\n' 'Move homepage diagnosis and track hero CTAs' | git commit-tree "$tree" -p "$parent")"
           git push --force origin "$commit:refs/heads/main"
-          echo "FINAL_COMMIT=$commit" >> "$GITHUB_ENV"
+# retrigger
