@@ -190,12 +190,21 @@ var currentQ = 0;
 var latestQuizSummary = '';
 var latestQuizData = {};
 var quizStarted = false;
+var quizAttemptId = createQuizAttemptId();
 var quizSheetWebhookUrl = 'https://script.google.com/macros/s/AKfycbxQVBy5bUWZAwwjQWii_clzD6I2Q5Y4Qbwd6xSFbM8v3SpeV_LHO1mPlbG9frYr1mGl/exec';
+
+function createQuizAttemptId(){
+  if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+    return window.crypto.randomUUID();
+  }
+  return 'quiz_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+}
 
 function getQuizTrackingData(extra){
   return Object.assign({
     quiz_name: 'operational_diagnosis',
-    quiz_question_count: questions.length
+    quiz_question_count: questions.length,
+    quiz_attempt_id: quizAttemptId
   }, latestQuizData || {}, extra || {});
 }
 
@@ -325,6 +334,7 @@ window.nextQ = function(){
 
 window.restartQuiz = function(){
   if (typeof trackEvent === 'function') trackEvent('quiz_restart', getQuizTrackingData());
+  quizAttemptId = createQuizAttemptId();
   answers = {}; answerDetails = []; currentQ = 0; latestQuizSummary = ''; latestQuizData = {}; quizStarted = false;
   document.getElementById('progressWrap').style.display = '';
   document.getElementById('questionWrap').style.display = '';
