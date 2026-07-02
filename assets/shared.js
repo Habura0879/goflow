@@ -10,9 +10,18 @@ function closeDrawer(){
   document.body.style.overflow = '';
 }
 
+window.dataLayer = window.dataLayer || [];
+window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+gtag('consent', 'default', {
+  analytics_storage: 'denied',
+  ad_storage: 'denied',
+  ad_user_data: 'denied',
+  ad_personalization: 'denied',
+  wait_for_update: 500
+});
+
 var goflowGoogleLoaded = false;
 var goflowGaMeasurementId = 'G-E7Q866K3RX';
-// Add the IDs from Google Ads and Meta Events Manager before publishing.
 var goflowGoogleAdsId = 'AW-18240730464';
 var goflowMetaPixelId = '1667734184529827';
 
@@ -51,7 +60,6 @@ function loadMetaPixel(){
 }
 
 function loadGoogleTools(preferences){
-  if (!preferences.analytics && !preferences.marketing) return;
   if (!goflowGoogleLoaded) {
     goflowGoogleLoaded = true;
     var gtm = document.createElement('script');
@@ -62,9 +70,9 @@ function loadGoogleTools(preferences){
     ga.async = true; ga.src = 'https://www.googletagmanager.com/gtag/js?id=' + goflowGaMeasurementId;
     document.head.appendChild(ga);
     gtag('js', new Date());
+    gtag('config', goflowGaMeasurementId);
+    if (hasGoogleAdsId()) gtag('config', goflowGoogleAdsId);
   }
-  if (preferences.analytics) gtag('config', goflowGaMeasurementId);
-  if (preferences.marketing && hasGoogleAdsId()) gtag('config', goflowGoogleAdsId);
   if (preferences.marketing) loadMetaPixel();
 }
 
@@ -85,11 +93,16 @@ function setCookieConsent(){ acceptAllCookies(); }
 function hideCookieBanner(){ var banner = document.getElementById('cookie-banner'); if (banner) banner.classList.remove('show'); }
 
 function trackEvent(name, params){
-  if (!getConsentPreferences().analytics || typeof gtag !== 'function') return;
+  if (typeof gtag !== 'function') return;
   gtag('event', name, Object.assign({}, getTrackingParams(), params || {}));
 }
 function getTrackingParams(){
-  var query = new URLSearchParams(window.location.search), keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  var query = new URLSearchParams(window.location.search);
+  var keys = [
+    'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
+    'gclid', 'gbraid', 'wbraid', 'gad_source', 'gad_campaignid',
+    'matchtype', 'device', 'network', 'adgroup_id', 'creative_id'
+  ];
   var params = { page_path: window.location.pathname, page_hash: window.location.hash || '' };
   keys.forEach(function(key){
     var stored = ''; try { stored = sessionStorage.getItem('goflow_' + key) || ''; } catch(e) {}
@@ -150,9 +163,10 @@ document.addEventListener('DOMContentLoaded', function(){
   if (banner) renderCookieBanner(banner);
   var acknowledged = localStorage.getItem('goflow_cookie_notice_acknowledged') === 'true';
   var preferences = getConsentPreferences();
+  getTrackingParams();
   updateGoogleConsent(preferences);
-  if (acknowledged) loadGoogleTools(preferences);
-  else if (banner) setTimeout(function(){ banner.classList.add('show'); }, 600);
+  loadGoogleTools(preferences);
+  if (!acknowledged && banner) setTimeout(function(){ banner.classList.add('show'); }, 600);
   document.addEventListener('click', function(event){
     var link = event.target.closest('a[href]'); if (!link) return;
     var href = link.getAttribute('href') || '', method = href.indexOf('wa.me/') !== -1 ? 'whatsapp' : href.indexOf('tel:') === 0 ? 'phone' : href.indexOf('mailto:') === 0 ? 'email' : '';
