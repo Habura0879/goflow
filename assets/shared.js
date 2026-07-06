@@ -175,3 +175,12 @@ document.addEventListener('DOMContentLoaded', function(){
     if (getConsentPreferences().marketing && typeof window.fbq === 'function') window.fbq('track', 'Contact', { method: method });
   });
 });
+
+(function(){
+  if (document.querySelector('script[data-ai-site-integration]')) return;
+  var script = document.createElement('script');
+  script.src = '/assets/ai-site-integration.js?v=1';
+  script.defer = true;
+  script.setAttribute('data-ai-site-integration','true');
+  document.head.appendChild(script);
+})();
