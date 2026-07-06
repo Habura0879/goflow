@@ -2,6 +2,7 @@
   var form = document.getElementById('aiLeadForm');
   var submit = document.getElementById('aiSubmit');
   var status = document.getElementById('aiStatus');
+  var endpoint = 'https://formspree.io/f/maqzwlqy';
 
   if (typeof trackEvent === 'function') {
     trackEvent('ai_service_view', { service: 'ai_business_processes' });
@@ -17,6 +18,10 @@
   });
 
   if (!form) return;
+
+  form.action = endpoint;
+  form.method = 'POST';
+
   var started = false;
   form.addEventListener('focusin', function(){
     if (started) return;
@@ -31,38 +36,57 @@
     status.style.display = 'none';
 
     var data = new FormData(form);
+    var process = data.get('process_to_improve') || '';
+    var company = data.get('company') || '';
+    var employees = data.get('employees') || '';
+    var currentUse = data.get('current_ai_use') || '';
+    var phone = data.get('phone') || '';
+
+    data.set('message', [
+      'פנייה בנושא: הטמעת AI בתהליכי עבודה',
+      'טלפון: ' + phone,
+      'חברה: ' + company,
+      'מספר עובדים: ' + employees,
+      'שימוש נוכחי ב-AI: ' + currentUse,
+      'התהליך שרוצים לשפר: ' + process
+    ].join('\n'));
+    data.set('_subject', 'פנייה חדשה מהאתר — הטמעת AI בתהליכי עבודה');
+    data.set('service', 'הטמעת AI בתהליכי עבודה');
+
     if (typeof getTrackingParams === 'function') {
       var tracking = getTrackingParams();
       Object.keys(tracking || {}).forEach(function(key){
-        if (tracking[key] !== undefined && tracking[key] !== '') data.append(key, tracking[key]);
+        if (tracking[key] !== undefined && tracking[key] !== '') data.set(key, tracking[key]);
       });
     }
 
     try {
-      var response = await fetch('https://formspree.io/f/maqzwlqy', {
+      var response = await fetch(endpoint, {
         method: 'POST',
         body: data,
         headers: { 'Accept': 'application/json' }
       });
-      if (!response.ok) throw new Error('form_submit_failed');
+      var result = {};
+      try { result = await response.json(); } catch (ignore) {}
+      if (!response.ok) throw new Error((result && result.error) || 'form_submit_failed');
 
-      submit.textContent = '✓ הבקשה נשלחה';
+      submit.textContent = '✓ ההודעה נשלחה בהצלחה';
+      submit.style.background = '#1a5c2a';
       status.style.display = 'block';
       status.style.color = 'var(--gold)';
-      status.textContent = 'תודה. נחזור אליכם לבדיקת התאמה.';
+      status.textContent = 'תודה שפנית! נחזור אליך בהקדם.';
       if (typeof trackEvent === 'function') {
-        trackEvent('ai_lead_submitted', {
-          service: 'ai_business_processes',
-          method: 'ai_service_form'
-        });
+        trackEvent('generate_lead', { method: 'ai_service_form', service: 'ai_business_processes' });
+        trackEvent('ai_lead_submitted', { service: 'ai_business_processes', method: 'ai_service_form' });
       }
       form.reset();
     } catch (error) {
       submit.disabled = false;
       submit.textContent = 'שליחת בקשה ←';
+      submit.style.background = '';
       status.style.display = 'block';
       status.style.color = '#b43c1e';
-      status.textContent = 'השליחה לא הושלמה. אפשר לנסות שוב או לפנות בוואטסאפ.';
+      status.textContent = 'אירעה שגיאה, נסו שוב או פנו אלינו בוואטסאפ.';
     }
   });
 })();
