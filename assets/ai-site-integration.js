@@ -126,7 +126,7 @@
     main.appendChild(section);
   }
 
-  document.addEventListener('DOMContentLoaded', function(){
+  function init(){
     addNavLink();
     trackAiLinks();
     updateHome();
@@ -136,5 +136,11 @@
     addRelatedBlock('/services/process-consulting/','היכן AI יכול לתמוך בתהליך?','לאחר שמגדירים את העבודה והאחריות, בודקים אילו פעולות כדאי לנהל במערכת, להפוך לאוטומטיות או לתמוך בהן באמצעות AI.');
     addRelatedBlock('/services/work-procedures/','נהלים לשימוש מבוקר ב־AI','כאשר עובדים משתמשים ב־AI, הנוהל צריך להגדיר איזה מידע מותר להזין, מה חייבים לבדוק, מי מאשר ואיפה נשמרת התוצאה.');
     updatePrivacy();
-  });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
