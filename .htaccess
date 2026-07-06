@@ -2,6 +2,10 @@ DirectoryIndex index.html
 
 RewriteEngine On
 
+# Remove the invalid SearchAction placeholder URL that was previously exposed to Google.
+RewriteCond %{QUERY_STRING} (^|&)s=(%7B|\{)search_term_string(%7D|\})(?:&|$) [NC]
+RewriteRule ^blog/?$ https://goflow.co.il/blog/ [R=301,L,NE,QSD]
+
 # CRM service was renamed to reflect strategic consulting and specification.
 RewriteRule ^services/crm-implementation/?$ https://goflow.co.il/services/crm-consulting/ [R=301,L,NE]
 
