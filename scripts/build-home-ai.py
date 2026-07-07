@@ -101,5 +101,14 @@ path.write_text(html, encoding='utf-8')
 print('Homepage AI integration built and validated successfully.')
 
 runpy.run_path('scripts/build-stage2.py', run_name='__main__')
+
+# Keep mobile select options fully Hebrew to avoid mixed RTL/LTR rendering.
+html = path.read_text(encoding='utf-8')
+html = html.replace('<option>CRM או מערכת ניהול</option>', '<option>מערכת לניהול לקוחות</option>')
+html = html.replace('<option>הטמעת AI</option>', '<option>הטמעת בינה מלאכותית</option>')
+if '<option>מערכת לניהול לקוחות</option>' not in html or '<option>הטמעת בינה מלאכותית</option>' not in html:
+    raise SystemExit('Post-build validation failed for fully Hebrew contact form options')
+path.write_text(html, encoding='utf-8')
+
 shutil.rmtree('scripts')
 print('Build scripts removed from deployment copy.')
