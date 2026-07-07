@@ -5,12 +5,17 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Validate approved stage 2 source files
         run: |
@@ -47,6 +52,21 @@ jobs:
 
           print('Approved stage 2 source validation passed.')
           PY
+
+      - name: Apply and validate phase 3 SEO migration
+        run: python3 scripts/phase3-seo.py
+
+      - name: Persist phase 3 SEO source files
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html about/index.html services/ai-business-processes/index.html sitemap.xml
+          if git diff --cached --quiet; then
+            echo "Phase 3 SEO source already persisted."
+          else
+            git commit -m "Persist approved phase 3 SEO updates [skip ci]"
+            git push origin HEAD:main
+          fi
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
