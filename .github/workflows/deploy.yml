@@ -53,18 +53,21 @@ jobs:
           print('Approved stage 2 source validation passed.')
           PY
 
-      - name: Apply and validate phase 3 SEO migration
+      - name: Validate phase 3 SEO source
         run: python3 scripts/phase3-seo.py
 
-      - name: Persist phase 3 SEO source files
+      - name: Apply and validate phase 3 launch QA
+        run: python3 scripts/phase3-qa.py
+
+      - name: Persist phase 3 QA fixes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html about/index.html services/ai-business-processes/index.html sitemap.xml
+          git add 404.html services/ai-business-processes/index.html
           if git diff --cached --quiet; then
-            echo "Phase 3 SEO source already persisted."
+            echo "Phase 3 QA fixes already persisted."
           else
-            git commit -m "Persist approved phase 3 SEO updates [skip ci]"
+            git commit -m "Persist approved phase 3 QA fixes [skip ci]"
             git push origin HEAD:main
           fi
 
