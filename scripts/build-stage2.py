@@ -87,6 +87,9 @@ if 'name="interest"' not in html:
     marker = '<div class="frow"><label>שם מלא</label><input type="text" name="name" placeholder="הכניסו את שמכם" required></div>'
     block = '<div class="frow"><label for="interest">במה תרצו להתמקד?</label><select id="interest" name="interest" required><option value="">בחרו</option><option>תהליך עבודה</option><option>CRM או מערכת</option><option>אוטומציה</option><option>הטמעת AI</option><option>עדיין לא ברור</option></select></div>\n          '
     html = insert_before_once(html, marker, block, 'homepage interest field')
+if 'id="stage2-form-style"' not in html:
+    style = '<style id="stage2-form-style">.frow select{width:100%;background:var(--paper);border:1px solid var(--border);border-radius:var(--r);color:var(--ink);font-family:var(--fb);font-size:1rem;padding:.75rem 1rem;outline:none;transition:border-color .2s;direction:rtl;min-height:48px}.frow select:focus{border-color:var(--border-g)}</style>\n'
+    html = insert_before_once(html, '</head>', style, 'homepage select style')
 if 'אין להזין בטופס מידע אישי, סודי או רגיש.' not in html:
     marker = '<button type="submit" class="btn-submit" id="submitBtn">שליחה ←</button>'
     html = insert_before_once(html, marker, '<p class="form-note">אין להזין בטופס מידע אישי, סודי או רגיש.</p>\n          ', 'homepage privacy note')
@@ -96,14 +99,16 @@ path = 'privacy/index.html'
 html = read(path)
 html = add_nav_links(html, 'privacy')
 if 'data-ai-privacy="true"' not in html:
-    block = '<section data-ai-privacy="true"><h2>פניות ותהליכים בנושא AI</h2><p>בטפסים ובשיחות התאמה ניתן למסור תיאור כללי של תהליך העבודה והאתגר העסקי. אין להזין מידע אישי, סודי, רפואי, כספי או מידע מזהה של לקוחות ועובדים. המידע שנמסר משמש לבדיקת התאמה וליצירת קשר, ועשוי לעבור דרך ספקי טפסים ומדידה חיצוניים בהתאם להעדפות הקוקיז שנבחרו.</p></section>\n'
-    html = insert_before_once(html, '</main>', block, 'privacy AI section')
+    marker = '    <h2 class="section-title">7. יצירת קשר</h2>'
+    block = '    <h2 class="section-title" data-ai-privacy="true">7. פניות ותהליכים בנושא AI</h2>\n    <p class="body-text">בטפסים ובשיחות התאמה ניתן למסור תיאור כללי של תהליך העבודה והאתגר העסקי. אין להזין מידע אישי, סודי, רפואי, כספי או מידע מזהה של לקוחות ועובדים. המידע שנמסר משמש לבדיקת התאמה וליצירת קשר, ועשוי לעבור דרך ספקי טפסים ומדידה חיצוניים בהתאם להעדפות הקוקיז שנבחרו.</p>\n\n'
+    html = insert_before_once(html, marker, block, 'privacy AI section')
+    html = replace_once(html, marker, '    <h2 class="section-title">8. יצירת קשר</h2>', 'privacy contact numbering')
 write(path, html)
 
 checks = {
     'about/index.html': ['יועץ תהליכים והטמעת טכנולוגיה, אוטומציה ו־AI', 'מחברים טכנולוגיה נכון'],
-    'index.html': ['name="interest"', 'אין להזין בטופס מידע אישי, סודי או רגיש.'],
-    'privacy/index.html': ['data-ai-privacy="true"'],
+    'index.html': ['name="interest"', 'id="stage2-form-style"', 'אין להזין בטופס מידע אישי, סודי או רגיש.'],
+    'privacy/index.html': ['data-ai-privacy="true"', '8. יצירת קשר'],
 }
 for path, needles in checks.items():
     text = read(path)
