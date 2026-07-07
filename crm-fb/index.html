@@ -1,29 +1,24 @@
 <!doctype html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="robots" content="noindex,nofollow">
-  <title>מעבירים לאבחון CRM</title>
-  <script>
-    (function () {
-      var target = new URL('/crm-diagnosis/', window.location.origin);
-      var defaults = {
-        utm_source: 'facebook',
-        utm_medium: 'post',
-        utm_campaign: 'organic_diagnosis',
-        utm_content: 'crm_day1'
-      };
-      Object.keys(defaults).forEach(function (key) { target.searchParams.set(key, defaults[key]); });
-      var incoming = new URLSearchParams(window.location.search);
-      incoming.forEach(function (value, key) { target.searchParams.set(key, value); });
-      if (window.location.hash) target.hash = window.location.hash;
-      window.location.replace(target.toString());
-    })();
-  </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>מעבירים לאבחון CRM</title>
+<script>
+(function(){
+var endpoint='https://script.google.com/macros/s/AKfycbxYVmacixUKR071kabelmPep55790mmTFszMijZ9heSR9UFvdaqqvxhCv162q59zY6h/exec';
+var target=new URL('/crm-diagnosis/',window.location.origin);
+var defaults={utm_source:'facebook',utm_medium:'post',utm_campaign:'organic_diagnosis',utm_content:'crm_day1'};
+Object.keys(defaults).forEach(function(k){target.searchParams.set(k,defaults[k]);});
+new URLSearchParams(window.location.search).forEach(function(v,k){target.searchParams.set(k,v);});
+var clickId='clk_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,10);
+target.searchParams.set('click_id',clickId);
+var data=new URLSearchParams({event_type:'short_link_click',click_id:clickId,clicked_at:new Date().toISOString(),short_path:window.location.pathname,destination_url:target.toString(),utm_source:target.searchParams.get('utm_source')||'',utm_medium:target.searchParams.get('utm_medium')||'',utm_campaign:target.searchParams.get('utm_campaign')||'',utm_content:target.searchParams.get('utm_content')||''});
+try{fetch(endpoint,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},body:data.toString()});}catch(e){}
+setTimeout(function(){window.location.replace(target.toString());},120);
+})();
+</script>
 </head>
-<body>
-  <p>מעבירים אותך לאבחון…</p>
-  <noscript><a href="/crm-diagnosis/?utm_source=facebook&utm_medium=post&utm_campaign=organic_diagnosis&utm_content=crm_day1">לחצו כאן לאבחון CRM</a></noscript>
-</body>
+<body><p>מעבירים אותך לאבחון…</p><noscript><a href="/crm-diagnosis/?utm_source=facebook&utm_medium=post&utm_campaign=organic_diagnosis&utm_content=crm_day1">לחצו כאן לאבחון CRM</a></noscript></body>
 </html>
