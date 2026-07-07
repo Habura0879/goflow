@@ -14,9 +14,12 @@
         utm_campaign: 'organic_diagnosis',
         utm_content: 'automation_day2'
       };
+      var incoming = new URLSearchParams(window.location.search);
+      var trackedPath = incoming.get('track_path') || window.location.pathname;
+      incoming.delete('track_path');
       var target = new URL('/automation-diagnosis/', window.location.origin);
       Object.keys(defaults).forEach(function (key) { target.searchParams.set(key, defaults[key]); });
-      new URLSearchParams(window.location.search).forEach(function (value, key) { target.searchParams.set(key, value); });
+      incoming.forEach(function (value, key) { target.searchParams.set(key, value); });
       if (window.location.hash) target.hash = window.location.hash;
       var clickId = 'clk_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
       target.searchParams.set('click_id', clickId);
@@ -24,7 +27,7 @@
         event_type: 'short_link_click',
         click_id: clickId,
         clicked_at: new Date().toISOString(),
-        short_path: window.location.pathname,
+        short_path: trackedPath,
         destination_url: target.toString(),
         referrer: document.referrer || '',
         utm_source: target.searchParams.get('utm_source') || '',
