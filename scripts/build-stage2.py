@@ -83,13 +83,28 @@ for path, (title, body) in service_blocks.items():
 
 path = 'index.html'
 html = read(path)
+
+name_source = '<div class="frow"><label>שם מלא</label><input type="text" name="name" placeholder="הכניסו את שמכם" required></div>'
+name_and_phone = '<div class="frow"><label for="contact-name">שם מלא <span class="required-mark" aria-hidden="true">*</span></label><input id="contact-name" type="text" name="name" placeholder="הכניסו את שמכם" autocomplete="name" required></div>\n          <div class="frow"><label for="contact-phone">טלפון <span class="required-mark" aria-hidden="true">*</span></label><input id="contact-phone" type="tel" name="phone" placeholder="050-0000000" inputmode="tel" autocomplete="tel" dir="ltr" required></div>'
+html = replace_once(html, name_source, name_and_phone, 'homepage required name and phone fields')
+
+email_source = '<div class="frow"><label>אימייל</label><input type="email" name="email" placeholder="example@email.com" dir="ltr" required></div>'
+email_optional = '<div class="frow"><label>אימייל <span class="optional-label">(לא חובה)</span></label><input type="email" name="email" placeholder="example@email.com" autocomplete="email" dir="ltr"></div>'
+html = replace_once(html, email_source, email_optional, 'homepage optional email')
+
+message_source = '<div class="frow"><label>הודעה</label><textarea name="message" placeholder="ספרו לנו קצת על הארגון והאתגרים" required></textarea></div>'
+message_optional = '<div class="frow"><label>הודעה <span class="optional-label">(לא חובה)</span></label><textarea name="message" placeholder="ספרו לנו קצת על הארגון והאתגרים"></textarea></div>'
+html = replace_once(html, message_source, message_optional, 'homepage optional message')
+
 if 'name="interest"' not in html:
-    marker = '<div class="frow"><label>שם מלא</label><input type="text" name="name" placeholder="הכניסו את שמכם" required></div>'
-    block = '<div class="frow"><label for="interest">במה תרצו להתמקד?</label><select id="interest" name="interest" required><option value="">בחרו</option><option>תהליך עבודה</option><option>CRM או מערכת</option><option>אוטומציה</option><option>הטמעת AI</option><option>עדיין לא ברור</option></select></div>\n          '
+    marker = name_and_phone
+    block = '<div class="frow"><label for="interest">במה תרצו להתמקד? <span class="optional-label">(לא חובה)</span></label><select id="interest" name="interest"><option value="">בחרו</option><option>תהליך עבודה</option><option>CRM או מערכת ניהול</option><option>אוטומציה</option><option>הטמעת AI</option><option>עדיין לא ברור</option></select></div>\n          '
     html = insert_before_once(html, marker, block, 'homepage interest field')
+
 if 'id="stage2-form-style"' not in html:
-    style = '<style id="stage2-form-style">.frow select{width:100%;background:var(--paper);border:1px solid var(--border);border-radius:var(--r);color:var(--ink);font-family:var(--fb);font-size:1rem;padding:.75rem 1rem;outline:none;transition:border-color .2s;direction:rtl;min-height:48px}.frow select:focus{border-color:var(--border-g)}</style>\n'
-    html = insert_before_once(html, '</head>', style, 'homepage select style')
+    style = '<style id="stage2-form-style">.frow select{width:100%;background:var(--paper);border:1px solid var(--border);border-radius:var(--r);color:var(--ink);font-family:var(--fb);font-size:1rem;padding:.75rem 1rem;outline:none;transition:border-color .2s;direction:rtl;min-height:48px}.frow select:focus{border-color:var(--border-g)}.required-mark{color:#b42318;font-weight:700;margin-inline-start:.18rem}.optional-label{font-size:.72em;letter-spacing:0;text-transform:none;font-weight:400;color:var(--muted)}</style>\n'
+    html = insert_before_once(html, '</head>', style, 'homepage form styles')
+
 if 'אין להזין בטופס מידע אישי, סודי או רגיש.' not in html:
     marker = '<button type="submit" class="btn-submit" id="submitBtn">שליחה ←</button>'
     html = insert_before_once(html, marker, '<p class="form-note">אין להזין בטופס מידע אישי, סודי או רגיש.</p>\n          ', 'homepage privacy note')
@@ -107,7 +122,7 @@ write(path, html)
 
 checks = {
     'about/index.html': ['יועץ תהליכים והטמעת טכנולוגיה, אוטומציה ו־AI', 'מחברים טכנולוגיה נכון'],
-    'index.html': ['name="interest"', 'id="stage2-form-style"', 'אין להזין בטופס מידע אישי, סודי או רגיש.'],
+    'index.html': ['name="phone"', 'CRM או מערכת ניהול', 'required-mark', 'name="email" placeholder="example@email.com" autocomplete="email" dir="ltr">', 'name="message" placeholder="ספרו לנו קצת על הארגון והאתגרים"></textarea>', 'אין להזין בטופס מידע אישי, סודי או רגיש.'],
     'privacy/index.html': ['data-ai-privacy="true"', '8. יצירת קשר'],
 }
 for path, needles in checks.items():
