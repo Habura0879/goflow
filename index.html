@@ -126,6 +126,7 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
   ]
 }
 </script>
+<style id="stage2-form-style">.frow select{width:100%;background:var(--paper);border:1px solid var(--border);border-radius:var(--r);color:var(--ink);font-family:var(--fb);font-size:1rem;padding:.75rem 1rem;outline:none;transition:border-color .2s;direction:rtl;min-height:48px}.frow select:focus{border-color:var(--border-g)}.required-mark{color:#b42318;font-weight:700;margin-inline-start:.18rem}.optional-label{font-size:.72em;letter-spacing:0;text-transform:none;font-weight:400;color:var(--muted)}</style>
 </head>
 <body>
 <!-- WA FLOAT -->
@@ -142,6 +143,7 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
   <ul class="nav-links">
     <li><a href="/">בית</a></li>
     <li><a href="/services/">שירותים</a></li>
+    <li><a href="/services/ai-business-processes/">AI לעסקים</a></li>
     <li><a href="#process">תהליך</a></li>
     <li><a href="#quiz">אבחון</a></li>
     <li><a href="#why">למה GoFlow</a></li>
@@ -156,6 +158,7 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
 <div class="drawer" id="drawer">
   <a href="/" onclick="closeDrawer()">בית</a>
   <a href="/services/" onclick="closeDrawer()">שירותים</a>
+  <a href="/services/ai-business-processes/" onclick="closeDrawer()">AI לעסקים</a>
   <a href="#process"  onclick="closeDrawer()">תהליך עבודה</a>
   <a href="#quiz"     onclick="closeDrawer()">אבחון חינם</a>
   <a href="#why"      onclick="closeDrawer()">למה GoFlow</a>
@@ -171,9 +174,9 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
   </div>
   <div class="hero-inner">
     <div class="hero-rule"></div>
-    <div class="hero-eyebrow">ייעוץ תהליכי · אוטומציה · CRM</div>
+    <div class="hero-eyebrow">תהליכים · מערכות · אוטומציה · AI</div>
     <h1>תהליכים נכונים.<br>תוצאות אמיתיות.</h1>
-    <p class="hero-sub">GoFlow מאבחנת את צווארי הבקבוק, ממפה ומעצבת מחדש תהליכים, משלבת טכנולוגיות חכמות ויוצרת זרימת עבודה יעילה שמסירה עומסים, מונעת טעויות ומאפשרת לארגון לצמוח בלי כאוס.</p>
+    <p class="hero-sub">GoFlow מאבחנת צווארי בקבוק, מתכננת מחדש תהליכי עבודה ומשלבת מערכות, אוטומציה ו־AI במקום שבו הם מפחיתים עומס, מונעים טעויות ומאפשרים לארגון לצמוח בלי כאוס.</p>
     <div class="hero-actions">
       <a href="#quiz" data-hero-cta-target="diagnosis"><button class="btn-gold">גלה מה תוקע את העסק</button></a>
       <a href="#contact" data-hero-cta-target="consultation"><button class="btn-ghost">לפגישת ייעוץ</button></a>
@@ -196,6 +199,30 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
         <blockquote>״הצוות עובד קשה — אבל כל פרויקט מחדש מתחיל את אותן טעויות. זה לא בעיית אנשים. זו בעיית תהליך.״</blockquote>
         <cite>מה שאנחנו שומעים שוב ושוב</cite>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI BUSINESS -->
+<style>
+  #ai-home-intro{padding:clamp(3.5rem,7vw,6rem) 0;background:var(--paper-2);overflow:hidden}
+  #ai-home-intro .ai-home-inner{max-width:850px;margin:0 auto;text-align:center;padding-inline:clamp(1rem,4vw,2rem)}
+  #ai-home-intro h2{max-width:760px;margin-inline:auto;font-size:clamp(2.2rem,5vw,4.4rem);line-height:1.08;overflow-wrap:anywhere}
+  #ai-home-intro .lead{max-width:760px;margin:0 auto 1.5rem;line-height:1.8}
+  @media(max-width:700px){
+    #ai-home-intro h2{font-size:clamp(2rem,10vw,2.8rem);line-height:1.15;word-break:normal;overflow-wrap:break-word}
+    #ai-home-intro .lead{font-size:1.05rem;line-height:1.75}
+    #ai-home-intro .btn-gold{width:min(100%,360px);box-sizing:border-box}
+  }
+</style>
+<section id="ai-home-intro">
+  <div class="container">
+    <div class="fi ai-home-inner">
+      <div class="eyebrow">AI בתהליכי עבודה</div>
+      <h2>AI כבר קיים. השאלה היא האם הוא באמת עובד אצלכם.</h2>
+      <div class="rule" style="margin:1.25rem auto"></div>
+      <p class="lead">GoFlow הופכת שימוש אקראי ב־AI לתהליך עבודה מסודר, מבוקר ומדיד — כחלק מהמערכות והאחריות שכבר קיימות בארגון.</p>
+      <a href="/services/ai-business-processes/" class="btn-gold" style="display:inline-block;text-decoration:none;padding:.85rem 1.5rem">לשירות AI לעסקים ←</a>
     </div>
   </div>
 </section>
@@ -280,9 +307,10 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
       <a class="svc-item" href="/services/process-consulting/"><div class="svc-n">02</div><div class="svc-title">בניית תהליכים</div><p class="svc-desc">עיצוב תהליכי עבודה חדשים, מותאמים לארגון, עם בקרות ונקודות מדידה.</p></a>
       <a class="svc-item" href="/services/business-automation/"><div class="svc-n">03</div><div class="svc-title">אוטומציות</div><p class="svc-desc">שילוב כלים טכנולוגיים ואוטומציות שמפחיתים עבודה ידנית ומונעים טעויות.</p></a>
       <a class="svc-item" href="/services/crm-consulting/"><div class="svc-n">04</div><div class="svc-title">CRM</div><p class="svc-desc">אפיון מערכות CRM בהתאם לתהליכי המכירה, השירות ומסע הלקוח.</p></a>
-      <a class="svc-item" href="/services/work-procedures/"><div class="svc-n">05</div><div class="svc-title">נהלים</div><p class="svc-desc">כתיבת נהלי עבודה ברורים ומעשיים שכל עובד יכול לעקוב אחריהם.</p></a>
-      <a class="svc-item" href="/services/process-consulting/"><div class="svc-n">06</div><div class="svc-title">ליווי</div><p class="svc-desc">ליווי צמוד ביישום, הדרכות צוותים והטמעה שמבטיחה שהשינוי נשאר.</p></a>
-      <a class="svc-item svc-full" href="/services/process-consulting/"><div class="svc-n">07</div><div class="svc-title">תקשורת בין צוותים</div><p class="svc-desc">בניית ערוצי תקשורת פנימיים, סנכרון מידע בין מחלקות ומניעת פערי מידע שמעכבים תהליכים.</p></a>
+      <a class="svc-item" data-ai-home-card="true" href="/services/ai-business-processes/"><div class="svc-n">05</div><div class="svc-title">הטמעת AI</div><p class="svc-desc">איתור תהליכים מתאימים, אפיון פתרונות AI, הגדרת בקרה אנושית וליווי ההקמה עד לשימוש בפועל.</p></a>
+      <a class="svc-item" href="/services/work-procedures/"><div class="svc-n">06</div><div class="svc-title">נהלים</div><p class="svc-desc">כתיבת נהלי עבודה ברורים ומעשיים שכל עובד יכול לעקוב אחריהם.</p></a>
+      <a class="svc-item" href="/services/process-consulting/"><div class="svc-n">07</div><div class="svc-title">ליווי</div><p class="svc-desc">ליווי צמוד ביישום, הדרכות צוותים והטמעה שמבטיחה שהשינוי נשאר.</p></a>
+      <a class="svc-item svc-full" href="/services/process-consulting/"><div class="svc-n">08</div><div class="svc-title">תקשורת בין צוותים</div><p class="svc-desc">בניית ערוצי תקשורת פנימיים, סנכרון מידע בין מחלקות ומניעת פערי מידע שמעכבים תהליכים.</p></a>
     </div>
   </div>
 </section>
@@ -305,7 +333,7 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
       <div class="step-col">
         <div class="step-n">02</div>
         <div class="step-title">בניית תהליך שעובד</div>
-        <p class="step-desc">עיצוב תהליכים חדשים, בחירת כלים טכנולוגיים, כתיבת נהלים ברורים.</p>
+        <p class="step-desc">עיצוב תהליכים חדשים, הגדרת אחריות ובחירת מערכות, אוטומציות ויכולות AI לפי הצורך.</p>
       </div>
       <div class="step-col">
         <div class="step-n">03</div>
@@ -497,9 +525,12 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
       </div>
       <div class="form-box fi">
         <form id="contactForm">
-          <div class="frow"><label>שם מלא</label><input type="text" name="name" placeholder="הכניסו את שמכם" required></div>
-          <div class="frow"><label>אימייל</label><input type="email" name="email" placeholder="example@email.com" dir="ltr" required></div>
-          <div class="frow"><label>הודעה</label><textarea name="message" placeholder="ספרו לנו קצת על הארגון והאתגרים" required></textarea></div>
+          <div class="frow"><label for="interest">במה תרצו להתמקד? <span class="optional-label">(לא חובה)</span></label><select id="interest" name="interest"><option value="">בחרו</option><option>תהליך עבודה</option><option>מערכת לניהול לקוחות</option><option>אוטומציה</option><option>הטמעת בינה מלאכותית</option><option>עדיין לא ברור</option></select></div>
+          <div class="frow"><label for="contact-name">שם מלא <span class="required-mark" aria-hidden="true">*</span></label><input id="contact-name" type="text" name="name" placeholder="הכניסו את שמכם" autocomplete="name" required></div>
+          <div class="frow"><label for="contact-phone">טלפון <span class="required-mark" aria-hidden="true">*</span></label><input id="contact-phone" type="tel" name="phone" placeholder="050-0000000" inputmode="tel" autocomplete="tel" dir="ltr" required></div>
+          <div class="frow"><label>אימייל <span class="optional-label">(לא חובה)</span></label><input type="email" name="email" placeholder="example@email.com" autocomplete="email" dir="ltr"></div>
+          <div class="frow"><label>הודעה <span class="optional-label">(לא חובה)</span></label><textarea name="message" placeholder="ספרו לנו קצת על הארגון והאתגרים"></textarea></div>
+          <p class="form-note">אין להזין בטופס מידע אישי, סודי או רגיש.</p>
           <button type="submit" class="btn-submit" id="submitBtn">שליחה ←</button>
           <p class="form-note" id="formMsg" style="display:none"></p>
         </form>
@@ -529,7 +560,7 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
   <p class="foot-copy">© 2026 GoFlow. כל הזכויות שמורות.</p>
 </footer>
 
-<script src="/assets/shared.js?v=12"></script>
+<script src="/assets/shared.js?v=13"></script>
 <script src="/assets/home.js?v=11"></script>
 
 <!-- COOKIE CONSENT BANNER -->
