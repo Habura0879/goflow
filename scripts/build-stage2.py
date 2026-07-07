@@ -44,7 +44,6 @@ def add_nav_links(text, label):
         text = text.replace(needle, needle + '<a href="/services/ai-business-processes/" onclick="closeDrawer()">AI לעסקים</a>', 1)
     return text
 
-# About page: direct positioning, metadata and copy.
 path = 'about/index.html'
 html = read(path)
 html = add_nav_links(html, 'about')
@@ -85,11 +84,12 @@ for path, (title, body) in service_blocks.items():
 path = 'index.html'
 html = read(path)
 if 'name="interest"' not in html:
-    marker = '<div class="frow">\n          <label for="name">שם מלא</label>'
-    block = '<div class="frow">\n          <label for="interest">במה תרצו להתמקד?</label>\n          <select id="interest" name="interest" required><option value="">בחרו</option><option>תהליך עבודה</option><option>CRM או מערכת</option><option>אוטומציה</option><option>הטמעת AI</option><option>עדיין לא ברור</option></select>\n        </div>\n        '
+    marker = '<div class="frow"><label>שם מלא</label><input type="text" name="name" placeholder="הכניסו את שמכם" required></div>'
+    block = '<div class="frow"><label for="interest">במה תרצו להתמקד?</label><select id="interest" name="interest" required><option value="">בחרו</option><option>תהליך עבודה</option><option>CRM או מערכת</option><option>אוטומציה</option><option>הטמעת AI</option><option>עדיין לא ברור</option></select></div>\n          '
     html = insert_before_once(html, marker, block, 'homepage interest field')
 if 'אין להזין בטופס מידע אישי, סודי או רגיש.' not in html:
-    html = insert_before_once(html, '<button type="submit"', '<p class="form-note">אין להזין בטופס מידע אישי, סודי או רגיש.</p>\n        ', 'homepage privacy note')
+    marker = '<button type="submit" class="btn-submit" id="submitBtn">שליחה ←</button>'
+    html = insert_before_once(html, marker, '<p class="form-note">אין להזין בטופס מידע אישי, סודי או רגיש.</p>\n          ', 'homepage privacy note')
 write(path, html)
 
 path = 'privacy/index.html'
