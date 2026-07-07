@@ -7,7 +7,7 @@
   <title>מעבירים לאבחון CRM</title>
   <script>
     (function () {
-      var WEBHOOK = 'https://script.google.com/macros/s/AKfycbxYVmacixUKR071kabelmPep55790mmTFszMijZ9heSR9UFvdaqqvxhCv162q59zY6h/exec';
+      var WEBHOOK = 'https://script.google.com/macros/s/AKfycbwBupU9NsVFQD7G9eqWoNS8B6EVIBymSqp3WhykccnzbZwkz52pb-zvDkXj_QPfMgA/exec';
       var defaults = {
         utm_source: 'whatsapp',
         utm_medium: 'status',
@@ -18,7 +18,6 @@
       Object.keys(defaults).forEach(function (key) { target.searchParams.set(key, defaults[key]); });
       new URLSearchParams(window.location.search).forEach(function (value, key) { target.searchParams.set(key, value); });
       if (window.location.hash) target.hash = window.location.hash;
-
       var clickId = 'clk_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
       target.searchParams.set('click_id', clickId);
       var payload = new URLSearchParams({
@@ -33,7 +32,6 @@
         utm_campaign: target.searchParams.get('utm_campaign') || '',
         utm_content: target.searchParams.get('utm_content') || ''
       });
-
       try {
         fetch(WEBHOOK, {
           method: 'POST',
@@ -43,7 +41,6 @@
           body: payload.toString()
         });
       } catch (error) {}
-
       setTimeout(function () { window.location.replace(target.toString()); }, 120);
     })();
   </script>
