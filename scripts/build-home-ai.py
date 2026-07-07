@@ -1,4 +1,6 @@
 from pathlib import Path
+import runpy
+import shutil
 
 path = Path('index.html')
 html = path.read_text(encoding='utf-8')
@@ -97,3 +99,7 @@ for text in required:
 
 path.write_text(html, encoding='utf-8')
 print('Homepage AI integration built and validated successfully.')
+
+runpy.run_path('scripts/build-stage2.py', run_name='__main__')
+shutil.rmtree('scripts')
+print('Build scripts removed from deployment copy.')
