@@ -5,15 +5,36 @@ on:
     branches:
       - main
 
+permissions:
+  contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
-      - name: Build and validate homepage AI integration
+      - name: Build and validate approved stage 2 integration
         run: python3 scripts/build-home-ai.py
+
+      - name: Persist generated HTML as repository source of truth
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html about/index.html privacy/index.html \
+            services/business-automation/index.html \
+            services/crm-consulting/index.html \
+            services/process-consulting/index.html \
+            services/work-procedures/index.html
+          if git diff --cached --quiet; then
+            echo "Generated HTML already matches repository source."
+          else
+            git commit -m "Persist approved stage 2 HTML output [skip ci]"
+            git push origin HEAD:main
+          fi
 
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -27,6 +48,7 @@ jobs:
           exclude: |
             **/.git*
             **/.git*/**
+            scripts/**
             oldsite/**
             setup.php
             deploy.log
