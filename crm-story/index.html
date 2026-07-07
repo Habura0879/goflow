@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>מעבירים לאבחון CRM</title>
+  <script>
+    (function () {
+      var target = new URL('/crm-diagnosis/', window.location.origin);
+      var defaults = {
+        utm_source: 'facebook',
+        utm_medium: 'story',
+        utm_campaign: 'organic_diagnosis',
+        utm_content: 'crm_day1'
+      };
+      Object.keys(defaults).forEach(function (key) { target.searchParams.set(key, defaults[key]); });
+      var incoming = new URLSearchParams(window.location.search);
+      incoming.forEach(function (value, key) { target.searchParams.set(key, value); });
+      if (window.location.hash) target.hash = window.location.hash;
+      window.location.replace(target.toString());
+    })();
+  </script>
+</head>
+<body>
+  <p>מעבירים אותך לאבחון…</p>
+  <noscript><a href="/crm-diagnosis/?utm_source=facebook&utm_medium=story&utm_campaign=organic_diagnosis&utm_content=crm_day1">לחצו כאן לאבחון CRM</a></noscript>
+</body>
+</html>
