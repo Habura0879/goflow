@@ -26,7 +26,7 @@ replacements = [
     ),
     (
         '      <a class="svc-item" href="/services/work-procedures/"><div class="svc-n">05</div><div class="svc-title">נהלים</div><p class="svc-desc">כתיבת נהלי עבודה ברורים ומעשיים שכל עובד יכול לעקוב אחריהם.</p></a>',
-        '      <a class="svc-item" href="/services/ai-business-processes/"><div class="svc-n">05</div><div class="svc-title">הטמעת AI</div><p class="svc-desc">איתור תהליכים מתאימים, אפיון פתרונות AI, הגדרת בקרה אנושית וליווי ההקמה עד לשימוש בפועל.</p></a>\n      <a class="svc-item" href="/services/work-procedures/"><div class="svc-n">06</div><div class="svc-title">נהלים</div><p class="svc-desc">כתיבת נהלי עבודה ברורים ומעשיים שכל עובד יכול לעקוב אחריהם.</p></a>',
+        '      <a class="svc-item" data-ai-home-card="true" href="/services/ai-business-processes/"><div class="svc-n">05</div><div class="svc-title">הטמעת AI</div><p class="svc-desc">איתור תהליכים מתאימים, אפיון פתרונות AI, הגדרת בקרה אנושית וליווי ההקמה עד לשימוש בפועל.</p></a>\n      <a class="svc-item" href="/services/work-procedures/"><div class="svc-n">06</div><div class="svc-title">נהלים</div><p class="svc-desc">כתיבת נהלי עבודה ברורים ומעשיים שכל עובד יכול לעקוב אחריהם.</p></a>',
         'AI service card'
     ),
     (
@@ -57,13 +57,24 @@ if html.count(marker) != 1:
     raise SystemExit(f'Guard failed for AI section marker: expected exactly 1, found {html.count(marker)}')
 
 ai_section = '''<!-- AI BUSINESS -->
-<section id="ai-business" style="padding:clamp(3.5rem,7vw,6rem) 0;background:var(--paper-2)">
+<style>
+  #ai-home-intro{padding:clamp(3.5rem,7vw,6rem) 0;background:var(--paper-2);overflow:hidden}
+  #ai-home-intro .ai-home-inner{max-width:850px;margin:0 auto;text-align:center;padding-inline:clamp(1rem,4vw,2rem)}
+  #ai-home-intro h2{max-width:760px;margin-inline:auto;font-size:clamp(2.2rem,5vw,4.4rem);line-height:1.08;overflow-wrap:anywhere}
+  #ai-home-intro .lead{max-width:760px;margin:0 auto 1.5rem;line-height:1.8}
+  @media(max-width:700px){
+    #ai-home-intro h2{font-size:clamp(2rem,10vw,2.8rem);line-height:1.15;word-break:normal;overflow-wrap:break-word}
+    #ai-home-intro .lead{font-size:1.05rem;line-height:1.75}
+    #ai-home-intro .btn-gold{width:min(100%,360px);box-sizing:border-box}
+  }
+</style>
+<section id="ai-home-intro">
   <div class="container">
-    <div class="fi" style="max-width:850px;margin:0 auto;text-align:center">
+    <div class="fi ai-home-inner">
       <div class="eyebrow">AI בתהליכי עבודה</div>
       <h2>AI כבר קיים. השאלה היא האם הוא באמת עובד אצלכם.</h2>
       <div class="rule" style="margin:1.25rem auto"></div>
-      <p class="lead" style="margin:0 auto 1.5rem">GoFlow הופכת שימוש אקראי ב־AI לתהליך עבודה מסודר, מבוקר ומדיד — כחלק מהמערכות והאחריות שכבר קיימות בארגון.</p>
+      <p class="lead">GoFlow הופכת שימוש אקראי ב־AI לתהליך עבודה מסודר, מבוקר ומדיד — כחלק מהמערכות והאחריות שכבר קיימות בארגון.</p>
       <a href="/services/ai-business-processes/" class="btn-gold" style="display:inline-block;text-decoration:none;padding:.85rem 1.5rem">לשירות AI לעסקים ←</a>
     </div>
   </div>
@@ -72,14 +83,13 @@ ai_section = '''<!-- AI BUSINESS -->
 '''
 html = html.replace(marker, ai_section + marker, 1)
 
-# Prevent the old dynamic integration from duplicating homepage content.
 html = html.replace('<script src="/assets/shared.js?v=12"></script>', '<script src="/assets/shared.js?v=13"></script>')
 
 required = [
     'AI לעסקים',
-    'id="ai-business"',
+    'id="ai-home-intro"',
     'תהליכים · מערכות · אוטומציה · AI',
-    'הטמעת AI',
+    'data-ai-home-card="true"',
 ]
 for text in required:
     if text not in html:
