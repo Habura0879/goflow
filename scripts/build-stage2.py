@@ -1,4 +1,5 @@
 from pathlib import Path
+import re
 
 
 def read(path):
@@ -24,33 +25,23 @@ def insert_before_once(text, marker, block, label):
 
 
 def add_nav_links(text, label):
-    if '/services/ai-business-processes/' not in text:
-        desktop_variants = [
-            ('<li><a href="/services/">שירותים</a></li>', '<li><a href="/services/">שירותים</a></li><li><a href="/services/ai-business-processes/">AI לעסקים</a></li>'),
-            ('    <li><a href="/services/">שירותים</a></li>', '    <li><a href="/services/">שירותים</a></li>\n    <li><a href="/services/ai-business-processes/">AI לעסקים</a></li>'),
-        ]
-        changed = False
-        for old, new in desktop_variants:
-            if old in text:
-                text = text.replace(old, new, 1)
-                changed = True
-                break
-        if not changed:
+    desktop_nav = re.search(r'<ul class="(?:site-nav-links|nav-links)">(.*?)</ul>', text, flags=re.S)
+    if not desktop_nav:
+        raise SystemExit(f'Guard failed for {label} desktop nav container')
+    if '/services/ai-business-processes/' not in desktop_nav.group(1):
+        pattern = r'(<li><a href="/services/"(?: class="active")?>שירותים</a></li>)'
+        text, count = re.subn(pattern, r'\1<li><a href="/services/ai-business-processes/">AI לעסקים</a></li>', text, count=1)
+        if count != 1:
             raise SystemExit(f'Guard failed for {label} desktop nav')
 
-    drawer_needles = [
-        '<a href="/services/" onclick="closeDrawer()">שירותים</a>',
-        '<a href="/services/" onclick="closeDrawer()">שירותים</a>',
-    ]
-    if text.count('/services/ai-business-processes/') < 2:
-        changed = False
-        for old in drawer_needles:
-            if old in text:
-                text = text.replace(old, old + '<a href="/services/ai-business-processes/" onclick="closeDrawer()">AI לעסקים</a>', 1)
-                changed = True
-                break
-        if not changed:
+    drawer = re.search(r'<div class="drawer" id="drawer">(.*?)</div>', text, flags=re.S)
+    if not drawer:
+        raise SystemExit(f'Guard failed for {label} mobile nav container')
+    if '/services/ai-business-processes/' not in drawer.group(1):
+        needle = '<a href="/services/" onclick="closeDrawer()">שירותים</a>'
+        if text.count(needle) != 1:
             raise SystemExit(f'Guard failed for {label} mobile nav')
+        text = text.replace(needle, needle + '<a href="/services/ai-business-processes/" onclick="closeDrawer()">AI לעסקים</a>', 1)
     return text
 
 # About page: direct positioning, metadata and copy.
@@ -77,7 +68,6 @@ html = replace_once(html,
 html = html.replace('alt="אבי עמר — מייסד GoFlow, יועץ תפעול ותהליכים"', 'alt="אבי עמר — מייסד GoFlow, יועץ תהליכים, אוטומציה ו־AI"')
 write(path, html)
 
-# Direct related blocks on service pages.
 service_blocks = {
     'services/business-automation/index.html': ('אוטומציה או AI?', 'אוטומציה מתאימה כאשר אפשר להגדיר כלל קבוע. AI מתאים כאשר צריך להבין טקסט, מסמך או מידע שאינו אחיד. לעיתים הפתרון הנכון משלב ביניהם.'),
     'services/crm-consulting/index.html': ('AI בתוך תהליך CRM', 'יכולות AI יכולות לסכם פניות, לזהות מידע חסר ולהציע את הפעולה הבאה — אך הן אינן מחליפות תהליך מכירה ושירות מוגדר היטב.'),
@@ -92,7 +82,6 @@ for path, (title, body) in service_blocks.items():
         html = insert_before_once(html, '<section class="service-cta">', block, f'{path} AI block')
     write(path, html)
 
-# General contact form: direct interest field and privacy warning.
 path = 'index.html'
 html = read(path)
 if 'name="interest"' not in html:
@@ -103,7 +92,6 @@ if 'אין להזין בטופס מידע אישי, סודי או רגיש.' not
     html = insert_before_once(html, '<button type="submit"', '<p class="form-note">אין להזין בטופס מידע אישי, סודי או רגיש.</p>\n        ', 'homepage privacy note')
 write(path, html)
 
-# Privacy page: direct AI section.
 path = 'privacy/index.html'
 html = read(path)
 html = add_nav_links(html, 'privacy')
@@ -112,7 +100,6 @@ if 'data-ai-privacy="true"' not in html:
     html = insert_before_once(html, '</main>', block, 'privacy AI section')
 write(path, html)
 
-# Final validation.
 checks = {
     'about/index.html': ['יועץ תהליכים והטמעת טכנולוגיה, אוטומציה ו־AI', 'מחברים טכנולוגיה נכון'],
     'index.html': ['name="interest"', 'אין להזין בטופס מידע אישי, סודי או רגיש.'],
