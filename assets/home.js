@@ -191,7 +191,7 @@ var latestQuizSummary = '';
 var latestQuizData = {};
 var quizStarted = false;
 var quizAttemptId = createQuizAttemptId();
-var quizSheetWebhookUrl = 'https://script.google.com/macros/s/AKfycbxQVBy5bUWZAwwjQWii_clzD6I2Q5Y4Qbwd6xSFbM8v3SpeV_LHO1mPlbG9frYr1mGl/exec';
+var quizSheetWebhookUrl = 'https://script.google.com/macros/s/AKfycbxYVmacixUKR071kabelmPep55790mmTFszMijZ9heSR9UFvdaqqvxhCv162q59zY6h/exec';
 
 function createQuizAttemptId(){
   if (window.crypto && typeof window.crypto.randomUUID === 'function') {
