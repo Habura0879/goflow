@@ -123,12 +123,13 @@
 
   function getRouteTrackingParams(source){
     var search = new URLSearchParams(window.location.search);
-    var params = { diagnosis_source: source };
+    var params = typeof window.getTrackingParams === 'function' ? window.getTrackingParams() : {};
+    params.diagnosis_source = source;
 
-    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'src', 'group', 'post_id', 'ref'].forEach(function(key){
+    ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'gclid', 'gbraid', 'wbraid', 'fbclid', 'gad_source', 'gad_campaignid', 'matchtype', 'device', 'network', 'adgroup_id', 'creative_id', 'src', 'group', 'post_id', 'ref'].forEach(function(key){
       var stored = '';
       try { stored = sessionStorage.getItem('goflow_' + key) || ''; } catch(e) {}
-      var value = search.get(key) || stored || '';
+      var value = search.get(key) || stored || params[key] || '';
       if (value) params[key] = value;
     });
 
