@@ -96,21 +96,109 @@ function trackEvent(name, params){
   if (typeof gtag !== 'function') return;
   gtag('event', name, Object.assign({}, getTrackingParams(), params || {}));
 }
+
+function goflowGetStorage(key){
+  try { return sessionStorage.getItem(key) || ''; } catch(e) { return ''; }
+}
+function goflowSetStorage(key, value){
+  try { if (value !== undefined && value !== null && value !== '') sessionStorage.setItem(key, String(value)); } catch(e) {}
+}
+function goflowCreateSessionId(){
+  if (window.crypto && typeof window.crypto.randomUUID === 'function') return window.crypto.randomUUID();
+  return 'sess_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+}
+function goflowNormalizeHost(value){
+  return String(value || '').replace(/^https?:\/\//i, '').replace(/^www\./i, '').toLowerCase();
+}
+function getTrafficSourceStatus(params){
+  var source = String(params.last_utm_source || params.utm_source || '').toLowerCase();
+  var medium = String(params.last_utm_medium || params.utm_medium || '').toLowerCase();
+  var referrer = goflowNormalizeHost(params.referrer || '');
+  if (source === 'test') return 'test';
+  if (params.gclid || params.gbraid || params.wbraid) return 'google_ads';
+  if (source === 'google' && /^(cpc|ppc|paid|paid_search)$/i.test(medium)) return 'google_ads';
+  if (source.indexOf('facebook') !== -1 || source === 'fb' || referrer.indexOf('facebook.') !== -1 || referrer.indexOf('fb.') !== -1 || params.fbclid) return 'facebook';
+  if (source.indexOf('linkedin') !== -1 || referrer.indexOf('linkedin.') !== -1) return 'linkedin';
+  if (source.indexOf('whatsapp') !== -1 || referrer.indexOf('whatsapp.') !== -1 || referrer.indexOf('wa.me') !== -1) return 'whatsapp';
+  if (referrer.indexOf('google.') !== -1) return 'google_organic';
+  if (referrer && referrer.indexOf('goflow.co.il') === -1) return 'referral';
+  return 'direct';
+}
 function getTrackingParams(){
   var query = new URLSearchParams(window.location.search);
   var keys = [
     'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term',
-    'gclid', 'gbraid', 'wbraid', 'gad_source', 'gad_campaignid',
-    'matchtype', 'device', 'network', 'adgroup_id', 'creative_id'
+    'gclid', 'gbraid', 'wbraid', 'fbclid', 'gad_source', 'gad_campaignid',
+    'matchtype', 'device', 'network', 'adgroup_id', 'creative_id', 'src', 'group', 'post_id', 'ref'
   ];
-  var params = { page_path: window.location.pathname, page_hash: window.location.hash || '' };
+  var now = new Date().toISOString();
+  var sessionId = goflowGetStorage('goflow_session_id');
+  if (!sessionId) { sessionId = goflowCreateSessionId(); goflowSetStorage('goflow_session_id', sessionId); }
+  if (!goflowGetStorage('goflow_first_seen_at')) goflowSetStorage('goflow_first_seen_at', now);
+  if (!goflowGetStorage('goflow_landing_page_url')) goflowSetStorage('goflow_landing_page_url', window.location.href);
+  if (!goflowGetStorage('goflow_landing_page_path')) goflowSetStorage('goflow_landing_page_path', window.location.pathname);
+  if (!goflowGetStorage('goflow_referrer')) goflowSetStorage('goflow_referrer', document.referrer || '');
+
+  var params = {
+    landing_page_url: goflowGetStorage('goflow_landing_page_url') || window.location.href,
+    landing_page_path: goflowGetStorage('goflow_landing_page_path') || window.location.pathname,
+    current_page_url: window.location.href,
+    current_page_path: window.location.pathname,
+    page_path: window.location.pathname,
+    page_hash: window.location.hash || '',
+    referrer: goflowGetStorage('goflow_referrer') || document.referrer || '',
+    first_seen_at: goflowGetStorage('goflow_first_seen_at') || now,
+    session_id: sessionId
+  };
+
   keys.forEach(function(key){
-    var stored = ''; try { stored = sessionStorage.getItem('goflow_' + key) || ''; } catch(e) {}
-    var value = query.get(key) || stored || '';
-    if (value) { params[key] = value; try { sessionStorage.setItem('goflow_' + key, value); } catch(e) {} }
+    var queryValue = query.get(key) || '';
+    var stored = goflowGetStorage('goflow_' + key);
+    var value = queryValue || stored || '';
+    if (value) {
+      params[key] = value;
+      goflowSetStorage('goflow_' + key, value);
+      if (key.indexOf('utm_') === 0) {
+        var firstKey = 'goflow_first_' + key;
+        if (!goflowGetStorage(firstKey)) goflowSetStorage(firstKey, value);
+        params['first_' + key] = goflowGetStorage(firstKey) || value;
+        params['last_' + key] = value;
+        if (queryValue) goflowSetStorage('goflow_last_' + key, queryValue);
+      }
+    }
+    if (key.indexOf('utm_') === 0) {
+      var firstStored = goflowGetStorage('goflow_first_' + key);
+      var lastStored = goflowGetStorage('goflow_last_' + key) || value;
+      if (firstStored) params['first_' + key] = firstStored;
+      if (lastStored) params['last_' + key] = lastStored;
+    }
   });
+  params.traffic_source_status = getTrafficSourceStatus(params);
   return params;
 }
+function appendTrackingToFormData(formData){
+  if (!formData || typeof formData.set !== 'function') return formData;
+  var params = getTrackingParams();
+  Object.keys(params).forEach(function(key){ formData.set(key, params[key]); });
+  return formData;
+}
+function appendTrackingHiddenFields(form){
+  if (!form || !form.querySelectorAll) return;
+  var params = getTrackingParams();
+  Object.keys(params).forEach(function(key){
+    var input = form.querySelector('input[name="' + key + '"]');
+    if (!input) {
+      input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      form.appendChild(input);
+    }
+    input.value = params[key] == null ? '' : String(params[key]);
+  });
+}
+window.getTrackingParams = getTrackingParams;
+window.appendTrackingToFormData = appendTrackingToFormData;
+window.appendTrackingHiddenFields = appendTrackingHiddenFields;
 
 function injectConsentStyles(){
   if (document.getElementById('goflow-consent-styles')) return;
@@ -157,6 +245,8 @@ function renderCookieBanner(banner){
   saveActions.append(cancel, save); panel.append(title, intro, essential.row, analytics.row, marketing.row, saveActions);
   banner.append(inner, panel);
 }
+
+document.addEventListener('submit', function(event){ appendTrackingHiddenFields(event.target); }, true);
 
 document.addEventListener('DOMContentLoaded', function(){
   var banner = document.getElementById('cookie-banner');
