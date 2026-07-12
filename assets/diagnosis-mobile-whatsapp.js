@@ -4,10 +4,17 @@
   document.addEventListener('DOMContentLoaded', initMobileWhatsapp);
 
   function initMobileWhatsapp(){
+    var shortQuizLink = document.querySelector('.top-quiz-link');
+    if (shortQuizLink) shortQuizLink.textContent = 'מעדיפים לבדוק לבד? התחילו אבחון קצר';
+
     var config = window.QUIZ_CONFIG || {};
     var original = document.querySelector('[data-quiz="whatsapp-button"]');
     var result = document.querySelector('[data-quiz="result-wrap"]');
     if (!original || !result || !config.whatsapp_phone) return;
+
+    // On landing B there are already prominent phone and WhatsApp actions above the quiz.
+    // Avoid a duplicate floating button that can cover quiz content on mobile.
+    if (document.querySelector('.top-contact-buttons')) return;
 
     var source = getDiagnosisSource(config);
     var floating = document.createElement('a');
