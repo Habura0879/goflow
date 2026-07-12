@@ -12,10 +12,6 @@
     var result = document.querySelector('[data-quiz="result-wrap"]');
     if (!original || !result || !config.whatsapp_phone) return;
 
-    // On landing B there are already prominent phone and WhatsApp actions above the quiz.
-    // Avoid a duplicate floating button that can cover quiz content on mobile.
-    if (document.querySelector('.top-contact-buttons')) return;
-
     var source = getDiagnosisSource(config);
     var floating = document.createElement('a');
     floating.className = 'diagnosis-mobile-wa-float';
