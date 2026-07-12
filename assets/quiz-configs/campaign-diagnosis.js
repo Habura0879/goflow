@@ -3,7 +3,7 @@ window.CAMPAIGN_DIAGNOSIS = {
   quiz_name: 'אבחון תפעולי לקמפיינים',
   whatsapp_phone: '9720547951161',
   formspree_endpoint: 'https://formspree.io/f/maqzwlqy',
-  sheet_webhook_url: 'https://script.google.com/macros/s/AKfycbxYVmacixUKR071kabelmPep55790mmTFszMijZ9heSR9UFvdaqqvxhCv162q59zY6h/exec',
+  sheet_webhook_url: 'https://script.google.com/macros/s/AKfycbxQVBy5bUWZAwwjQWii_clzD6I2Q5Y4Qbwd6xSFbM8v3SpeV_LHO1mPlbG9frYr1mGl/exec',
   category_priority: ['process', 'responsibility', 'system', 'adoption', 'manual'],
   categories: {
     process: { icon: '◌', title: 'תהליך עבודה', desc: 'כדאי לחדד את רצף העבודה ואת נקודות המעבר בין שלבים.', priority_desc: 'זו נקודת המוצא: מיפוי תהליך, הגדרת שלבים ואחריות לפני בחירת כלי.' },
