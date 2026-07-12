@@ -10,42 +10,8 @@
   };
 
   document.addEventListener('DOMContentLoaded', function(){
-    bindAutomationLandingBTopForm();
     setTimeout(initDiagnosisResultExperience, 0);
   });
-
-  function bindAutomationLandingBTopForm(){
-    if (window.location.pathname.replace(/\/+$/, '') !== '/automation-diagnosis-b') return;
-
-    var form = document.getElementById('top-lead-form');
-    if (!form || form.getAttribute('data-sheet-route-bound') === 'true') return;
-
-    form.setAttribute('data-sheet-route-bound', 'true');
-
-    form.addEventListener('submit', function(){
-      window.CAMPAIGN_DIAGNOSIS = window.CAMPAIGN_DIAGNOSIS || {};
-      window.CAMPAIGN_DIAGNOSIS.sheet_webhook_url = 'https://script.google.com/macros/s/AKfycbxYVmacixUKR071kabelmPep55790mmTFszMijZ9heSR9UFVdaqqvxhCv162q59zY6h/exec';
-
-      setHiddenField(form, 'quiz_attempt_id', createQuickLeadAttemptId());
-      setHiddenField(form, 'lead_status', 'complete');
-      setHiddenField(form, 'interaction_type', 'form_submit');
-    }, true);
-  }
-
-  function createQuickLeadAttemptId(){
-    var randomPart = '';
-
-    if (
-      window.crypto &&
-      typeof window.crypto.randomUUID === 'function'
-    ) {
-      randomPart = window.crypto.randomUUID();
-    } else {
-      randomPart = Math.random().toString(36).slice(2);
-    }
-
-    return 'quick_b_' + Date.now() + '_' + randomPart;
-  }
 
   function initDiagnosisResultExperience(){
     decorateField('name', true, '');
