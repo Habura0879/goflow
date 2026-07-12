@@ -4,6 +4,16 @@
   document.addEventListener('DOMContentLoaded', initMobileWhatsapp);
 
   function initMobileWhatsapp(){
+    var isAutomationLandingB = window.location.pathname.replace(/\/+$/, '') === '/automation-diagnosis-b';
+
+    if (isAutomationLandingB) {
+      document.addEventListener('submit', function(event){
+        if (!event.target || event.target.id !== 'top-lead-form') return;
+        window.CAMPAIGN_DIAGNOSIS = window.CAMPAIGN_DIAGNOSIS || {};
+        window.CAMPAIGN_DIAGNOSIS.sheet_webhook_url = 'https://script.google.com/macros/s/AKfycbxYVmacixUKR071kabelmPep55790mmTFszMijZ9heSR9UFVdaqqvxhCv162q59zY6h/exec';
+      }, true);
+    }
+
     var shortQuizLink = document.querySelector('.top-quiz-link');
     if (shortQuizLink) shortQuizLink.textContent = 'מעדיפים לבדוק לבד? התחילו אבחון קצר';
 
