@@ -1,8 +1,11 @@
 (function(){
+  'use strict';
+
   var form = document.getElementById('aiLeadForm');
   var submit = document.getElementById('aiSubmit');
   var status = document.getElementById('aiStatus');
-  var endpoint = 'https://formspree.io/f/maqzwlqy';
+  var formspreeEndpoint = 'https://formspree.io/f/maqzwlqy';
+  var sheetEndpoint = 'https://script.google.com/macros/s/AKfycbxYVmacixUKR071kabelmPep55790mmTFszMijZ9heSR9UFvdaqqvxhCv162q59zY6h/exec';
 
   if (typeof trackEvent === 'function') {
     trackEvent('ai_service_view', { service: 'ai_business_processes' });
@@ -19,7 +22,7 @@
 
   if (!form) return;
 
-  form.action = endpoint;
+  form.action = formspreeEndpoint;
   form.method = 'POST';
 
   var started = false;
@@ -31,37 +34,57 @@
 
   form.addEventListener('submit', async function(event){
     event.preventDefault();
+    if (submit.disabled) return;
+
     submit.disabled = true;
     submit.textContent = 'שולח...';
     status.style.display = 'none';
 
     var data = new FormData(form);
-    var process = data.get('process_to_improve') || '';
-    var company = data.get('company') || '';
-    var employees = data.get('employees') || '';
-    var currentUse = data.get('current_ai_use') || '';
-    var phone = data.get('phone') || '';
-
-    data.set('message', [
+    var process = String(data.get('process_to_improve') || '');
+    var company = String(data.get('company') || '');
+    var employees = String(data.get('employees') || '');
+    var currentUse = String(data.get('current_ai_use') || '');
+    var phone = String(data.get('phone') || '');
+    var submittedAt = new Date().toISOString();
+    var submissionId = 'ai_lead_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+    var summary = [
       'פנייה בנושא: הטמעת AI בתהליכי עבודה',
       'טלפון: ' + phone,
       'חברה: ' + company,
       'מספר עובדים: ' + employees,
       'שימוש נוכחי ב-AI: ' + currentUse,
       'התהליך שרוצים לשפר: ' + process
-    ].join('\n'));
+    ].join('\n');
+
+    data.set('message', summary);
+    data.set('quiz_summary', summary);
     data.set('_subject', 'פנייה חדשה מהאתר — הטמעת AI בתהליכי עבודה');
     data.set('service', 'הטמעת AI בתהליכי עבודה');
+    data.set('source', 'ai_service_form');
+    data.set('diagnosis_source', 'ai_service_form');
+    data.set('form_source', 'ai_service_form');
+    data.set('schema_version', 'goflow_lead_v1');
+    data.set('lead_type', 'ai_implementation');
+    data.set('lead_status', 'new');
+    data.set('interaction_type', 'lead_submit');
+    data.set('challenge', process);
+    data.set('employee_count', employees);
+    data.set('submission_id', submissionId);
+    data.set('submitted_at', submittedAt);
+    data.set('page_slug', 'ai-business-processes');
+    data.set('page_url', window.location.href);
+    data.set('page_path', window.location.pathname);
+    data.set('page_hash', window.location.hash || '#ai-contact');
 
-    if (typeof getTrackingParams === 'function') {
-      var tracking = getTrackingParams();
-      Object.keys(tracking || {}).forEach(function(key){
-        if (tracking[key] !== undefined && tracking[key] !== '') data.set(key, tracking[key]);
-      });
-    }
+    var tracking = typeof getTrackingParams === 'function' ? getTrackingParams() : {};
+    Object.keys(tracking || {}).forEach(function(key){
+      if (tracking[key] !== undefined && tracking[key] !== '') data.set(key, tracking[key]);
+    });
+    data.set('attribution_json', JSON.stringify(tracking || {}));
 
     try {
-      var response = await fetch(endpoint, {
+      var response = await fetch(formspreeEndpoint, {
         method: 'POST',
         body: data,
         headers: { 'Accept': 'application/json' }
@@ -69,6 +92,8 @@
       var result = {};
       try { result = await response.json(); } catch (ignore) {}
       if (!response.ok) throw new Error((result && result.error) || 'form_submit_failed');
+
+      sendLeadToSheet(data);
 
       submit.textContent = '✓ ההודעה נשלחה בהצלחה';
       submit.style.background = '#1a5c2a';
@@ -89,4 +114,33 @@
       status.textContent = 'אירעה שגיאה, נסו שוב או פנו אלינו בוואטסאפ.';
     }
   });
+
+  function sendLeadToSheet(formData){
+    var iframeName = 'goflowAiLeadSheetFrame';
+    var iframe = document.querySelector('iframe[name="' + iframeName + '"]');
+    if (!iframe) {
+      iframe = document.createElement('iframe');
+      iframe.name = iframeName;
+      iframe.hidden = true;
+      document.body.appendChild(iframe);
+    }
+
+    var relayForm = document.createElement('form');
+    relayForm.method = 'POST';
+    relayForm.action = sheetEndpoint;
+    relayForm.target = iframeName;
+    relayForm.hidden = true;
+
+    formData.forEach(function(value, key){
+      var input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = key;
+      input.value = value;
+      relayForm.appendChild(input);
+    });
+
+    document.body.appendChild(relayForm);
+    relayForm.submit();
+    setTimeout(function(){ relayForm.remove(); }, 8000);
+  }
 })();
