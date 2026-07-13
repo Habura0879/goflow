@@ -62,27 +62,35 @@ jobs:
       - name: Apply and validate direct AI article CTA
         run: python3 scripts/update-ai-article-cta.py
 
+      - name: Apply guarded AI campaign funnel updates
+        run: python3 scripts/update-ai-campaign-funnel.py
+
       - name: Validate AI article and blog integration
         run: python3 scripts/validate-ai-article.py
 
-      - name: Check AI lead integration JavaScript syntax
-        run: node --check assets/ai-service.js
+      - name: Check AI funnel JavaScript syntax
+        run: |
+          node --check assets/ai-service.js
+          node --check assets/measured-links.js
 
       - name: Validate AI lead to central sheet flow
         run: python3 scripts/validate-ai-lead-sheet-flow.py
 
+      - name: Validate isolated AI campaign funnel
+        run: python3 scripts/validate-ai-campaign-funnel.py
+
       - name: Apply and validate phase 3 launch QA
         run: python3 scripts/phase3-qa.py
 
-      - name: Persist phase 3 QA and article updates
+      - name: Persist phase 3 QA and AI funnel updates
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add 404.html index.html blog/ai-crm-readiness/index.html services/ai-business-processes/index.html services/crm-consulting/index.html
           if git diff --cached --quiet; then
-            echo "Phase 3 QA and article updates already persisted."
+            echo "Phase 3 QA and AI funnel updates already persisted."
           else
-            git commit -m "Persist approved AI article CTA and QA fixes [skip ci]"
+            git commit -m "Persist approved AI funnel and QA fixes [skip ci]"
             git push origin HEAD:main
           fi
 

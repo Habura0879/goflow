@@ -66,11 +66,12 @@
     data.set('form_source', 'ai_service_form');
     data.set('schema_version', 'goflow_lead_v1');
     data.set('lead_type', 'ai_implementation');
-    data.set('lead_status', 'new');
-    data.set('interaction_type', 'lead_submit');
+    data.set('lead_status', 'complete');
+    data.set('interaction_type', 'form_submit');
     data.set('challenge', process);
     data.set('employee_count', employees);
     data.set('submission_id', submissionId);
+    data.set('quiz_attempt_id', submissionId);
     data.set('submitted_at', submittedAt);
     data.set('page_slug', 'ai-business-processes');
     data.set('page_url', window.location.href);
