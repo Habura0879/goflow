@@ -65,6 +65,12 @@ jobs:
       - name: Validate AI article and blog integration
         run: python3 scripts/validate-ai-article.py
 
+      - name: Check AI lead integration JavaScript syntax
+        run: node --check assets/ai-service.js
+
+      - name: Validate AI lead to central sheet flow
+        run: python3 scripts/validate-ai-lead-sheet-flow.py
+
       - name: Apply and validate phase 3 launch QA
         run: python3 scripts/phase3-qa.py
 
