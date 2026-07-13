@@ -3,19 +3,26 @@ from pathlib import Path
 ARTICLE = Path("blog/ai-crm-readiness/index.html")
 html = ARTICLE.read_text(encoding="utf-8")
 
-old = '<a href="/services/ai-business-processes/" class="btn-gold">לבדיקת מוכנות ל-AI ←</a>'
-new = '<a href="/services/ai-business-processes/?ref=article_ai_crm#ai-contact" class="btn-gold">לבדיקת התאמה ראשונית ל־AI ←</a>'
+legacy_cta = '<a href="/services/ai-business-processes/" class="btn-gold">לבדיקת מוכנות ל-AI ←</a>'
+current_cta = '<a href="/services/ai-business-processes/?ref=article_ai_crm#ai-contact" class="btn-gold">לבדיקת התאמה ראשונית ל־AI ←</a>'
+final_cta = '<a href="/services/ai-business-processes/?ref=article_ai_crm#ai-contact" class="btn-gold" data-measured-link="article_ai_form" data-measured-path="/blog/ai-crm-readiness/#cta-ai-form" data-pass-click-id="true"><span>לבדיקת התאמה ל־AI</span><span class="cta-arrow" aria-hidden="true">←</span></a>'
 
-if new not in html:
-    count = html.count(old)
-    if count != 1:
-        raise SystemExit(f"AI article CTA guard failed: expected 1 old CTA, found {count}")
-    html = html.replace(old, new, 1)
+if final_cta not in html:
+    candidates = [candidate for candidate in (current_cta, legacy_cta) if candidate in html]
+    if len(candidates) != 1:
+        raise SystemExit(
+            "AI article CTA guard failed: expected exactly one supported source CTA, "
+            f"found {len(candidates)}"
+        )
+    source = candidates[0]
+    if html.count(source) != 1:
+        raise SystemExit("AI article CTA guard failed: source CTA must appear exactly once")
+    html = html.replace(source, final_cta, 1)
 
-if html.count(new) != 1:
-    raise SystemExit("AI article CTA validation failed: expected exactly one direct form CTA")
-if old in html:
-    raise SystemExit("AI article CTA validation failed: old intermediate CTA still exists")
+if html.count(final_cta) != 1:
+    raise SystemExit("AI article CTA validation failed: expected exactly one final measured CTA")
+if legacy_cta in html or current_cta in html:
+    raise SystemExit("AI article CTA validation failed: an obsolete CTA still exists")
 
 ARTICLE.write_text(html, encoding="utf-8")
-print("AI article CTA now points directly to the existing AI form with source tracking.")
+print("AI article CTA is compact, measurable and points directly to the existing AI form.")
