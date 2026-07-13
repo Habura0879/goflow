@@ -11,6 +11,9 @@ article = ARTICLE.read_text(encoding="utf-8")
 blog_index = BLOG_INDEX.read_text(encoding="utf-8")
 sitemap = SITEMAP.read_text(encoding="utf-8")
 
+direct_cta = '<a href="/services/ai-business-processes/?ref=article_ai_crm#ai-contact" class="btn-gold">לבדיקת התאמה ראשונית ל־AI ←</a>'
+old_cta = '<a href="/services/ai-business-processes/" class="btn-gold">לבדיקת מוכנות ל-AI ←</a>'
+
 required_article_markers = [
     '<html lang="he" dir="rtl">',
     '<link rel="canonical" href="https://goflow.co.il/blog/ai-crm-readiness/">',
@@ -21,7 +24,7 @@ required_article_markers = [
     '<span class="article-cat">AI</span>',
     '<link rel="stylesheet" href="/assets/shared.css?v=7">',
     '<link rel="stylesheet" href="/assets/blog.css?v=3">',
-    '/services/ai-business-processes/',
+    direct_cta,
     '/blog/automation-for-business/',
     '/blog/crm-requirements-checklist/',
 ]
@@ -31,6 +34,10 @@ for marker in required_article_markers:
 
 if article.count('<h1 class="article-title">') != 1:
     raise SystemExit("Article validation failed: expected one H1")
+if article.count(direct_cta) != 1:
+    raise SystemExit("Article validation failed: expected one direct AI form CTA")
+if old_cta in article:
+    raise SystemExit("Article validation failed: old intermediate AI CTA still exists")
 
 for raw in re.findall(r'<script type="application/ld\+json">(.*?)</script>', article, re.S):
     json.loads(raw)
@@ -51,4 +58,4 @@ urls = [node.text for node in root.findall("sm:url/sm:loc", ns)]
 if "https://goflow.co.il/blog/ai-crm-readiness/" not in urls:
     raise SystemExit("Sitemap validation failed: article URL missing")
 
-print("AI article, blog index and sitemap validated successfully.")
+print("AI article, direct form CTA, blog index and sitemap validated successfully.")
