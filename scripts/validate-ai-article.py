@@ -6,10 +6,12 @@ import xml.etree.ElementTree as ET
 ARTICLE = Path("blog/ai-crm-readiness/index.html")
 BLOG_INDEX = Path("blog/index.html")
 SITEMAP = Path("sitemap.xml")
+SHORT_LINK = Path("ai-crm/index.html")
 
 article = ARTICLE.read_text(encoding="utf-8")
 blog_index = BLOG_INDEX.read_text(encoding="utf-8")
 sitemap = SITEMAP.read_text(encoding="utf-8")
+short_link = SHORT_LINK.read_text(encoding="utf-8")
 
 direct_cta = '<a href="/services/ai-business-processes/?ref=article_ai_crm#ai-contact" class="btn-gold">לבדיקת התאמה ראשונית ל־AI ←</a>'
 old_cta = '<a href="/services/ai-business-processes/" class="btn-gold">לבדיקת מוכנות ל-AI ←</a>'
@@ -52,10 +54,27 @@ for marker in required_index_markers:
     if marker not in blog_index:
         raise SystemExit(f"Blog index validation failed: missing {marker}")
 
+required_short_link_markers = [
+    '<meta name="robots" content="noindex,nofollow">',
+    "var WEBHOOK = 'https://script.google.com/macros/s/AKfycbwBupU9NsVFQD7G9eqWoNS8B6EVIBymSqp3WhykccnzbZwkz52pb-zvDkXj_QPfMgA/exec';",
+    "utm_source: 'whatsapp'",
+    "utm_medium: 'status'",
+    "utm_campaign: 'organic_content'",
+    "utm_content: 'ai_crm_article_day1'",
+    "var target = new URL('/blog/ai-crm-readiness/', window.location.origin);",
+    "event_type: 'short_link_click'",
+    "short_path: window.location.pathname",
+    "destination_url: target.toString()",
+    "window.location.replace(target.toString())",
+]
+for marker in required_short_link_markers:
+    if marker not in short_link:
+        raise SystemExit(f"Short-link validation failed: missing {marker}")
+
 root = ET.fromstring(sitemap)
 ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 urls = [node.text for node in root.findall("sm:url/sm:loc", ns)]
 if "https://goflow.co.il/blog/ai-crm-readiness/" not in urls:
     raise SystemExit("Sitemap validation failed: article URL missing")
 
-print("AI article, direct form CTA, blog index and sitemap validated successfully.")
+print("AI article, direct form CTA, measurable WhatsApp short link, blog index and sitemap validated successfully.")
