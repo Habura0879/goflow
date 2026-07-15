@@ -105,7 +105,7 @@ validate_short_link(
 )
 
 root = ET.fromstring(sitemap)
-ns = {"sm": "http://www.sitemaps.org/sitemap/0.9"}
+ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
 urls = [node.text for node in root.findall("sm:url/sm:loc", ns)]
 if "https://goflow.co.il/blog/ai-crm-readiness/" not in urls:
     raise SystemExit("Sitemap validation failed: article URL missing")
