@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>AI במערכות CRM — מה חייבים להגדיר לפני שנותנים למערכת לפעול</title>
+  <meta name="description" content="שבע החלטות שצריך לקבל לפני שנותנים ל־AI לעדכן מידע, לענות ולבצע פעולות בתוך מערכת CRM.">
+  <meta property="og:title" content="AI במערכות CRM: מה חייבים להגדיר לפני שנותנים למערכת לפעול">
+  <meta property="og:description" content="המערכת כבר יכולה לסכם, להציע ולעדכן. לפני שנותנים לה לפעול, צריך להגדיר תהליך, מידע, הרשאות ובקרה.">
+  <meta property="og:url" content="https://goflow.co.il/ai-fb-story/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="GoFlow">
+  <meta property="og:locale" content="he_IL">
+  <meta property="og:image" content="https://goflow.co.il/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="AI במערכות CRM — מדריך GoFlow">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI במערכות CRM: מה חייבים להגדיר לפני שנותנים למערכת לפעול">
+  <meta name="twitter:description" content="שבע החלטות שצריך לקבל לפני שנותנים ל־AI לפעול בתוך מערכת CRM.">
+  <meta name="twitter:image" content="https://goflow.co.il/og-image.jpg">
+  <script>
+    (function () {
+      var WEBHOOK = 'https://script.google.com/macros/s/AKfycbwBupU9NsVFQD7G9eqWoNS8B6EVIBymSqp3WhykccnzbZwkz52pb-zvDkXj_QPfMgA/exec';
+      var defaults = {
+        utm_source: 'facebook',
+        utm_medium: 'story',
+        utm_campaign: 'organic_content',
+        utm_content: 'ai_crm_article_day1'
+      };
+      var target = new URL('/blog/ai-crm-readiness/', window.location.origin);
+      Object.keys(defaults).forEach(function (key) { target.searchParams.set(key, defaults[key]); });
+      new URLSearchParams(window.location.search).forEach(function (value, key) { target.searchParams.set(key, value); });
+      if (window.location.hash) target.hash = window.location.hash;
+      var clickId = 'clk_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 10);
+      target.searchParams.set('click_id', clickId);
+      var payload = new URLSearchParams({
+        event_type: 'short_link_click',
+        click_id: clickId,
+        clicked_at: new Date().toISOString(),
+        short_path: window.location.pathname,
+        destination_url: target.toString(),
+        referrer: document.referrer || '',
+        utm_source: target.searchParams.get('utm_source') || '',
+        utm_medium: target.searchParams.get('utm_medium') || '',
+        utm_campaign: target.searchParams.get('utm_campaign') || '',
+        utm_content: target.searchParams.get('utm_content') || ''
+      });
+      try {
+        fetch(WEBHOOK, {
+          method: 'POST',
+          mode: 'no-cors',
+          keepalive: true,
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+          body: payload.toString()
+        });
+      } catch (error) {}
+      setTimeout(function () { window.location.replace(target.toString()); }, 120);
+    })();
+  </script>
+</head>
+<body>
+  <p>מעבירים אותך למאמר…</p>
+  <noscript><a href="/blog/ai-crm-readiness/?utm_source=facebook&amp;utm_medium=story&amp;utm_campaign=organic_content&amp;utm_content=ai_crm_article_day1">לחצו כאן לקריאת המאמר</a></noscript>
+</body>
+</html>
