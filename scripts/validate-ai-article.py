@@ -97,6 +97,12 @@ validate_short_link(
     "facebook",
     "story",
 )
+validate_short_link(
+    "ai-fb-post/index.html",
+    "https://goflow.co.il/ai-fb-post/",
+    "facebook",
+    "post",
+)
 
 root = ET.fromstring(sitemap)
 ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
@@ -104,4 +110,4 @@ urls = [node.text for node in root.findall("sm:url/sm:loc", ns)]
 if "https://goflow.co.il/blog/ai-crm-readiness/" not in urls:
     raise SystemExit("Sitemap validation failed: article URL missing")
 
-print("AI article, compact measured CTAs, WhatsApp and Facebook Story short links, blog index and sitemap validated successfully.")
+print("AI article, compact measured CTAs, WhatsApp, Facebook Story and Facebook Post short links, blog index and sitemap validated successfully.")
