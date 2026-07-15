@@ -6,12 +6,10 @@ import xml.etree.ElementTree as ET
 ARTICLE = Path("blog/ai-crm-readiness/index.html")
 BLOG_INDEX = Path("blog/index.html")
 SITEMAP = Path("sitemap.xml")
-SHORT_LINK = Path("ai-crm/index.html")
 
 article = ARTICLE.read_text(encoding="utf-8")
 blog_index = BLOG_INDEX.read_text(encoding="utf-8")
 sitemap = SITEMAP.read_text(encoding="utf-8")
-short_link = SHORT_LINK.read_text(encoding="utf-8")
 
 direct_cta = '<a href="/services/ai-business-processes/?ref=article_ai_crm#ai-contact" class="btn-gold" data-measured-link="article_ai_form" data-measured-path="/blog/ai-crm-readiness/#cta-ai-form" data-pass-click-id="true"><span>לבדיקת התאמה ל־AI</span><span class="cta-arrow" aria-hidden="true">←</span></a>'
 legacy_cta = '<a href="/services/ai-business-processes/" class="btn-gold">לבדיקת מוכנות ל-AI ←</a>'
@@ -65,22 +63,40 @@ for marker in required_index_markers:
     if marker not in blog_index:
         raise SystemExit(f"Blog index validation failed: missing {marker}")
 
-required_short_link_markers = [
-    '<meta name="robots" content="noindex,nofollow">',
-    "var WEBHOOK = 'https://script.google.com/macros/s/AKfycbwBupU9NsVFQD7G9eqWoNS8B6EVIBymSqp3WhykccnzbZwkz52pb-zvDkXj_QPfMgA/exec';",
-    "utm_source: 'whatsapp'",
-    "utm_medium: 'status'",
-    "utm_campaign: 'organic_content'",
-    "utm_content: 'ai_crm_article_day1'",
-    "var target = new URL('/blog/ai-crm-readiness/', window.location.origin);",
-    "event_type: 'short_link_click'",
-    "short_path: window.location.pathname",
-    "destination_url: target.toString()",
-    "window.location.replace(target.toString())",
-]
-for marker in required_short_link_markers:
-    if marker not in short_link:
-        raise SystemExit(f"Short-link validation failed: missing {marker}")
+
+def validate_short_link(path, public_url, source, medium):
+    html = Path(path).read_text(encoding="utf-8")
+    required_markers = [
+        '<meta name="robots" content="noindex,nofollow">',
+        f'<meta property="og:url" content="{public_url}">',
+        "var WEBHOOK = 'https://script.google.com/macros/s/AKfycbwBupU9NsVFQD7G9eqWoNS8B6EVIBymSqp3WhykccnzbZwkz52pb-zvDkXj_QPfMgA/exec';",
+        f"utm_source: '{source}'",
+        f"utm_medium: '{medium}'",
+        "utm_campaign: 'organic_content'",
+        "utm_content: 'ai_crm_article_day1'",
+        "var target = new URL('/blog/ai-crm-readiness/', window.location.origin);",
+        "event_type: 'short_link_click'",
+        "short_path: window.location.pathname",
+        "destination_url: target.toString()",
+        "window.location.replace(target.toString())",
+    ]
+    for marker in required_markers:
+        if marker not in html:
+            raise SystemExit(f"Short-link validation failed for {path}: missing {marker}")
+
+
+validate_short_link(
+    "ai-crm/index.html",
+    "https://goflow.co.il/ai-crm/",
+    "whatsapp",
+    "status",
+)
+validate_short_link(
+    "ai-fb-story/index.html",
+    "https://goflow.co.il/ai-fb-story/",
+    "facebook",
+    "story",
+)
 
 root = ET.fromstring(sitemap)
 ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
@@ -88,4 +104,4 @@ urls = [node.text for node in root.findall("sm:url/sm:loc", ns)]
 if "https://goflow.co.il/blog/ai-crm-readiness/" not in urls:
     raise SystemExit("Sitemap validation failed: article URL missing")
 
-print("AI article, compact measured CTAs, short link, blog index and sitemap validated successfully.")
+print("AI article, compact measured CTAs, WhatsApp and Facebook Story short links, blog index and sitemap validated successfully.")
