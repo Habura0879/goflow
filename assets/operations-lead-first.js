@@ -202,9 +202,8 @@
   if (whatsappLink) whatsappLink.addEventListener('click', function(){ emit('operations_top_whatsapp_clicked'); });
 
   var quizLink = root.querySelector('.operations-quiz-link');
-  if (quizLink) quizLink.addEventListener('click', function(event){
-    event.preventDefault();
+  if (quizLink) quizLink.addEventListener('click', function(){
     emit('operations_top_quiz_clicked');
-    quizShell.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(function(){ quizShell.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 0);
   });
 })();
