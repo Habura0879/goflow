@@ -4,22 +4,46 @@
   document.addEventListener('DOMContentLoaded', onReady);
 
   function onReady(){
-    replayLandingBTopFormView();
+    initLandingBTopFormViewMeasurement();
     initMobileWhatsapp();
   }
 
-  function replayLandingBTopFormView(){
+  function initLandingBTopFormViewMeasurement(){
     if (window.location.pathname !== '/automation-diagnosis-b/') return;
     if (!document.getElementById('top-lead-form')) return;
+
+    var preferences = typeof window.getConsentPreferences === 'function'
+      ? window.getConsentPreferences()
+      : { analytics: false };
+
+    if (preferences.analytics) {
+      window.__goflowLandingBTopFormViewMeasured = true;
+      return;
+    }
+
+    document.addEventListener('click', function(event){
+      var button = event.target.closest('.cookie-banner-btn');
+      if (!button) return;
+      window.setTimeout(measureLandingBTopFormViewAfterConsent, 0);
+    });
+  }
+
+  function measureLandingBTopFormViewAfterConsent(){
     if (window.__goflowLandingBTopFormViewMeasured) return;
     if (typeof window.trackEvent !== 'function') return;
+
+    var preferences = typeof window.getConsentPreferences === 'function'
+      ? window.getConsentPreferences()
+      : { analytics: false };
+
+    if (!preferences.analytics) return;
 
     window.__goflowLandingBTopFormViewMeasured = true;
     window.trackEvent('diagnosis_top_form_view', {
       landing_variant: 'B',
       diagnosis_source: 'automation',
       page_slug: 'automation-diagnosis-b',
-      measurement_timing: 'after_analytics_init'
+      measurement_timing: 'after_analytics_consent'
     });
   }
 
