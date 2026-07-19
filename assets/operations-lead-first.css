@@ -1,0 +1,219 @@
+.operations-lead-first .landing-hero{
+  padding:clamp(2rem,4.5vw,4.5rem) clamp(1rem,5vw,4rem);
+}
+.operations-lead-first .landing-hero-inner{
+  grid-template-columns:minmax(0,.95fr) minmax(340px,1.05fr);
+  gap:clamp(1.5rem,4vw,4rem);
+}
+.operations-lead-first .landing-copy{
+  position:static;
+  max-height:none;
+  overflow:visible;
+  padding:clamp(.25rem,2vw,1rem) 0;
+}
+.operations-lead-first .landing-copy h1{
+  font-size:clamp(2rem,3.25vw,3rem);
+  line-height:1.13;
+  max-width:18ch;
+  margin:.4rem 0 1.2rem;
+}
+.operations-lead-first .landing-copy p{
+  max-width:56ch;
+}
+.operations-trust{
+  margin-top:1.15rem;
+  padding-top:1rem;
+  border-top:1px solid rgba(247,244,238,.16);
+  font-size:.9rem;
+  color:rgba(247,244,238,.76);
+  line-height:1.7;
+}
+.operations-actions{
+  background:var(--paper);
+  color:var(--ink);
+  border:1px solid rgba(212,168,75,.34);
+  border-radius:var(--r);
+  padding:clamp(1.25rem,3vw,2rem);
+  box-shadow:0 24px 60px rgba(0,0,0,.25);
+}
+.operations-actions h2{
+  font-size:1.45rem;
+  margin:0 0 .35rem;
+}
+.operations-actions>p{
+  color:var(--muted);
+  line-height:1.65;
+  margin:0 0 1.2rem;
+}
+.operations-lead-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.8rem;
+}
+.operations-lead-grid label{
+  display:block;
+  font-size:.78rem;
+  color:var(--muted);
+  margin-bottom:.35rem;
+}
+.operations-lead-grid input{
+  width:100%;
+  padding:.8rem 1rem;
+  border:1px solid var(--border);
+  border-radius:var(--r);
+  font:inherit;
+  background:#fff;
+}
+.operations-lead-submit{
+  width:100%;
+  margin-top:.9rem;
+  padding:.9rem 1rem;
+  border:0;
+  border-radius:2px;
+  background:var(--ink);
+  color:var(--paper);
+  font:inherit;
+  font-weight:500;
+  cursor:pointer;
+}
+.operations-lead-submit:disabled{
+  opacity:.72;
+  cursor:wait;
+}
+.operations-lead-meta{
+  font-size:.78rem;
+  color:var(--muted);
+  margin:.65rem 0 0;
+  text-align:center;
+  line-height:1.5;
+}
+.operations-contact-sep{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  margin:1.2rem 0;
+  color:var(--muted);
+  font-size:.8rem;
+}
+.operations-contact-sep::before,
+.operations-contact-sep::after{
+  content:"";
+  height:1px;
+  background:var(--border);
+  flex:1;
+}
+.operations-contact-buttons{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.75rem;
+}
+.operations-contact-buttons a{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:50px;
+  padding:.7rem;
+  text-align:center;
+  text-decoration:none;
+  border-radius:2px;
+  font-size:.88rem;
+  font-weight:500;
+}
+.operations-phone{
+  background:var(--gold);
+  color:#fff;
+}
+.operations-whatsapp{
+  background:#25d366;
+  color:#fff;
+}
+.operations-quiz-link{
+  display:block;
+  text-align:center;
+  margin-top:1rem;
+  color:var(--ink);
+  font-size:.88rem;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.operations-lead-status{
+  margin-top:.8rem;
+  font-size:.85rem;
+  line-height:1.5;
+}
+.operations-lead-status.is-error{
+  color:#b43c1e;
+}
+.operations-lead-success{
+  border-right:3px solid var(--gold);
+  padding:1rem 1.2rem;
+  background:var(--paper-2);
+}
+.operations-lead-success h3{
+  margin:0 0 .35rem;
+}
+.operations-lead-success p{
+  margin:0;
+  color:var(--muted);
+}
+.operations-quiz-section{
+  padding:clamp(2rem,5vw,4rem) clamp(.75rem,5vw,4rem);
+  background:var(--paper-2);
+}
+.operations-quiz-inner{
+  max-width:900px;
+  margin:0 auto;
+}
+.operations-quiz-intro{
+  text-align:center;
+  margin-bottom:1.5rem;
+}
+.operations-quiz-intro h2{
+  font-size:clamp(1.6rem,3vw,2.2rem);
+  margin:.3rem 0;
+}
+.operations-quiz-intro p{
+  color:var(--muted);
+}
+.operations-quiz-section .landing-quiz-shell{
+  max-width:900px;
+  margin:0 auto;
+}
+@media(max-width:900px){
+  .operations-lead-first .landing-hero-inner{
+    grid-template-columns:1fr;
+  }
+  .operations-lead-first .landing-copy{
+    text-align:center;
+  }
+  .operations-lead-first .landing-copy h1{
+    max-width:none;
+  }
+  .operations-lead-first .landing-copy p{
+    margin-inline:auto;
+  }
+  .operations-trust{
+    text-align:center;
+  }
+}
+@media(max-width:600px){
+  .operations-lead-first .landing-hero{
+    padding:1.6rem .8rem 2rem;
+  }
+  .operations-actions{
+    padding:1.2rem;
+  }
+  .operations-lead-grid,
+  .operations-contact-buttons{
+    grid-template-columns:1fr;
+  }
+  .operations-lead-first .landing-copy h1{
+    font-size:clamp(1.8rem,8.3vw,2.25rem);
+  }
+  .operations-quiz-section{
+    padding:2rem .75rem;
+  }
+  .operations-quiz-section .landing-quiz-shell{
+    padding:1.4rem .75rem;
+  }
+}

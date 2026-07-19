@@ -79,6 +79,14 @@ jobs:
       - name: Validate isolated AI campaign funnel
         run: python3 scripts/validate-ai-campaign-funnel.py
 
+      - name: Check operations funnel JavaScript syntax
+        run: |
+          node --check assets/platform-short-link.js
+          node --check assets/operations-lead-first.js
+
+      - name: Validate operations lead-first funnel
+        run: python3 scripts/validate-operations-funnel.py
+
       - name: Apply and validate phase 3 launch QA
         run: python3 scripts/phase3-qa.py
 
