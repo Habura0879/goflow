@@ -1,10 +1,38 @@
 name: tmp-lipsync-probe
 on:
+  push:
+    branches: [tmp-media-bridge]
+    paths: ['.github/workflows/tmp-lipsync-probe.yml']
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
   probe:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - run: echo "Probe disabled after successful API discovery"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -q 'gradio_client>=1.3,<2'
+      - name: Probe live public lip-sync Spaces
+        run: |
+          python - <<'PY'
+          from gradio_client import Client
+          spaces = [
+            'ONLYRECEIPT-Inc/LatentSync',
+            'inselacaill334/lipsync-v2',
+            'barbarabax/auto-lipsync',
+            'laaalaaxwarlordx/lipsync-og',
+            'Marvin9005/LipSync-Ai',
+            'trymonolith/MuseTalk',
+            'some1priv/main',
+          ]
+          for s in spaces:
+              print('\n===== SPACE', s, '=====')
+              try:
+                  c=Client(s, verbose=False)
+                  print(c.view_api(return_format='dict'))
+              except Exception as e:
+                  print('ERROR', type(e).__name__, str(e))
+          PY
