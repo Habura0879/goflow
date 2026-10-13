@@ -50,6 +50,9 @@ if relative_route not in HUB or relative_route not in HOME:
     raise SystemExit("Service SEO validation failed: internal links are missing")
 if "<option>מסחור מידע עסקי לחברות AI</option>" not in HOME:
     raise SystemExit("Service funnel validation failed: existing contact form must classify this service")
+service_numbers = re.findall(r"class=\"svc-n\">(\\d+)</div>", HOME)
+if len(service_numbers) != len(set(service_numbers)):
+    raise SystemExit("Service funnel validation failed: homepage service numbers must be unique")
 for marker in [".data-service", "max-width:700px", ".data-faq"]:
     if marker not in CSS:
         raise SystemExit(f"Service style validation failed: missing {marker}")
