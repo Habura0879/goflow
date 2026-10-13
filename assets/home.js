@@ -43,6 +43,29 @@ document.addEventListener('click', function(event){
   });
 });
 
+// Contextualize the shared contact form for the data commercialization service.
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('service') !== 'data-commercialization') return;
+
+  var heading = document.querySelector('#contact .contact-left h2');
+  var blurb = document.querySelector('#contact .contact-blurb');
+  var interest = document.getElementById('interest');
+  var message = document.querySelector('#contactForm textarea[name="message"]');
+  var note = document.querySelector('#contactForm .form-note');
+
+  if (heading) heading.textContent = 'יש לכם מידע עסקי או מקצועי שיכול לעניין חברות AI?';
+  if (blurb) blurb.textContent = 'בשיחה ראשונית נבין איזה מידע נצבר ומה היקפו. אין צורך להעביר מידע בשלב הזה.';
+  if (interest) {
+    var option = Array.prototype.find.call(interest.options, function(item){
+      return item.textContent.trim() === 'מסחור מידע עסקי לחברות AI';
+    });
+    if (option) interest.value = option.value || option.textContent;
+  }
+  if (message) message.placeholder = 'תארו באופן כללי את סוג המידע והיקפו — בלי פרטים אישיים או רגישים.';
+  if (note) note.textContent = 'אין לשלוח קבצים או מידע גולמי, אישי, סודי או רגיש.';
+})();
+
 // Contact form
 document.getElementById('contactForm').addEventListener('submit', async function(e) {
   e.preventDefault();
