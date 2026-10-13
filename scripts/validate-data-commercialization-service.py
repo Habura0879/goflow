@@ -7,6 +7,8 @@ CSS = Path("assets/data-service.css").read_text(encoding="utf-8")
 HUB = Path("services/index.html").read_text(encoding="utf-8")
 HOME = Path("index.html").read_text(encoding="utf-8")
 HOME_JS = Path("assets/home.js").read_text(encoding="utf-8")
+if '/assets/home.js?v=13' not in HOME:
+    raise SystemExit("Service funnel validation failed: homepage must load the refreshed context script")
 SITEMAP = Path("sitemap.xml").read_text(encoding="utf-8")
 
 for marker in [
