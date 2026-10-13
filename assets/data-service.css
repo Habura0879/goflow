@@ -1,0 +1,12 @@
+.data-service .data-callout{margin:2rem 0 0;padding:1.2rem 1.4rem;border-right:3px solid var(--gold);background:#fff;color:var(--ink);line-height:1.8}
+.data-service .data-points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:2rem}
+.data-service .data-points>div{display:flex;flex-direction:column;gap:.4rem;padding:1.25rem;background:#fff;border:1px solid var(--border)}
+.data-service .data-points span,.data-service .data-points small{color:var(--muted)}
+.data-service .data-points span{font-size:.75rem;color:var(--gold)}
+.data-service .data-points strong{font-size:1rem}
+.data-service .data-points small{line-height:1.6}
+.data-faq{display:grid;gap:.75rem;max-width:900px}
+.data-faq details{background:#fff;border:1px solid var(--border);padding:1rem 1.2rem}
+.data-faq summary{cursor:pointer;font-weight:500}
+.data-faq p{color:var(--muted);line-height:1.8;margin:.8rem 0 0}
+@media(max-width:700px){.data-service .data-points{grid-template-columns:1fr}}
