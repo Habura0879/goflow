@@ -13,6 +13,7 @@ for marker in [
     '<html lang="he" dir="rtl">',
     '<title>מסחור מידע עסקי לחברות AI | GoFlow</title>',
     '<link rel="canonical" href="https://goflow.co.il/services/data-commercialization/">',
+    '/assets/home.js?v=13',
     '<h1>האם המידע של הארגון שלכם יכול לעניין חברות AI?</h1>',
     'href="/?service=data-commercialization#contact"',
     'data-measured-link',
