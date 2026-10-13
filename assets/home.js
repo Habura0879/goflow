@@ -66,6 +66,32 @@ document.addEventListener('click', function(event){
   if (note) note.textContent = 'אין לשלוח קבצים או מידע גולמי, אישי, סודי או רגיש.';
 })();
 
+// Classify the shared contact form without sending form contents to analytics.
+function isDataCommercializationContactForm(){
+  var params = new URLSearchParams(window.location.search);
+  if (params.get('service') === 'data-commercialization') return true;
+  var interest = document.getElementById('interest');
+  if (!interest || interest.selectedIndex < 0) return false;
+  return interest.options[interest.selectedIndex].textContent.trim() === 'מסחור מידע עסקי לחברות AI';
+}
+
+// Track the first interaction with the data-commercialization form.
+(function(){
+  var form = document.getElementById('contactForm');
+  if (!form) return;
+  var startTracked = false;
+  function trackDataFormStart(){
+    if (startTracked || !isDataCommercializationContactForm()) return;
+    startTracked = true;
+    if (typeof trackEvent === 'function') trackEvent('data_commercialization_form_start', {
+      form_id: 'contactForm',
+      service: 'data-commercialization'
+    });
+  }
+  form.addEventListener('focusin', trackDataFormStart);
+  form.addEventListener('change', trackDataFormStart);
+})();
+
 // Contact form
 document.getElementById('contactForm').addEventListener('submit', async function(e) {
   e.preventDefault();
@@ -84,7 +110,13 @@ document.getElementById('contactForm').addEventListener('submit', async function
       msg.style.display = 'block';
       msg.style.color = 'var(--gold)';
       msg.textContent = 'תודה שפנית! נחזור אליך בהקדם.';
-      if (typeof trackEvent === 'function') trackEvent('generate_lead', { method: 'contact_form' });
+      if (typeof trackEvent === 'function') {
+        trackEvent('generate_lead', { method: 'contact_form' });
+        if (isDataCommercializationContactForm()) trackEvent('data_commercialization_lead_submitted', {
+          method: 'contact_form',
+          service: 'data-commercialization'
+        });
+      }
       this.reset();
     } else {
       btn.textContent = 'שליחה ←';
