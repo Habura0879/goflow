@@ -6,6 +6,7 @@ PAGE = Path("services/data-commercialization/index.html").read_text(encoding="ut
 CSS = Path("assets/data-service.css").read_text(encoding="utf-8")
 HUB = Path("services/index.html").read_text(encoding="utf-8")
 HOME = Path("index.html").read_text(encoding="utf-8")
+HOME_JS = Path("assets/home.js").read_text(encoding="utf-8")
 SITEMAP = Path("sitemap.xml").read_text(encoding="utf-8")
 
 for marker in [
@@ -13,9 +14,9 @@ for marker in [
     '<title>מסחור מידע עסקי לחברות AI | GoFlow</title>',
     '<link rel="canonical" href="https://goflow.co.il/services/data-commercialization/">',
     '<h1>האם המידע של הארגון שלכם יכול לעניין חברות AI?</h1>',
-    'href="/#contact"',
+    'href="/?service=data-commercialization#contact"',
     'data-measured-link',
-    'בחרו בנושא הפנייה "מסחור מידע עסקי לחברות AI"',
+    'נושא הפנייה יסומן מראש בטופס',
     'מידע אישי מזהה',
     'אין התחייבות לעסקה',
     '/assets/measured-links.js?v=1',
@@ -50,6 +51,14 @@ if relative_route not in HUB or relative_route not in HOME:
     raise SystemExit("Service SEO validation failed: internal links are missing")
 if "<option>מסחור מידע עסקי לחברות AI</option>" not in HOME:
     raise SystemExit("Service funnel validation failed: existing contact form must classify this service")
+for marker in [
+    "params.get('service') !== 'data-commercialization'",
+    "interest.value = option.value || option.textContent",
+    "בלי פרטים אישיים או רגישים",
+    "אין לשלוח קבצים או מידע גולמי, אישי, סודי או רגיש.",
+]:
+    if marker not in HOME_JS:
+        raise SystemExit(f"Service funnel validation failed: missing contextual form behavior {marker}")
 service_numbers = re.findall(r"class=\"svc-n\">(\\d+)</div>", HOME)
 if len(service_numbers) != len(set(service_numbers)):
     raise SystemExit("Service funnel validation failed: homepage service numbers must be unique")
