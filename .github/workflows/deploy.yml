@@ -105,7 +105,7 @@ jobs:
             git push origin HEAD:main
           fi
 
-      - name: Deploy via FTP
+      - name: Validate data commercialization service page\n        run: python3 scripts/validate-data-commercialization-service.py\n\n      - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_HOST }}
