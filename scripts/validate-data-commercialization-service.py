@@ -16,7 +16,7 @@ for marker in [
     '<h1>האם המידע של הארגון שלכם יכול לעניין חברות AI?</h1>',
     'href="/?service=data-commercialization#contact"',
     'data-measured-link',
-    'נושא הפנייה יסומן מראש בטופס',
+    'נושא הפנייה יסומן מראש.',
     'מידע אישי מזהה',
     'אין התחייבות לעסקה',
     '/assets/measured-links.js?v=1',
