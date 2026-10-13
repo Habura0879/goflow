@@ -75,6 +75,7 @@ jobs:
         run: |
           node --check assets/ai-service.js
           node --check assets/measured-links.js
+          node --check assets/home.js
 
       - name: Validate AI lead to central sheet flow
         run: python3 scripts/validate-ai-lead-sheet-flow.py
