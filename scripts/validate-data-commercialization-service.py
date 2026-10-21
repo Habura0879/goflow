@@ -80,7 +80,7 @@ for marker in [".data-service", "max-width:700px", ".data-faq"]:
 for marker in ['https://wa.me/972547951161?text=', 'תיווך בעסקאות מידע עסקי', 'בעל המידע מתקשר ישירות', 'אין לנו גישה עצמאית']:
     if marker not in PAGE:
         raise SystemExit(f"Service brokerage validation failed: missing {marker}")
-if 'https://wa.me/972547951161?' in PAGE:
+if 'https://wa.me/9720547951161?' in PAGE:
     raise SystemExit("Service WhatsApp validation failed: incorrect international phone number")
 for filename, needles in {
     'blog/ai-ready-business-data/index.html': ['GoFlow מסייעת באיתור רוכשים', 'בלי לשלוח קבצים'],
