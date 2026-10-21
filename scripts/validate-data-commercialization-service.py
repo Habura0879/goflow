@@ -13,14 +13,16 @@ SITEMAP = Path("sitemap.xml").read_text(encoding="utf-8")
 
 for marker in [
     '<html lang="he" dir="rtl">',
-    '<title>מסחור מידע עסקי לחברות AI | GoFlow</title>',
+    '<title>תיווך ומסחור מידע עסקי לחברות AI | GoFlow</title>',
     '<link rel="canonical" href="https://goflow.co.il/services/data-commercialization/">',
-    '<h1>האם המידע של הארגון שלכם יכול לעניין חברות AI?</h1>',
+    '<h1>המידע העסקי שצברתם במשך שנים עשוי להיות שווה כסף</h1>',
     'href="/?service=data-commercialization#contact"',
     'data-measured-link',
     'נושא הפנייה יסומן מראש.',
     'מידע אישי מזהה',
     'אין התחייבות לעסקה',
+    'GoFlow אינה מקבלת את המידע',
+    'תיווך מקצועי וליווי מסחרי',
     '/assets/measured-links.js?v=1',
 ]:
     if marker not in PAGE:
@@ -51,7 +53,7 @@ if SITEMAP.count(f"<loc>{route}</loc>") != 1:
     raise SystemExit("Service SEO validation failed: route must appear once in sitemap")
 if relative_route not in HUB or relative_route not in HOME:
     raise SystemExit("Service SEO validation failed: internal links are missing")
-if "<option>מסחור מידע עסקי לחברות AI</option>" not in HOME:
+if '<option value="מסחור מידע עסקי לחברות AI">תיווך בעסקאות מידע עסקי</option>' not in HOME:
     raise SystemExit("Service funnel validation failed: existing contact form must classify this service")
 for marker in [
     "params.get('service') !== 'data-commercialization'",
@@ -75,4 +77,21 @@ for marker in [".data-service", "max-width:700px", ".data-faq"]:
     if marker not in CSS:
         raise SystemExit(f"Service style validation failed: missing {marker}")
 
-print("Data commercialization page, shared contact routing, internal links and sitemap validated.")
+for marker in ['https://wa.me/972547951161?text=', 'תיווך בעסקאות מידע עסקי', 'בעל המידע מתקשר ישירות', 'אין לנו גישה עצמאית']:
+    if marker not in PAGE:
+        raise SystemExit(f"Service brokerage validation failed: missing {marker}")
+if 'https://wa.me/9720547951161?' in PAGE:
+    raise SystemExit("Service WhatsApp validation failed: incorrect international phone number")
+for filename, needles in {
+    'blog/ai-ready-business-data/index.html': ['GoFlow מסייעת באיתור רוכשים', 'בלי לשלוח קבצים'],
+    'blog/business-data-value/index.html': ['תיווך ומסחור מידע עסקי', 'אינה מחזיקה במידע'],
+    'blog/database-transfer-privacy/index.html': ['מי עושה מה בעסקת מידע?', 'GoFlow פועלת כמתווכת עסקית'],
+    'services/index.html': ['תיווך בעסקאות מידע עסקי'],
+    'index.html': ['תיווך בעסקאות מידע עסקי'],
+}.items():
+    doc = Path(filename).read_text(encoding='utf-8')
+    for needle in needles:
+        if needle not in doc:
+            raise SystemExit(f"Brokerage content validation failed: {filename} missing {needle}")
+
+print("Data brokerage page, shared contact routing, articles, internal links and sitemap validated.")
