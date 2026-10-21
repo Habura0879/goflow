@@ -53,7 +53,7 @@ if SITEMAP.count(f"<loc>{route}</loc>") != 1:
     raise SystemExit("Service SEO validation failed: route must appear once in sitemap")
 if relative_route not in HUB or relative_route not in HOME:
     raise SystemExit("Service SEO validation failed: internal links are missing")
-if '<option value="מסחור מידע עסקי לחברות AI">תיווך בעסקאות מידע עסקי</option>' not in HOME:
+if "<option>מסחור מידע עסקי לחברות AI</option>" not in HOME:
     raise SystemExit("Service funnel validation failed: existing contact form must classify this service")
 for marker in [
     "params.get('service') !== 'data-commercialization'",
@@ -80,7 +80,7 @@ for marker in [".data-service", "max-width:700px", ".data-faq"]:
 for marker in ['https://wa.me/972547951161?text=', 'תיווך בעסקאות מידע עסקי', 'בעל המידע מתקשר ישירות', 'אין לנו גישה עצמאית']:
     if marker not in PAGE:
         raise SystemExit(f"Service brokerage validation failed: missing {marker}")
-if 'https://wa.me/9720547951161?' in PAGE:
+if 'https://wa.me/972547951161?' in PAGE:
     raise SystemExit("Service WhatsApp validation failed: incorrect international phone number")
 for filename, needles in {
     'blog/ai-ready-business-data/index.html': ['GoFlow מסייעת באיתור רוכשים', 'בלי לשלוח קבצים'],
