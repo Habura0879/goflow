@@ -1,0 +1,35 @@
+name: Review Website Changes (No Deployment)
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Read proposed website code
+        uses: actions/checkout@v4
+      - name: Validate original site rules
+        run: python3 scripts/validate-work-instructions.py
+      - name: Validate data commercialization and existing forms
+        run: python3 scripts/validate-data-commercialization-service.py
+      - name: Validate positioning and permanent rollback reference
+        run: python3 scripts/validate-brokerage-positioning.py
+      - name: Check JavaScript syntax
+        run: |
+          node --check assets/home.js
+          node --check assets/measured-links.js
+      - name: Confirm deployment workflow remains manual via approved main merge
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          workflow = Path('.github/workflows/deploy.yml').read_text(encoding='utf-8')
+          if 'branches:\n      - main' not in workflow:
+              raise SystemExit('Production FTP workflow trigger changed')
+          print('Static PR review completed without deploying to FTP.')
+          PY
