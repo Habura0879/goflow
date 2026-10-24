@@ -16,6 +16,8 @@ jobs:
         uses: actions/checkout@v4
       - name: Validate original site rules
         run: python3 scripts/validate-work-instructions.py
+      - name: Verify SEO markers and consulting continuity
+        run: python3 scripts/phase3-seo.py
       - name: Validate data commercialization and existing forms
         run: python3 scripts/validate-data-commercialization-service.py
       - name: Validate positioning and permanent rollback reference
