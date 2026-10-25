@@ -27,8 +27,15 @@ jobs:
 
           checks = {
               'index.html': [
+                  '/services/data-commercialization/',
+                  'id="data-opportunity"',
+                  'name="phone"',
+                  'מסחור מידע עסקי לחברות AI',
+              ],
+              'services/process-consulting/index.html': [
                   '/services/ai-business-processes/',
                   'id="ai-home-intro"',
+                  'id="quiz"',
                   'name="phone"',
                   'מערכת לניהול לקוחות',
                   'הטמעת בינה מלאכותית',
