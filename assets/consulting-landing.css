@@ -1,0 +1,29 @@
+/* Consulting landing only: shares GoFlow design with brokerage, but has an independent content world. */
+#hero.consulting-hero{
+  background:radial-gradient(ellipse at 12% 14%,rgba(184,131,42,.09),transparent 44%),
+  linear-gradient(132deg,var(--ink-2) 10%,var(--ink-3) 60%,var(--ink) 100%);
+}
+#hero.consulting-hero .hero-eyebrow{color:var(--gold-l)}
+#hero.consulting-hero h1 em{color:var(--gold-l)}
+#hero.consulting-hero .business-selector-choice.is-selected{
+  background:var(--paper-2);border-color:var(--gold-l);box-shadow:0 3px 12px rgba(0,0,0,.18)
+}
+#hero.consulting-hero .business-selector-choice.is-selected strong,
+#hero.consulting-hero .business-selector-choice.is-selected span{color:var(--ink)}
+#hero.consulting-hero .business-selector-choice:not(.is-selected){background:rgba(247,244,238,.06)}
+#hero.consulting-hero .business-selector-choice:not(.is-selected):hover{background:rgba(247,244,238,.18)}
+#hero.consulting-hero .business-selector-label{color:var(--gold-l)}
+#hero.consulting-hero .hero-actions{gap:.9rem}
+#hero.consulting-hero .hero-actions a{text-decoration:none}
+#hero.consulting-hero .hero-actions .btn-gold{letter-spacing:0;text-transform:none}
+#hero.consulting-hero .hero-actions .btn-ghost{border-color:rgba(247,244,238,.72);color:#f7f4ee}
+#hero.consulting-hero .hero-actions .btn-ghost:hover{background:rgba(247,244,238,.12)}
+/* The consultation-only service detail stays below the restored consulting introduction. */
+.consulting-service-details{background:var(--paper)}
+@media(max-width:600px){
+  #hero.consulting-hero{min-height:auto;padding-top:2rem;padding-bottom:4rem}
+  #hero.consulting-hero .hero-rule{display:none}
+  #hero.consulting-hero .hero-actions{flex-direction:column;align-items:stretch}
+  #hero.consulting-hero .hero-actions a{display:flex;width:100%}
+  #hero.consulting-hero .hero-actions a span{width:100%;justify-content:center}
+}
