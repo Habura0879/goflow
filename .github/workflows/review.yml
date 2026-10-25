@@ -1,4 +1,4 @@
-name: Review Website Changes (No Deployment)
+name: Full Website Review (No Deployment)
 
 on:
   pull_request:
@@ -12,26 +12,101 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Read proposed website code
+      - name: Checkout proposed site without production credentials
         uses: actions/checkout@v4
-      - name: Validate original site rules
+        with:
+          persist-credentials: false
+
+      - name: Validate internal campaign work instructions
         run: python3 scripts/validate-work-instructions.py
-      - name: Verify SEO markers and consulting continuity
-        run: python3 scripts/phase3-seo.py
-      - name: Validate data commercialization and existing forms
-        run: python3 scripts/validate-data-commercialization-service.py
-      - name: Validate positioning and permanent rollback reference
-        run: python3 scripts/validate-brokerage-positioning.py
-      - name: Check JavaScript syntax
-        run: |
-          node --check assets/home.js
-          node --check assets/measured-links.js
-      - name: Confirm deployment workflow remains manual via approved main merge
+
+      - name: Validate approved stage 2 source files
         run: |
           python3 - <<'PY'
           from pathlib import Path
-          workflow = Path('.github/workflows/deploy.yml').read_text(encoding='utf-8')
-          if 'branches:\n      - main' not in workflow:
-              raise SystemExit('Production FTP workflow trigger changed')
-          print('Static PR review completed without deploying to FTP.')
+
+          checks = {
+              'index.html': [
+                  '/services/ai-business-processes/',
+                  'id="ai-home-intro"',
+                  'name="phone"',
+                  'מערכת לניהול לקוחות',
+                  'הטמעת בינה מלאכותית',
+              ],
+              'about/index.html': [
+                  'יועץ תהליכים והטמעת טכנולוגיה, אוטומציה ו־AI',
+                  'מחברים טכנולוגיה נכון',
+              ],
+              'privacy/index.html': [
+                  'data-ai-privacy="true"',
+                  '8. יצירת קשר',
+              ],
+              'services/business-automation/index.html': ['data-ai-related="true"'],
+              'services/crm-consulting/index.html': ['data-ai-related="true"'],
+              'services/process-consulting/index.html': ['data-ai-related="true"'],
+              'services/work-procedures/index.html': ['data-ai-related="true"'],
+          }
+
+          for filename, required in checks.items():
+              text = Path(filename).read_text(encoding='utf-8')
+              for needle in required:
+                  if needle not in text:
+                      raise SystemExit(f'Validation failed: {filename} missing {needle}')
+
+          print('Approved stage 2 source validation passed.')
+          PY
+
+      - name: Validate phase 3 SEO source
+        run: python3 scripts/phase3-seo.py
+
+      - name: Apply and validate AI article internal links
+        run: python3 scripts/add-ai-article-internal-links.py
+
+      - name: Apply and validate direct AI article CTA
+        run: python3 scripts/update-ai-article-cta.py
+
+      - name: Apply guarded AI campaign funnel updates
+        run: python3 scripts/update-ai-campaign-funnel.py
+
+      - name: Validate AI article and blog integration
+        run: python3 scripts/validate-ai-article.py
+
+      - name: Check AI funnel JavaScript syntax
+        run: |
+          node --check assets/ai-service.js
+          node --check assets/measured-links.js
+          node --check assets/home.js
+
+      - name: Validate AI lead to central sheet flow
+        run: python3 scripts/validate-ai-lead-sheet-flow.py
+
+      - name: Validate isolated AI campaign funnel
+        run: python3 scripts/validate-ai-campaign-funnel.py
+
+      - name: Check operations funnel JavaScript syntax
+        run: |
+          node --check assets/platform-short-link.js
+          node --check assets/operations-lead-first.js
+
+      - name: Validate operations lead-first funnel
+        run: python3 scripts/validate-operations-funnel.py
+
+      - name: Apply and validate phase 3 launch QA
+        run: python3 scripts/phase3-qa.py
+
+      - name: Validate reversible brokerage positioning
+        run: python3 scripts/validate-brokerage-positioning.py
+
+      - name: Validate data commercialization service page
+        run: python3 scripts/validate-data-commercialization-service.py
+
+      - name: Verify no deployment or repository writes occur in review
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          review = Path('.github/workflows/review.yml').read_text(encoding='utf-8')
+          assert 'FTP-Deploy-Action' not in review
+          assert 'git push origin' not in review
+          assert 'contents: read' in review
+          print('Review workflow is static and cannot deploy to FTP.')
           PY
