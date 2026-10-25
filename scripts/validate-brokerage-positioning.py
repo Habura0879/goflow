@@ -43,13 +43,22 @@ require(hp.h1s == cp.h1s == dp.h1s == 1, "each landing page must have one H1")
 require(len(hp.ids) == len(set(hp.ids)), "duplicate IDs on brokerage home")
 require(len(cp.ids) == len(set(cp.ids)), "duplicate IDs on consultation landing")
 require(hp.forms.count("contactForm") == cp.forms.count("contactForm") == 1, "both worlds need one working contact form")
-for anchor in ("hero", "data-opportunity", "contact"):
+for anchor in ("hero", "data-opportunity", "data-fit", "data-journey", "data-trust", "data-questions", "contact"):
     require(anchor in hp.ids, "brokerage home missing " + anchor)
 for anchor in ("hero", "problem", "ai-home-intro", "quiz", "services", "process", "why", "stats", "blog", "about", "contact"):
     require(anchor in cp.ids, "consulting page missing " + anchor)
 for anchor in ("problem", "ai-home-intro", "quiz", "services", "process", "why", "stats", "blog", "about"):
     require(anchor not in hp.ids, "consulting-only section incorrectly remains in brokerage home: " + anchor)
-require("data-opportunity" not in cp.ids, "brokerage-only market sectors moved into consulting world")
+for anchor in ("data-opportunity", "data-fit", "data-journey", "data-trust", "data-questions"):
+    require(anchor not in cp.ids, "brokerage-only section moved into consulting world: " + anchor)
+require([HOME.index('id="' + a + '"') for a in ("hero", "data-opportunity", "data-fit", "data-journey", "data-trust", "data-questions", "contact")] == sorted(HOME.index('id="' + a + '"') for a in ("hero", "data-opportunity", "data-fit", "data-journey", "data-trust", "data-questions", "contact")), "brokerage sections have unexpected order")
+require(len(re.findall(r'class="brokerage-step-num"', HOME)) == 7, "brokerage homepage must display all seven established steps")
+require("מהבדיקה הראשונית לעסקה אפשרית" in HOME and "תיאור כללי של סוג המידע" in HOME, "brokerage education and safety copy is incomplete")
+require("sellsidedata.com/" in HOME and "GoFlow בישראל" in HOME, "international commercial cooperation context missing from home")
+require(HOME.count("<details>") >= 5 and HOME.count("<summary>") >= 5, "brochure FAQ must work without extra JavaScript")
+require("אין התחייבות למציאת רוכש" in HOME and "עצם סגירת החברה אינה מקנה" in HOME, "brokerage FAQ and process must avoid overpromising")
+require('.brokerage-faq{' in CSS and '.brokerage-steps{' in CSS and '.brokerage-fit-grid{' in CSS and '.brokerage-trust{' in CSS, "new sections must follow the existing GoFlow responsive design")
+require('.brokerage-section{padding:3.5rem 1.5rem}' in CSS, "mobile horizontal margins must not regress")
 
 require('href="/?service=data-commercialization#contact"' in HOME, "brokerage CTA no longer reaches its form")
 require('href="/services/process-consulting/"' in HOME, "consulting tab missing on brokerage page")
@@ -77,7 +86,7 @@ require("location.replace('/services/process-consulting/' + location.hash)" in H
 require("params.get('service') !== 'data-commercialization'" in HOME, "legacy consulting-contact redirect must exclude brokerage leads")
 require('/assets/consulting-landing.css?v=1' in CONSULT and '.consulting-hero{' in CONSULT_CSS, "separate consulting layout style missing")
 require('.data-opportunity-grid' in CSS and '#data-opportunity{padding-right:1.5rem;padding-left:1.5rem}' in CSS, "mobile sector spacing regressed")
-require('/assets/home.css?v=9' in HOME, "original brokerage style path must be preserved")
+require('/assets/home.css?v=10' in HOME, "new brokerage CSS must be cache-busted")
 require('GoFlow בישראל, בשיתוף SellSideData' in PAGE, "international cooperation copy changed")
 require("שותפי הפניה" not in HOME and "שותפי הפניה" not in CONSULT and "שותפי הפניה" not in PAGE and "שותפי הפניה" not in HUB, "referral partners are out of scope")
 require(len(re.findall(r'class="service-step"', PAGE)) == 7, "brokerage seven phases missing")

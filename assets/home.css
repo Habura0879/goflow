@@ -564,3 +564,66 @@ footer{
   #hero .business-selector-choice span{font-size:.78rem;line-height:1.45;overflow-wrap:break-word}
   #data-opportunity{padding-right:1.5rem;padding-left:1.5rem}
 }
+
+/* Brokerage world: four additional conversion sections, all using the existing GoFlow palette. */
+.brokerage-section{padding:clamp(3.5rem,7vw,6.5rem) clamp(1.5rem,5vw,4rem);color:var(--ink)}
+.brokerage-section>.container{max-width:var(--max);width:100%;min-width:0;margin:0 auto}
+.brokerage-section h2{font-family:var(--fd);font-size:clamp(2rem,4vw,3.4rem);line-height:1.16;font-weight:900;max-width:900px;margin:.6rem 0 1.2rem}
+.brokerage-section .brokerage-lead{max-width:790px;color:var(--muted);font-size:1.05rem;line-height:1.9;margin-bottom:2rem}
+.brokerage-section .brokerage-footnote{color:var(--muted);font-size:.85rem;line-height:1.85}
+.brokerage-fit{background:var(--paper-2)}
+.brokerage-fit-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem;margin:2rem 0 1.5rem}
+.brokerage-feature{background:#fff;border:1px solid var(--border);border-top:3px solid var(--gold);padding:1.6rem 1.35rem;min-width:0}
+.brokerage-feature-number{display:block;font-family:var(--fd);font-weight:700;color:var(--gold-d);font-size:1.15rem;line-height:1;margin-bottom:1.1rem}
+.brokerage-feature h3{font-family:var(--fd);font-size:1.45rem;line-height:1.3;margin-bottom:.65rem}
+.brokerage-feature p{color:var(--muted);font-size:.91rem;line-height:1.85}
+.brokerage-journey{background:var(--paper)}
+.brokerage-steps{list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));column-gap:1.3rem;row-gap:.9rem;margin:2rem 0 1.9rem;padding:0}
+.brokerage-steps li{display:flex;align-items:flex-start;gap:1rem;background:#fff;border:1px solid var(--border);border-right:3px solid var(--gold);padding:1.25rem;min-width:0}
+.brokerage-step-num{flex:0 0 2.7rem;font-family:var(--fd);font-weight:900;color:var(--gold-d);font-size:1.35rem;line-height:1.25}
+.brokerage-steps li>div{min-width:0}
+.brokerage-steps h3{font-family:var(--fd);font-size:1.45rem;line-height:1.3;margin:0 0 .3rem}
+.brokerage-steps p{color:var(--muted);font-size:.91rem;line-height:1.8}
+.brokerage-section-actions{display:flex;align-items:center;justify-content:space-between;gap:1.5rem}
+.brokerage-section-actions .brokerage-footnote{max-width:540px}
+.brokerage-link-dark{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:.8rem 1.35rem;background:var(--ink);color:#fff;font-size:.87rem;font-weight:500;text-decoration:none;text-align:center;line-height:1.5;transition:background .2s}
+.brokerage-link-dark:hover{background:var(--ink-3)}
+.brokerage-link-dark:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.brokerage-trust{background:var(--paper-2)}
+.brokerage-trust-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.3rem;margin:2rem 0}
+.brokerage-trust-point{padding:1.15rem 1.4rem;border-right:3px solid var(--gold);background:rgba(255,255,255,.68);min-width:0}
+.brokerage-trust-point strong{font-family:var(--fd);font-size:1.45rem;line-height:1.25;display:block;margin-bottom:.6rem}
+.brokerage-trust-point p{color:var(--muted);font-size:.91rem;line-height:1.85}
+.brokerage-partner{background:var(--ink-2);color:var(--paper);padding:clamp(1.5rem,4vw,2.75rem);border-top:3px solid var(--gold)}
+.brokerage-partner-kicker{display:block;color:var(--gold-l);font-size:.82rem;letter-spacing:.08em;margin-bottom:.8rem}
+.brokerage-partner h3{font-family:var(--fd);font-size:clamp(1.6rem,3vw,2.45rem);line-height:1.2;margin-bottom:.8rem}
+.brokerage-partner p{max-width:850px;color:rgba(247,244,238,.89);font-size:.97rem;line-height:1.95}
+.brokerage-partner a{color:var(--gold-l);text-decoration:underline;text-underline-offset:3px}
+.brokerage-partner a:focus-visible{outline:2px solid var(--paper);outline-offset:3px}
+.brokerage-questions{background:var(--paper)}
+.brokerage-faq{max-width:940px;margin:2rem 0 1.5rem;border-top:1px solid var(--border)}
+.brokerage-faq details{border-bottom:1px solid var(--border);padding:0 1rem;background:transparent}
+.brokerage-faq summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.3rem 0;font-size:1.04rem;font-weight:500;line-height:1.55;cursor:pointer;min-height:56px}
+.brokerage-faq summary::-webkit-details-marker{display:none}
+.brokerage-faq summary::after{content:'+';flex:0 0 1.6rem;font-family:var(--fb);font-size:1.45rem;color:var(--gold-d);text-align:center;line-height:1}
+.brokerage-faq details[open] summary::after{content:'−'}
+.brokerage-faq summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.brokerage-faq details p{max-width:790px;color:var(--muted);line-height:1.85;font-size:.96rem;padding:0 0 1.25rem}
+.brokerage-faq-cta{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;padding-top:.7rem}
+.brokerage-faq-cta>p{font-weight:500}
+@media(max-width:950px){
+  .brokerage-fit-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .brokerage-trust-grid{grid-template-columns:1fr}
+  .brokerage-section-actions{flex-direction:column;align-items:flex-start}
+}
+@media(max-width:600px){
+  .brokerage-section{padding:3.5rem 1.5rem}
+  .brokerage-section .brokerage-lead{font-size:1rem}
+  .brokerage-fit-grid,.brokerage-steps{grid-template-columns:1fr}
+  .brokerage-feature{padding:1.4rem}
+  .brokerage-steps li{padding:1.2rem 1rem}
+  .brokerage-partner{padding:1.5rem}
+  .brokerage-section-actions .brokerage-link-dark,.brokerage-faq-cta .brokerage-link-dark{width:100%}
+  .brokerage-faq summary{font-size:1rem}
+  .brokerage-faq-cta{align-items:stretch}
+}
