@@ -9,8 +9,8 @@ def replace_once(text, old, new, label):
     return text.replace(old, new, 1)
 
 
-# Homepage: keep exactly six featured article cards by replacing an older CRM card.
-home_path = Path("index.html")
+# Consulting landing: keep the featured article cards within the consulting world.
+home_path = Path("services/process-consulting/index.html")
 home = home_path.read_text(encoding="utf-8")
 
 home_intro_old = '<p class="lead" style="margin:0 auto">מאמרים מהשטח על ייעוץ תהליכי, אוטומציה, CRM ונהלי עבודה — בלי תיאוריה.</p>'
