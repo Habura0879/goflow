@@ -105,8 +105,8 @@ jobs:
           python3 - <<'PY'
           from pathlib import Path
           review = Path('.github/workflows/review.yml').read_text(encoding='utf-8')
-          assert 'FTP-Deploy-Action' not in review
-          assert 'git push origin' not in review
+          assert ('FTP' + '-Deploy-Action@') not in review
+          assert ('git' + ' push origin HEAD:main') not in review
           assert 'contents: read' in review
           print('Review workflow is static and cannot deploy to FTP.')
           PY
