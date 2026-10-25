@@ -47,3 +47,11 @@
 @media(max-width:850px){.service-grid{grid-template-columns:1fr 1fr}.service-steps{grid-template-columns:1fr 1fr}}
 @media(max-width:1200px){.service-cta{margin-inline:clamp(1.5rem,5vw,4rem)}}
 @media(max-width:600px){.service-grid,.service-grid.services-grid-four,.service-steps,.service-list{grid-template-columns:1fr}.service-hero h1{font-size:2.35rem}.service-actions,.service-cta-actions{display:grid}.service-btn,.service-wa{width:100%}.service-cta{border-radius:0;margin-inline:0}}
+
+/* Brokerage introduction on the combined services page only. */
+.brokerage-entry{padding:clamp(3rem,6vw,5rem) 0;background:linear-gradient(115deg,#f7f4ee,#eeebe3)}
+.brokerage-entry .service-section-inner{max-width:1080px;margin:0 auto;padding:0 1.5rem}
+.brokerage-entry .service-eyebrow{color:var(--gold-d);font-weight:600}
+.brokerage-entry h2{font-family:var(--fd);font-size:clamp(2rem,4.2vw,3.4rem);line-height:1.2;margin:.7rem 0 1rem}
+.brokerage-entry p:not(.service-eyebrow){max-width:850px;font-size:1.05rem;line-height:1.9;margin-bottom:1.4rem;color:var(--muted)}
+.brokerage-entry a.service-btn{display:inline-flex;align-items:center;min-height:48px;text-decoration:none}

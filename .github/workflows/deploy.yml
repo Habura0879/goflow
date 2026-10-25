@@ -106,6 +106,9 @@ jobs:
             git push origin HEAD:main
           fi
 
+      - name: Validate reversible brokerage positioning
+        run: python3 scripts/validate-brokerage-positioning.py
+
       - name: Validate data commercialization service page
         run: python3 scripts/validate-data-commercialization-service.py
 
@@ -122,6 +125,7 @@ jobs:
             **/.git*
             **/.git*/**
             AGENTS.md
+            docs/rollback-to-original-site-2026-10.md
             skills/**
             scripts/**
             oldsite/**

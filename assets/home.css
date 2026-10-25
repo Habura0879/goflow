@@ -515,3 +515,27 @@ footer{
 .foot-links{display:flex;gap:1.5rem}
 .foot-links a{font-size:.8rem;color:var(--muted);letter-spacing:.05em;transition:color .2s}
 .foot-links a:hover{color:var(--ink)}
+
+/* 2026 GoFlow brokerage homepage — deliberately scoped to new section. */
+#hero{min-height:min(91vh,840px);background:radial-gradient(ellipse at 12% 14%,rgba(184,131,42,.22),transparent 42%),linear-gradient(132deg,#1e1b16 10%,#2e2a22 60%,#171511)}
+#hero .hero-vimeo{display:none}
+#hero .hero-inner{max-width:var(--max)}
+#hero h1{font-size:clamp(2.7rem,5.9vw,5.6rem);line-height:1.14;max-width:980px}
+#hero .hero-sub{max-width:760px;color:rgba(247,244,238,.88);font-weight:400;font-size:clamp(1rem,1.5vw,1.18rem);margin-bottom:2rem}
+#hero .hero-actions{gap:.9rem}
+#hero .hero-actions a{max-width:100%;text-decoration:none}
+#hero .hero-actions a span{letter-spacing:0;text-transform:none;text-align:center;justify-content:center}
+#hero .hero-assurance{position:relative;z-index:1;max-width:760px;margin-top:1.5rem;color:rgba(247,244,238,.7);font-size:.88rem;line-height:1.8}
+.data-opportunity{padding:clamp(3.5rem,7vw,6.5rem) 0;background:var(--paper);color:var(--ink)}
+.data-opportunity h2{font-family:var(--fd);font-weight:900;line-height:1.15;font-size:clamp(2rem,4vw,3.4rem);margin:.6rem 0 1.1rem}
+.data-opportunity .data-opportunity-lead{max-width:790px;line-height:1.9;font-size:1.08rem;color:var(--muted);margin-bottom:2.1rem}
+.data-opportunity-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
+.data-opportunity-grid article{padding:1.8rem 1.6rem;border:1px solid var(--border);border-top:3px solid var(--gold);background:#fff}
+.data-opportunity-grid h3{font-family:var(--fd);font-size:1.6rem;line-height:1.25;margin-bottom:.7rem}
+.data-opportunity-grid p{color:var(--muted);line-height:1.85;font-size:.93rem}
+.data-opportunity-footer{display:flex;align-items:center;justify-content:space-between;gap:2rem;margin-top:1.8rem;padding:1.3rem 1.5rem;background:var(--paper-2)}
+.data-opportunity-footer p{max-width:640px;color:var(--ink);font-size:.92rem;line-height:1.8}
+.data-opportunity-footer .data-opportunity-link{display:inline-flex;align-items:center;justify-content:center;padding:.75rem 1.2rem;background:var(--ink);color:#fff;min-height:48px;white-space:nowrap}
+.data-opportunity-footer .data-opportunity-link:hover{background:var(--ink-3)}
+@media(max-width:950px){.data-opportunity-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.data-opportunity-footer{flex-direction:column;align-items:stretch}.data-opportunity-footer .data-opportunity-link{white-space:normal}}
+@media(max-width:600px){#hero{min-height:80vh;padding-top:106px;padding-bottom:4rem}#hero .hero-actions{flex-direction:column;align-items:stretch}#hero .hero-actions a{display:flex;width:100%}#hero .hero-actions a span{width:100%}.data-opportunity-grid{grid-template-columns:1fr}.data-opportunity-grid article{padding:1.4rem}.data-opportunity .data-opportunity-lead{font-size:1rem}}
