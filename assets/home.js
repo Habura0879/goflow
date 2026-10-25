@@ -146,6 +146,9 @@ window.addEventListener('scroll',()=>{
 });
 
 (function(){
+  // The operational diagnosis belongs exclusively to the consulting service page.
+  // The brokerage homepage keeps the contact form but does not load quiz markup.
+  if (!document.getElementById('quizEngine')) return;
 
 var questions = [
   {
