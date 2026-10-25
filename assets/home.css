@@ -540,12 +540,27 @@ footer{
 @media(max-width:950px){.data-opportunity-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.data-opportunity-footer{flex-direction:column;align-items:stretch}.data-opportunity-footer .data-opportunity-link{white-space:normal}}
 @media(max-width:600px){#hero{min-height:80vh;padding-top:106px;padding-bottom:4rem}#hero .hero-actions{flex-direction:column;align-items:stretch}#hero .hero-actions a{display:flex;width:100%}#hero .hero-actions a span{width:100%}.data-opportunity-grid{grid-template-columns:1fr}.data-opportunity-grid article{padding:1.4rem}.data-opportunity .data-opportunity-lead{font-size:1rem}}
 
-/* GoFlow two-track entry selector. Scoped to the hero; other section spacing stays unchanged. */
-#hero .business-selector{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.7rem;max-width:720px;margin-bottom:1.75rem}
-#hero .business-selector-choice{display:flex;flex-direction:column;justify-content:center;gap:.25rem;min-width:0;min-height:78px;padding:.8rem 1.1rem;border:1px solid rgba(247,244,238,.44);border-radius:5px;background:rgba(247,244,238,.055);color:#f7f4ee;text-decoration:none;transition:border-color .2s,background .2s}
-#hero .business-selector-choice strong{font-family:var(--fb);font-size:1rem;font-weight:600;line-height:1.35}
-#hero .business-selector-choice span{font-family:var(--fb);font-size:.82rem;line-height:1.55;color:rgba(247,244,238,.82)}
-#hero .business-selector-choice.is-selected{border-color:var(--gold-l);background:rgba(184,131,42,.18)}
-#hero .business-selector-choice:hover,#hero .business-selector-choice:focus-visible{border-color:var(--gold-l);background:rgba(184,131,42,.24)}
-#hero .business-selector-choice:focus-visible{outline:2px solid #f7f4ee;outline-offset:3px}
-@media(max-width:600px){#hero .business-selector-choice{min-height:82px;padding:.65rem .8rem}#hero .business-selector-choice strong{font-size:.91rem}#hero .business-selector-choice span{font-size:.74rem;overflow-wrap:anywhere}}
+/* GoFlow two-track service tabs — hero only. High contrast even on narrow screens. */
+#hero .business-selector{width:100%;max-width:740px;margin-bottom:1.5rem;position:relative;z-index:2}
+#hero .business-selector-label{font-family:var(--fb);font-size:.9rem;font-weight:500;color:#e7c885;margin:0 .15rem .65rem;letter-spacing:0}
+#hero .business-selector-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem;background:rgba(247,244,238,.09);border:1px solid rgba(247,244,238,.27);border-radius:12px;padding:.4rem;box-shadow:0 10px 26px rgba(0,0,0,.13)}
+#hero .business-selector-choice{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-width:0;min-height:82px;padding:.85rem 1rem;border:1px solid transparent;border-radius:8px;background:rgba(247,244,238,.04);color:#f7f4ee;text-decoration:none;transition:background .2s,border-color .2s}
+#hero .business-selector-choice strong{display:block;font-family:var(--fb);font-size:1.05rem;line-height:1.4;font-weight:600;color:#fff;letter-spacing:0}
+#hero .business-selector-choice span{display:block;font-family:var(--fb);font-size:.82rem;line-height:1.5;color:#f7f4ee;letter-spacing:0}
+#hero .business-selector-choice.is-selected{background:#d4a84b;border-color:#e4c279;color:#1e1b16;box-shadow:0 3px 12px rgba(0,0,0,.18)}
+#hero .business-selector-choice.is-selected strong,#hero .business-selector-choice.is-selected span{color:#1e1b16}
+#hero .business-selector-choice:not(.is-selected):hover{background:rgba(247,244,238,.16);border-color:rgba(247,244,238,.5)}
+#hero .business-selector-choice:focus-visible{outline:3px solid #fff;outline-offset:3px}
+
+/* Correct only the horizontal inset of the new business-data section. */
+#data-opportunity{padding-inline:clamp(1.5rem,5vw,4rem);box-sizing:border-box}
+#data-opportunity>.container{width:100%;min-width:0;max-width:var(--max)}
+@media(max-width:600px){
+  #hero{min-height:auto;justify-content:flex-start;padding-top:2rem}
+  #hero .hero-rule{display:none}
+  #hero .business-selector-tabs{gap:.3rem;padding:.3rem}
+  #hero .business-selector-choice{min-height:85px;padding:.7rem .65rem}
+  #hero .business-selector-choice strong{font-size:.95rem}
+  #hero .business-selector-choice span{font-size:.78rem;line-height:1.45;overflow-wrap:break-word}
+  #data-opportunity{padding-right:1.5rem;padding-left:1.5rem}
+}

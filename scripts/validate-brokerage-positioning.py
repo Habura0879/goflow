@@ -53,6 +53,13 @@ require("אין התחייבות לעסקה" in PAGE and "מידע אישי מז
 require("שותפי הפניה" not in HOME and "שותפי הפניה" not in PAGE and "שותפי הפניה" not in HUB, "referral partner content is out of scope")
 require(".data-opportunity-grid" in CSS, "scoped mobile-aware homepage styles missing")
 require('class="business-selector"' in HOME and 'class="business-selector-choice is-selected"' in HOME, "homepage must show two business options with brokerage as default")
+require('/assets/home.css?v=9' in HOME and '/assets/home.css?v=8' not in HOME, "home stylesheet version must change to prevent old mobile CSS cache")
+require('class="business-selector-tabs"' in HOME, "business options must render as styled tabs")
+require('#hero .business-selector-tabs{' in CSS, "the tabs must have dedicated hero-only styles")
+require('#hero .business-selector-choice.is-selected strong,#hero .business-selector-choice.is-selected span{color:#1e1b16}' in CSS, "selected gold tab text must remain readable")
+require('#data-opportunity{padding-inline:clamp(1.5rem,5vw,4rem)' in CSS, "business data section must have explicit inset independent of cached old section rules")
+require('#data-opportunity{padding-right:1.5rem;padding-left:1.5rem}' in CSS, "mobile business data section must retain left and right margins")
+
 require(HOME.index('class="business-selector"') < HOME.index("<h1"), "business choice selector must appear above homepage H1")
 require('href="/services/process-consulting/"' in HOME.split('class="business-selector"', 1)[1].split('</div>', 1)[0], "consulting must be selectable at the top")
 require('href="/services/data-commercialization/"' in HOME.split('class="business-selector"', 1)[1].split('</div>', 1)[0], "brokerage must be selectable at the top")
