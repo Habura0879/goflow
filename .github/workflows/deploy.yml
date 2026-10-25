@@ -125,6 +125,7 @@ jobs:
             **/.git*
             **/.git*/**
             AGENTS.md
+            docs/rollback-to-original-site-2026-10.md
             skills/**
             scripts/**
             oldsite/**
