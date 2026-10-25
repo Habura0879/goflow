@@ -56,34 +56,34 @@
 .brokerage-entry p:not(.service-eyebrow){max-width:850px;font-size:1.05rem;line-height:1.9;margin-bottom:1.4rem;color:var(--muted)}
 .brokerage-entry a.service-btn{display:inline-flex;align-items:center;min-height:48px;text-decoration:none}
 
-/* Consulting sister hero — twin entry design to the brokerage homepage, with a quieter blue-green accent. */
+/* Consulting sister hero — GoFlow original charcoal, cream and gold, subtly warmer than brokerage. */
 .service-hero.consulting-hero{
   min-height:min(91vh,840px);
   padding:clamp(2.25rem,5vw,4rem) clamp(1.5rem,5vw,4rem) clamp(3rem,6vw,5.5rem);
   display:flex;flex-direction:column;justify-content:center;
-  background:radial-gradient(ellipse at 12% 14%,rgba(106,165,160,.17),transparent 42%),linear-gradient(132deg,#202c2c 10%,#263433 60%,#172321);
+  background:radial-gradient(ellipse at 12% 14%,rgba(184,131,42,.10),transparent 42%),linear-gradient(132deg,var(--ink-2) 10%,var(--ink-3) 60%,var(--ink) 100%);
   color:#f7f4ee;border-bottom:0;
 }
 .consulting-hero::after{display:none}
 .consulting-hero .service-hero-inner{width:100%;max-width:var(--max);position:relative;z-index:1}
-.consulting-hero .hero-rule{width:48px;height:1px;background:#91c5bd;margin-bottom:2.5rem}
+.consulting-hero .hero-rule{width:48px;height:1px;background:var(--gold);margin-bottom:2.5rem}
 .consulting-hero .business-selector{width:100%;max-width:740px;margin-bottom:1.5rem;position:relative;z-index:2}
-.consulting-hero .business-selector-label{font-family:var(--fb);font-size:.9rem;font-weight:500;color:#b7d6ce;margin:0 .15rem .65rem;letter-spacing:0}
+.consulting-hero .business-selector-label{font-family:var(--fb);font-size:.9rem;font-weight:500;color:var(--gold-l);margin:0 .15rem .65rem;letter-spacing:0}
 .consulting-hero .business-selector-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.4rem;background:rgba(247,244,238,.09);border:1px solid rgba(247,244,238,.27);border-radius:12px;padding:.4rem;box-shadow:0 10px 26px rgba(0,0,0,.13)}
 .consulting-hero .business-selector-choice{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;min-width:0;min-height:82px;padding:.85rem 1rem;border:1px solid transparent;border-radius:8px;background:rgba(247,244,238,.04);color:#f7f4ee;text-decoration:none;transition:background .2s,border-color .2s}
 .consulting-hero .business-selector-choice strong{display:block;font-family:var(--fb);font-size:1.05rem;line-height:1.4;font-weight:600;color:#fff;letter-spacing:0}
 .consulting-hero .business-selector-choice span{display:block;font-family:var(--fb);font-size:.82rem;line-height:1.5;color:#f7f4ee;letter-spacing:0}
-.consulting-hero .business-selector-choice.is-selected{background:#a2d4c9;border-color:#c3e3da;color:#172321;box-shadow:0 3px 12px rgba(0,0,0,.18)}
-.consulting-hero .business-selector-choice.is-selected strong,.consulting-hero .business-selector-choice.is-selected span{color:#172321}
+.consulting-hero .business-selector-choice.is-selected{background:var(--paper-2);border-color:var(--gold-l);color:var(--ink);box-shadow:0 3px 12px rgba(0,0,0,.18)}
+.consulting-hero .business-selector-choice.is-selected strong,.consulting-hero .business-selector-choice.is-selected span{color:var(--ink)}
 .consulting-hero .business-selector-choice:not(.is-selected):hover{background:rgba(247,244,238,.16);border-color:rgba(247,244,238,.5)}
 .consulting-hero .business-selector-choice:focus-visible{outline:3px solid #fff;outline-offset:3px}
-.consulting-hero .service-eyebrow{color:#b7d6ce;font-size:.78rem;letter-spacing:.16em;margin-bottom:1.5rem;font-weight:400}
+.consulting-hero .service-eyebrow{color:var(--gold-l);font-size:.78rem;letter-spacing:.16em;margin-bottom:1.5rem;font-weight:400}
 .consulting-hero h1{font-size:clamp(2.7rem,5.9vw,5.6rem);line-height:1.14;max-width:980px;color:#f7f4ee;margin-bottom:1.5rem}
-.consulting-hero h1 em{font-style:normal;color:#b7d6ce}
+.consulting-hero h1 em{font-style:normal;color:var(--gold-l)}
 .consulting-hero .service-lead{max-width:760px;color:rgba(247,244,238,.88);font-size:clamp(1rem,1.5vw,1.18rem);font-weight:400;line-height:1.9;padding:0;border:0;margin-bottom:2rem}
 .consulting-hero .service-actions{gap:.9rem;margin-top:0}
-.consulting-hero .service-btn{border-radius:2px;min-height:46px;background:#a2d4c9;border-color:#a2d4c9;color:#172321;padding:.85rem 2rem;font-size:.9rem;letter-spacing:0;text-align:center}
-.consulting-hero .service-btn:hover{background:#c3e3da;border-color:#c3e3da}
+.consulting-hero .service-btn{border-radius:2px;min-height:46px;background:var(--gold);border-color:var(--gold);color:#fff;padding:.85rem 2rem;font-size:.9rem;letter-spacing:0;text-align:center}
+.consulting-hero .service-btn:hover{background:var(--gold-d);border-color:var(--gold-d)}
 .consulting-hero .service-btn.alt{background:transparent;color:#f7f4ee;border:1px solid rgba(247,244,238,.72)}
 .consulting-hero .service-btn.alt:hover{background:rgba(247,244,238,.12)}
 @media(max-width:600px){
