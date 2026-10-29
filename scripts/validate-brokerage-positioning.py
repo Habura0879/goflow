@@ -70,7 +70,7 @@ require('.brokerage-faq summary::before{' in CSS and '.brokerage-faq details[ope
 require('.brokerage-trust .brokerage-lead{color:rgba(247,244,238,.85)' in CSS, "contrast of trust section text is insufficient")
 require('grid-template-columns:47px minmax(0,1fr)' in CSS, "narrow viewport timeline could overflow")
 require('.brokerage-feature-icon svg{' in CSS, "lightweight vector icon style missing")
-require('.brokerage-section{padding:3.5rem 1.5rem}' in CSS, "mobile horizontal margins must not regress")
+require('.brokerage-section{padding:2.5rem 1.5rem}' in CSS, "mobile brokerage spacing and horizontal margins must not regress")
 
 require('href="/?service=data-commercialization#contact"' in HOME, "brokerage CTA no longer reaches its form")
 require('href="/services/process-consulting/"' in HOME, "consulting tab missing on brokerage page")
