@@ -13,7 +13,7 @@ class Elements(HTMLParser):
     def handle_starttag(self,tag,attrs):
         attrs=dict(attrs)
         if tag=='form':self.forms.append(attrs.get('id'))
-        if attrs.get('data-brokerage-join') is not None:self.buttons+=1
+        if 'data-brokerage-join' in attrs:self.buttons+=1
 def check(ok,msg):
     if not ok:raise SystemExit('Brokerage join regression: '+msg)
 pages=[Path('index.html'),Path('services/data-commercialization/index.html'),*blogs]
