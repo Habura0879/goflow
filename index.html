@@ -141,6 +141,8 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
   }
 })();
 </script>
+<script>if(new URLSearchParams(location.search).get('lead_embed')==='1')document.documentElement.classList.add('goflow-join-embed');</script>
+<link rel="stylesheet" href="/assets/brokerage-join.css?v=1">
 </head>
 <body>
 <!-- WA FLOAT -->
@@ -163,7 +165,7 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
     <li><a href="/services/process-consulting/#why">למה GoFlow</a></li>
     <li><a href="/about/">אודות</a></li>
     <li><a href="/blog/" title="בלוג GoFlow — טיפים לניהול תהליכים">בלוג</a></li>
-    <li><a href="/?service=data-commercialization#contact"><button class="nav-cta">בדיקת מידע</button></a></li>
+    <li><a href="/?service=data-commercialization#contact" data-brokerage-join><button class="nav-cta">הצטרפות למאגר</button></a></li>
   </ul>
   <button class="hbg" id="hbg" onclick="toggleDrawer()"><span></span><span></span><span></span></button>
 </nav>
@@ -178,7 +180,7 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
   <a href="/services/process-consulting/#why" onclick="closeDrawer()">למה GoFlow</a>
   <a href="/about/"   onclick="closeDrawer()">אודות</a>
   <a href="/blog/" onclick="closeDrawer()">בלוג</a>
-  <a href="/?service=data-commercialization#contact" class="dcta" onclick="closeDrawer()">בדיקת פוטנציאל מידע ←</a>
+  <a href="/?service=data-commercialization#contact" class="dcta" data-brokerage-join onclick="closeDrawer()">הצטרפות למאגר ←</a>
 </div>
 
 <!-- HERO -->
@@ -203,7 +205,7 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
     <h1>המידע שצברתם במשך שנים<br><em>עשוי להיות שווה כסף.</em></h1>
     <p class="hero-sub">מידע מקצועי, תפעולי, מסחרי, מחקרי וחברתי שנצבר בחברה עשוי לעניין רוכשים בתחום הבינה המלאכותית. GoFlow מסייעת לבחון התאמה, לאתר רוכשים וללוות את הצד המסחרי של העסקה — בלי לקבל לידיה את המידע הגולמי.</p>
     <div class="hero-actions">
-      <a href="/?service=data-commercialization#contact" data-hero-cta-target="data-brokerage"><span class="btn-gold">לבדיקת התאמה של המידע שלכם ←</span></a>
+      <a href="/?service=data-commercialization#contact" data-brokerage-join data-hero-cta-target="data-brokerage"><span class="btn-gold">הצטרפו למאגר בעלי המידע ←</span></a>
       <a href="/services/data-commercialization/#data-process" data-hero-cta-target="data-process"><span class="btn-ghost">איך התהליך עובד?</span></a>
     </div>
     <p class="hero-assurance">בשלב הראשון מתארים את סוג המידע והיקפו בלבד. אין לשלוח קבצים או פרטים אישיים. אין התחייבות לעסקה או לתמורה.</p>
@@ -308,7 +310,7 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
       <details><summary>איך נקבע שווי המידע?</summary><p>אין מחיר קבוע לקובץ או לג׳יגה. בוחנים את מאפייני המידע, איכותו, זכויות השימוש והעניין של רוכשים אפשריים. שווי ותמורה מתבררים רק במסגרת הצעה או משא ומתן ממשיים.</p></details>
       <details><summary>מה קורה אם לא נמצא רוכש?</summary><p>ייתכן שלא תהיה התאמה לרוכש או שלא תושלם עסקה. אין התחייבות לתוצאה או לתשלום; נוכל לסכם את מצב הבדיקה ואת אפשרויות ההמשך.</p></details>
     </div>
-    <div class="brokerage-faq-cta"><p>רוצים לדעת אם כדאי להתחיל בבדיקה?</p><a href="/?service=data-commercialization#contact" class="brokerage-link-dark">ספרו לנו איזה מידע צברתם ←</a></div>
+    <div class="brokerage-faq-cta"><p>רוצים לדעת אם כדאי להתחיל בבדיקה?</p><a href="/?service=data-commercialization#contact" class="brokerage-link-dark" data-brokerage-join>הצטרפו למאגר בעלי המידע ←</a></div>
   </div>
 </section>
 
@@ -400,5 +402,6 @@ gtag("consent","default",{analytics_storage:"denied",ad_storage:"denied",ad_user
     <button class="cookie-banner-btn" onclick="closeCookieBanner()">הבנתי</button>
   </div>
 </div>
+<script defer src="/assets/brokerage-join.js?v=1"></script>
 </body>
 </html>
