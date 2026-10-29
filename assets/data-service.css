@@ -1,3 +1,6 @@
+/* Keep the seven brokerage sections on the same vertical rhythm as the homepage. */
+.data-service .service-section{padding-block:clamp(2.5rem,4vw,3.5rem)}
+
 .data-service .data-callout{margin:2rem 0 0;padding:1.2rem 1.4rem;border-right:3px solid var(--gold);background:#fff;color:var(--ink);line-height:1.8}
 .data-service .data-points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-top:2rem}
 .data-service .data-points>div{display:flex;flex-direction:column;gap:.4rem;padding:1.25rem;background:#fff;border:1px solid var(--border)}
