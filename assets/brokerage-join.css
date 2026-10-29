@@ -1,0 +1,21 @@
+/* A single, reusable brokerage inquiry overlay. The existing home contact form remains the only form. */
+.goflow-join-overlay[hidden]{display:none!important}
+.goflow-join-overlay{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:16px;background:rgba(18,17,14,.76);direction:rtl}
+.goflow-join-dialog{position:relative;width:min(100%,560px);max-height:min(92dvh,790px);overflow:hidden;background:#f7f4ee;color:#1e1b16;border:1px solid #d4a84b;border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.32);display:flex;flex-direction:column}
+.goflow-join-heading{padding:24px 24px 8px;font-family:'Frank Ruhl Libre',Georgia,serif;font-size:clamp(1.5rem,4vw,2rem);line-height:1.2}
+.goflow-join-description{margin:0;padding:0 24px 12px;font-family:Rubik,system-ui,sans-serif;font-size:.88rem;line-height:1.65;color:#665d51}
+.goflow-join-close{position:absolute;left:13px;top:13px;border:1px solid #d9c9aa;border-radius:50%;width:36px;height:36px;background:#f7f4ee;color:#1e1b16;font-size:1.45rem;cursor:pointer;z-index:1}
+.goflow-join-frame{display:block;width:100%;height:min(67dvh,555px);border:0;background:#f7f4ee}
+body.goflow-join-locked{overflow:hidden}
+@media(max-width:520px){.goflow-join-overlay{padding:8px;align-items:end}.goflow-join-dialog{width:100%;max-height:95dvh;border-radius:18px 18px 8px 8px}.goflow-join-heading{padding:20px 18px 8px;font-size:1.6rem}.goflow-join-description{padding:0 18px 8px}.goflow-join-frame{height:min(72dvh,590px)}}
+/* Compact presentation of the EXISTING homepage form when opened inside the overlay. */
+html.goflow-join-embed,html.goflow-join-embed body{background:#f7f4ee!important;min-height:0!important;overflow-x:hidden}
+html.goflow-join-embed body > :not(#contact){display:none!important}
+html.goflow-join-embed #contact{display:block!important;background:#f7f4ee!important;padding:0!important;margin:0!important;min-height:0!important}
+html.goflow-join-embed #contact .container{width:100%!important;max-width:none!important;padding:0 16px 16px!important;margin:0!important}
+html.goflow-join-embed #contact .contact-grid{display:block!important;gap:0!important}
+html.goflow-join-embed #contact .contact-left{display:none!important}
+html.goflow-join-embed #contact .form-box{width:100%!important;max-width:none!important;padding:12px 12px 18px!important;border:0!important;border-radius:12px!important;box-shadow:none!important;background:#eeebe3!important}
+html.goflow-join-embed #contact .frow{margin-bottom:12px!important}
+html.goflow-join-embed #contact .frow textarea{min-height:70px!important}
+html.goflow-join-embed #contact .frow input{min-height:42px!important}

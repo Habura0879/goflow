@@ -107,6 +107,11 @@ jobs:
       - name: Validate data commercialization service page
         run: python3 scripts/validate-data-commercialization-service.py
 
+      - name: Validate brokerage inline join modal
+        run: |
+          node --check assets/brokerage-join.js
+          python3 scripts/validate-brokerage-join.py
+
       - name: Verify no deployment or repository writes occur in review
         run: |
           python3 - <<'PY'
