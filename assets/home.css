@@ -526,7 +526,7 @@ footer{
 #hero .hero-actions a{max-width:100%;text-decoration:none}
 #hero .hero-actions a span{letter-spacing:0;text-transform:none;text-align:center;justify-content:center}
 #hero .hero-assurance{position:relative;z-index:1;max-width:760px;margin-top:1.5rem;color:rgba(247,244,238,.7);font-size:.88rem;line-height:1.8}
-.data-opportunity{padding:clamp(3.5rem,7vw,6.5rem) clamp(1.5rem,5vw,4rem);background:var(--paper);color:var(--ink)}
+.data-opportunity{padding:clamp(2.75rem,4.5vw,4rem) clamp(1.5rem,5vw,4rem);background:var(--paper);color:var(--ink)}
 .data-opportunity h2{font-family:var(--fd);font-weight:900;line-height:1.15;font-size:clamp(2rem,4vw,3.4rem);margin:.6rem 0 1.1rem}
 .data-opportunity .data-opportunity-lead{max-width:790px;line-height:1.9;font-size:1.08rem;color:var(--muted);margin-bottom:2.1rem}
 .data-opportunity-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem}
@@ -568,7 +568,7 @@ footer{
 }
 
 /* Brokerage world: visual storytelling in original GoFlow cream, gold and charcoal. */
-.brokerage-section{padding:clamp(3.5rem,7vw,6.5rem) clamp(1.5rem,5vw,4rem);color:var(--ink)}
+.brokerage-section{padding:clamp(2.5rem,4vw,3.5rem) clamp(1.5rem,5vw,4rem);color:var(--ink)}
 .brokerage-section>.container{max-width:var(--max);width:100%;min-width:0;margin:0 auto}
 .brokerage-section h2{font-family:var(--fd);font-size:clamp(2rem,4vw,3.4rem);line-height:1.16;font-weight:900;max-width:900px;margin:.6rem 0 1.2rem;padding-right:1.1rem;border-right:3px solid var(--gold)}
 .brokerage-section .brokerage-lead{max-width:790px;color:var(--muted);font-size:1.05rem;line-height:1.9;margin-bottom:2rem}
@@ -638,7 +638,7 @@ footer{
   .brokerage-section-actions{flex-direction:column;align-items:flex-start}
 }
 @media(max-width:600px){
-  .brokerage-section{padding:3.5rem 1.5rem}
+  .brokerage-section{padding:2.5rem 1.5rem}
   .brokerage-section .brokerage-lead{font-size:1rem}
   .brokerage-fit-grid{grid-template-columns:1fr}
   .brokerage-feature{padding:1.4rem;min-height:0}
