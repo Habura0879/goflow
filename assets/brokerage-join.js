@@ -28,8 +28,13 @@
       document.body.classList.add('goflow-join-locked');
       overlay.querySelector('.goflow-join-close').focus();
     }
-    triggers.forEach(function(trigger){
-      trigger.addEventListener('click',function(e){e.preventDefault();open()});
+    // Delegate at document level so the existing measured-links listener runs first.
+    document.addEventListener('click',function(e){
+      var trigger=e.target.closest&&e.target.closest('[data-brokerage-join]');
+      if(!trigger||e.defaultPrevented)return;
+      if(e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey)return;
+      e.preventDefault();
+      open();
     });
     document.addEventListener('keydown',function(e){
       if(!overlay||overlay.hidden)return;
