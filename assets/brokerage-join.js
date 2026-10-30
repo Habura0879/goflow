@@ -19,6 +19,8 @@
     function close(){
       if (!overlay || overlay.hidden) return;
       overlay.hidden=true;
+      var frame=overlay.querySelector('iframe');
+      if (frame) frame.removeAttribute('src');
       restoreBackground();
       if (previousFocus && typeof previousFocus.focus === 'function') previousFocus.focus();
     }
