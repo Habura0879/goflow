@@ -19,3 +19,29 @@ html.goflow-join-embed #contact .form-box{width:100%!important;max-width:none!im
 html.goflow-join-embed #contact .frow{margin-bottom:12px!important}
 html.goflow-join-embed #contact .frow textarea{min-height:70px!important}
 html.goflow-join-embed #contact .frow input{min-height:42px!important}
+
+/* Contact methods are confined to the existing brokerage dialog, not global pages. */
+.goflow-join-methods[hidden],.goflow-join-form-panel[hidden]{display:none!important}
+.goflow-join-methods,.goflow-join-form-panel{overflow-y:auto;overscroll-behavior:contain}
+.goflow-join-methods{padding:8px 22px 22px;display:grid;gap:11px}
+.goflow-join-choice{width:100%;min-height:76px;display:flex;align-items:center;gap:14px;padding:13px 15px;border:1px solid #dfd1b8;border-radius:11px;background:#fff;color:#1e1b16;text-decoration:none;text-align:right;font:inherit;cursor:pointer;transition:border-color .18s,background-color .18s}
+.goflow-join-choice:hover{border-color:#b98937;background:#fffdf8}
+.goflow-join-choice:focus-visible,.goflow-join-close:focus-visible,.goflow-join-back:focus-visible{outline:3px solid #b98937;outline-offset:2px}
+.goflow-join-choice-icon{flex:none;display:grid;place-items:center;width:42px;height:42px;border-radius:9px;background:#f1ece2;color:#987026;font-size:1.45rem}
+.goflow-join-wa .goflow-join-choice-icon{background:#e6f5e9;color:#1a783e}
+.goflow-join-choice-copy{flex:1;display:grid;gap:3px;min-width:0;font-family:Rubik,system-ui,sans-serif}
+.goflow-join-choice-copy strong{font-size:.98rem;font-weight:500}
+.goflow-join-choice-copy small{color:#665d51;font-size:.78rem;line-height:1.5}
+.goflow-join-chevron{font-size:1.25rem;color:#ad853e}
+.goflow-join-privacy{margin:4px 0 0;color:#665d51;text-align:center;font:400 .77rem/1.6 Rubik,system-ui,sans-serif}
+.goflow-join-back{padding:8px 13px;margin:8px 16px 0;border:0;background:transparent;color:#77571f;text-align:right;font:500 .88rem Rubik,system-ui,sans-serif;cursor:pointer;align-self:flex-start}
+.goflow-join-form-panel{display:flex;flex-direction:column;min-height:0}
+.goflow-join-form-panel .goflow-join-frame{flex:1;min-height:min(63dvh,490px)}
+@media(max-width:520px){
+  .goflow-join-methods{padding:6px 16px 20px;gap:10px}
+  .goflow-join-choice{min-height:72px;padding:10px 12px}
+  .goflow-join-choice-copy strong{font-size:.93rem}
+  .goflow-join-choice-copy small{font-size:.73rem}
+  .goflow-join-form-panel .goflow-join-frame{min-height:min(70dvh,555px)}
+}
+@media(prefers-reduced-motion:reduce){.goflow-join-choice{transition:none}}
