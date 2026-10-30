@@ -110,6 +110,7 @@ jobs:
       - name: Validate brokerage inline join modal
         run: |
           node --check assets/brokerage-join.js
+          node scripts/test-brokerage-contact-chooser.js
           python3 scripts/validate-brokerage-join.py
 
       - name: Verify no deployment or repository writes occur in review
