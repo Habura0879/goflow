@@ -19,3 +19,25 @@ html.goflow-join-embed #contact .form-box{width:100%!important;max-width:none!im
 html.goflow-join-embed #contact .frow{margin-bottom:12px!important}
 html.goflow-join-embed #contact .frow textarea{min-height:70px!important}
 html.goflow-join-embed #contact .frow input{min-height:42px!important}
+
+/* Three ways to reach GoFlow, layered inside the same brokerage modal. */
+.goflow-join-choices[hidden],.goflow-join-form-panel[hidden]{display:none!important}
+.goflow-join-choices{display:grid;gap:10px;margin:2px 22px 14px}
+.goflow-join-option{appearance:none;display:flex;align-items:center;gap:14px;text-align:right;min-height:82px;width:100%;padding:13px;border:1px solid #d9c9aa;border-radius:12px;background:#fff;color:#1e1b16;font:inherit;text-decoration:none;cursor:pointer;transition:border-color .12s,box-shadow .12s}
+.goflow-join-option:hover,.goflow-join-option:focus-visible{border-color:#b8832a;box-shadow:0 0 0 2px rgba(184,131,42,.14)}
+.goflow-join-option-icon{width:42px;height:42px;flex:0 0 42px;display:grid;place-items:center;background:#f1ede3;border-radius:10px;font-size:1.3rem;color:#916821}
+.goflow-join-option-copy{display:grid;gap:4px;flex:1;min-width:0}
+.goflow-join-option-copy strong{font-family:Rubik,system-ui,sans-serif;font-size:.9rem;font-weight:500;line-height:1.3}
+.goflow-join-option-copy small{font-family:Rubik,system-ui,sans-serif;font-size:.76rem;color:#665d51;line-height:1.45}
+.goflow-join-chevron{color:#a57b34;font-size:1.65rem}
+.goflow-join-footnote{margin:0;padding:0 24px 22px;text-align:center;color:#726b61;font:400 .76rem/1.6 Rubik,system-ui,sans-serif}
+.goflow-join-form-panel{min-height:0;overflow:auto;flex:1}
+.goflow-join-back{display:block;margin:0 24px 8px;padding:6px 0;background:none;border:0;border-bottom:1px solid #c4a66d;color:#72531f;font:500 .83rem Rubik,system-ui,sans-serif;cursor:pointer}
+.goflow-join-close:focus-visible,.goflow-join-back:focus-visible{outline:3px solid #b8832a;outline-offset:3px}
+@media(max-width:520px){
+ .goflow-join-choices{margin-inline:14px;gap:8px}
+ .goflow-join-option{min-height:72px;padding:10px}
+ .goflow-join-footnote{padding-inline:14px;padding-bottom:12px}
+ .goflow-join-dialog{overflow-y:auto}
+}
+@media(prefers-reduced-motion:reduce){.goflow-join-option{transition:none}}
